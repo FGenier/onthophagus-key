@@ -1,0 +1,1747 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Multilingual interactive key to Henri d’Orbigny’s groups of Onthophagus (1913), version 1.0</title>
+
+<link rel="icon" href="images/onthophagus.ico" sizes="any" />
+<link rel="icon" type="image/jpeg" href="images/onthophagus.jpg" />
+<style>
+:root {
+  --bg:#f6f3ee; --panel:#fffdf8; --ink:#1f1d1a; --muted:#69645d; --line:#d8d0c4; --accent:#5b3418; --accent2:#efe3d3; --ok:#1f5f3b; --note:#6b4a00;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--ink);line-height:1.46}
+.app{max-width:1120px;margin:0 auto;padding:28px 18px 42px}
+header{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:18px}
+h1{font-size:clamp(1.4rem,2.5vw,2.25rem);margin:0;color:var(--accent)}
+.subtitle{margin:.25rem 0 0;color:var(--muted);font-size:.98rem}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 24px rgba(65,45,22,.08);padding:20px;margin:14px 0}
+.topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.badge{font-family:Arial,sans-serif;font-size:.82rem;border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 10px;color:var(--muted)}
+.question{font-family:Arial,sans-serif;color:var(--muted);font-size:.98rem;margin:12px 0 0}
+.choices{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px}
+.choice{text-align:left;width:100%;border:1.5px solid var(--line);background:#fff;border-radius:16px;padding:16px 18px;cursor:pointer;transition:.15s ease;font:inherit;color:inherit;display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;height:100%}
+.choice:hover{border-color:var(--accent);background:var(--accent2);transform:translateY(-1px)}
+.choice:focus{outline:3px solid rgba(91,52,24,.25)}
+.choice-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;font-family:Arial,sans-serif}
+.choice-num{font-weight:700;color:var(--accent)}
+.choice-next{font-size:.85rem;color:var(--muted)}
+.choice-text{font-size:1.02rem;text-align:left}.citation{font-size:.95rem}.citation p{margin:.45rem 0}.citation .cite-line{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}.citation-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}.copy-status{font-family:Arial,sans-serif;color:var(--ok);font-size:.85rem}
+.controls,.language{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+button.control, select.control{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 13px;cursor:pointer;font-family:Arial,sans-serif;color:var(--ink)}
+button.flag{font-size:1rem;min-width:170px;text-align:left}.flag-emoji{font-size:1.35rem;margin-right:8px;vertical-align:-.1em}
+button.control:hover, select.control:hover{border-color:var(--accent);background:var(--accent2)}
+button.control:disabled{opacity:.45;cursor:not-allowed}
+.result{border-color:#bdd8c2;background:#f6fff7}
+.result h2{margin:0 0 10px;color:var(--ok)}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:12px 0}
+.summary-item{font-family:Arial,sans-serif;border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px}
+.summary-item strong{display:block;color:var(--accent);font-size:.85rem;margin-bottom:4px}
+.diagnosis{white-space:pre-line;margin-top:12px}
+.notes{border-left:4px solid #e0c879;background:#fff9df;border-radius:12px;padding:12px 14px;margin-top:14px}
+.notes h3{font-family:Arial,sans-serif;color:var(--note);font-size:1rem;margin:.1rem 0 .5rem}
+.notes ol{margin:.2rem 0 .2rem 1.2rem;padding:0}
+.notes li{margin:.35rem 0}
+.path{font-family:Arial,sans-serif;font-size:.92rem;color:var(--muted)}
+.path ol{margin:.35rem 0 0;padding-left:1.2rem}
+.path li{margin:.2rem 0}
+.search{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.search input{flex:1;min-width:230px;border:1px solid var(--line);border-radius:12px;padding:10px;font-family:Arial,sans-serif}
+.small{font-family:Arial,sans-serif;color:var(--muted);font-size:.88rem}
+.hidden{display:none}
+
+.hero{display:flex;gap:14px;align-items:flex-start;justify-content:flex-end;flex-wrap:nowrap;min-width:290px}
+.hero figure{margin:0;text-align:center}
+.hero img{display:block;object-fit:cover;border-radius:16px;border:1px solid var(--line);background:#fff;box-shadow:0 4px 14px rgba(65,45,22,.10)}
+.hero .portrait img,.hero .beetle img{width:132px;height:132px}
+.hero .portrait img{object-fit:cover}
+.hero .beetle img{object-fit:contain;padding:4px}
+.hero .portrait img{filter:sepia(.15)}
+.hero figcaption{font-family:Arial,sans-serif;color:var(--muted);font-size:.72rem;margin-top:4px;max-width:132px}
+@media (max-width:700px){header{align-items:flex-start;flex-direction:column}.hero{justify-content:flex-start;flex-wrap:wrap}.hero .portrait img,.hero .beetle img{width:112px;height:112px}}
+
+@media (min-width:850px){.choices{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div>
+    <h1 id="title">Clé interactive multilingue des groupes d’<i>Onthophagus</i> de Henri d’Orbigny (1913), version 1.0</h1>
+    <p class="subtitle" id="subtitle">Interface fondée sur les couplets originaux, avec notes, sommaires de groupes et navigation arrière.</p>
+  </div>
+  <div class="hero" aria-label="Illustrations">
+    <figure class="portrait">
+      <img src="images/orbigny.jpg" alt="Henri d’Orbigny" onerror="this.closest('figure').style.display='none'">
+      <figcaption>Henri d’Orbigny</figcaption>
+    </figure>
+    <figure class="beetle">
+      <img src="images/onthophagus.jpg" alt="Onthophagus teitanicus" onerror="this.closest('figure').style.display='none'">
+      <figcaption><i>Onthophagus teitanicus</i></figcaption>
+    </figure>
+  </div>
+</header>
+
+<section class="card" id="startCard">
+  <strong id="chooseLangTitle">Choisir la langue / Choose the language</strong>
+  <p class="small" id="chooseLangText">Sélectionnez la langue de la clé avant de commencer la détermination. / Select the language of the key before starting the identification.</p>
+  <div class="language">
+    <button class="control flag" onclick="startWithLang('fr')"><span class="flag-emoji" aria-hidden="true">🇫🇷</span> Français / French</button>
+    <button class="control flag" onclick="startWithLang('en')"><span class="flag-emoji" aria-hidden="true">🇬🇧</span> English / Anglais</button>
+  </div>
+</section>
+
+<section class="card hidden" id="mainCard">
+  <div class="topbar">
+    <span class="badge" id="currentBadge">Couplet</span>
+    <span class="badge" id="progressBadge">Début de la clé</span>
+  </div>
+  <p class="question" id="question">Choisissez l’énoncé qui correspond au spécimen examiné.</p>
+  <div id="choices" class="choices"></div>
+  <div id="result" class="card result hidden"></div>
+  <div class="controls">
+    <button class="control" id="backBtn">← Retour</button>
+    <button class="control" id="restartBtn">Nouvelle détermination</button>
+    <select class="control" id="langSelect" aria-label="Langue">
+      <option value="fr">Français</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+</section>
+
+<section class="card hidden" id="pathCard">
+  <strong id="pathTitle">Parcours</strong>
+  <div id="path" class="path small">Aucun choix effectué.</div>
+</section>
+
+<section class="card hidden" id="searchCard">
+  <strong id="searchTitle">Recherche rapide dans les énoncés</strong>
+  <div class="search"><input id="searchInput" type="search" placeholder="Ex. pygidium, 7e strie, prothorax…" /></div>
+  <div id="searchResults" class="small"></div>
+</section>
+
+<section class="card hidden citation" id="citationCard">
+  <strong id="citationTitle">Comment citer cette ressource</strong>
+  <p id="citationIntro" class="small"></p>
+  <p id="citationText" class="cite-line"></p>
+  <div class="citation-actions"><button class="control" id="copyCitationBtn" type="button">Copier la citation</button><span id="copyStatus" class="copy-status" aria-live="polite"></span></div>
+</section>
+</div>
+
+<script>
+const DATA = {
+  "key": {
+    "1": {
+      "id": 1,
+      "pair": 28,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "<strong>Prothorax à ponctuation simple</strong>, non râpeuse ni granuleuse, même en devant ou sur les côtés, mais souvent ombiliquée, parfois l'intervalle des points légèrement convexe et formant des rides plus ou moins prononcées ; chez certaines espèces prothorax presque entièrement lisse.",
+      "text_en": "<strong>Pronotum with simple punctation</strong>, neither rasp-like nor granulate, even anteriorly or laterally; punctures often umbilicate; interpunctural surface sometimes slightly convex, forming more or less distinct wrinkles; in some species pronotum almost entirely smooth.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "2": {
+      "id": 2,
+      "pair": 27,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "<strong>Interstries des élytres très distinctement ponctués ou granulés</strong>, sauf chez des insectes entièrement noirs ou d'un brun foncé, et chez des insectes de grande taille, ayant la base du prothorax entièrement sans rebord.",
+      "text_en": "<strong>Elytral interstriae very distinctly punctate or granulate</strong>, except in entirely black or dark brown species, and in large species with pronotal base completely without a basal bead.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "3": {
+      "id": 3,
+      "pair": 4,
+      "noteIds": [
+        "1",
+        "2"
+      ],
+      "speciesRange": [
+        1,
+        12
+      ],
+      "text_fr": "Épistome largement arrondi en devant dans son ensemble, mais la courbe brusquement interrompue dans le milieu par deux petites dents très saillantes et souvent une très petite échancrure située au côté externe de chaque dent. Élytres souvent très allongés et à côtés parallèles ; la 7e strie droite ou très faiblement sinueuse. Tête <strong>complètement inerme</strong>, ou ayant soit une corne tronquée ou un tubercule, et souvent une carène située plus en avant, soit une ou deux carènes, et parfois le bord interne des yeux élevé en denticule. Insectes entièrement noirs ou bruns, rarement avec la tête et le prothorax bronzés ou verdâtres",
+      "text_en": "Clypeus broadly rounded anteriorly as a whole, the curvature abruptly interrupted medially by two small, strongly produced teeth, often with a very small emargination external to each tooth. Elytra often very elongate with parallel sides; 7th stria straight or very weakly sinuate. Head completely unarmed, or bearing either a truncate horn or a tubercle, often with a carina situated more anteriorly, or with one or two carinae; inner margin of eyes sometimes raised into a denticle. Insects entirely black or brown, rarely with head and pronotum bronzed or greenish.",
+      "terminal_fr": "1er groupe.",
+      "terminal_en": "Group 1"
+    },
+    "4": {
+      "id": 4,
+      "pair": 3,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Épistome soit arrondi, ou tronqué, ou sinué, soit graduellement rétréci en devant et divisé en deux dents. Élytres de longueur normale, plus ou moins arrondis latéralement.",
+      "text_en": "Clypeus rounded, truncate, or sinuate, or gradually narrowed anteriorly and divided into two teeth. Elytra of normal length, more or less rounded laterally.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "5": {
+      "id": 5,
+      "pair": 6,
+      "noteIds": [
+        "3",
+        "4"
+      ],
+      "speciesRange": [
+        13,
+        62
+      ],
+      "text_fr": "La 7e strie des élytres <strong>droite ou presque droite</strong>. Prothorax sans trace de rebord à la base, sauf parfois dans le milieu ; les côtés nettement sinués près des angles postérieurs. Tête ayant soit deux cornes ou tubercules, ou deux petites carènes obliques, ou très rarement une seule corne ou un seul tubercule, et souvent une carène située plus en avant, soit seulement une ou deux carènes",
+      "text_en": "7th elytral stria <strong>straight or nearly straight</strong>. Pronotum without basal bead, except sometimes medially; lateral margins distinctly sinuate near posterior angles. Head bearing either two horns or tubercles, or two small oblique carinae, very rarely a single horn or tubercle, often with a more anterior carina, or only one or two carinae.",
+      "terminal_fr": "2e groupe.",
+      "terminal_en": "Group 2"
+    },
+    "6": {
+      "id": 6,
+      "pair": 5,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "La 7e strie des élytres <strong>nettement arquée ou sinueuse</strong>, sauf chez quelques espèces ayant la base du prothorax entièrement rebordée, ou les côtés du prothorax non ou à peine sinués près des angles postérieurs.",
+      "text_en": "7th elytral stria <strong>distinctly arcuate or sinuate</strong>, except in some species with pronotal base entirely bordered, or pronotal sides not or barely sinuate near posterior angles.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "7": {
+      "id": 7,
+      "pair": 8,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "<strong>Tête remarquablement grande</strong>, au moins en partie garnie de granules. Insectes entièrement testacés, sauf la tête brune",
+      "text_en": "<strong>Head remarkably large</strong>, at least partly covered with granules. Insects entirely testaceous, except head brown.",
+      "terminal_fr": "(Voir 29e groupe.)",
+      "terminal_en": "Group 29"
+    },
+    "8": {
+      "id": 8,
+      "pair": 7,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "<strong>Tête de grandeur normale</strong>, non granulée, sauf chez des insectes au moins en grande partie noirs ou de couleur foncée.",
+      "text_en": "<strong>Head of normal size</strong>, not granulate, except in species at least partly black or dark-coloured.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "9": {
+      "id": 9,
+      "pair": 10,
+      "noteIds": [
+        "5"
+      ],
+      "speciesRange": [
+        63,
+        81
+      ],
+      "text_fr": "<strong>Insectes entièrement et très distinctement pubescents</strong>, ayant soit le prothorax muni d'une carène longitudinale, soit la tête complètement inerme, ou avec deux cornes ou tubercules, ou deux petites carènes obliques, et souvent une carène située plus en avant, soit la tête munie seulement d'une ou deux carènes, l'unique carène ou la postérieure étant située bien en avant des yeux, ou plus ou moins distinctement interrompue dans son milieu, ou se prolongeant obliquement en avant, de chaque côté, entre le front et les tempes. Taille petite ou très petite",
+      "text_en": "<strong>Insects entirely and distinctly pubescent</strong>, either with pronotum bearing a longitudinal carina, or head completely unarmed, or with two horns or tubercles, or two small oblique carinae, often with a more anterior carina; or head with only one or two carinae, the single or posterior one situated well anterior to the eyes, or more or less interrupted medially, or extending obliquely forward on each side between frons and postocular regions. Size small to very small.",
+      "terminal_fr": "3e groupe.",
+      "terminal_en": "Group 3"
+    },
+    "10": {
+      "id": 10,
+      "pair": 9,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Insectes soit au moins en grande partie glabres ou à pubescence extrêmement courte et à peine visible, soit entièrement et distinctement pubescents, mais n'ayant pas de carène longitudinale sur le prothorax, et ayant sur la tête une seule corne ou un seul tubercule et souvent une carène située plus en avant, ou seulement une ou deux carènes, l'unique carène ou la postérieure étant située à peu près entre les bords antérieurs des yeux ou plus en arrière, non interrompue, et ne se prolongeant pas en avant, de chaque côté, entre le front et les tempes.",
+      "text_en": "Insects either largely glabrous or with extremely short, barely visible pubescence, or entirely pubescent but lacking a longitudinal pronotal carina; head with a single horn or tubercle and often a more anterior carina, or only one or two carinae, the single or posterior one situated approximately between the anterior margins of the eyes or further posteriorly, not interrupted, and not extending forward on each side between frons and postocular regions.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "11": {
+      "id": 11,
+      "pair": 12,
+      "noteIds": [],
+      "speciesRange": [
+        82,
+        85
+      ],
+      "text_fr": "Pygidium <strong>garni de longs ou assez longs poils dressés et écartés</strong>, le reste du dessus glabre, ou seulement l'extrémité des élytres, leurs côtés et parfois les côtés du prothorax à pubescence courte. Élytres <strong>sans taches, ou avec des taches situées symétriquement sur les deux élytres</strong>. Base du prothorax <strong>sans rebord</strong>, sauf parfois dans le milieu et près des angles postérieurs. Tête <strong>complètement inerme</strong>, ou ayant soit une carène dentée ou prolongée en corne à ses extrémités, soit une ou deux carènes simples. Taille ordinairement assez grande, souvent assez petite chez le taurus",
+      "text_en": "Pygidium <strong>bearing long or moderately long, erect, separated setae</strong>; remainder of dorsum glabrous, or only elytral apex and sides, and sometimes pronotal sides, with short pubescence. Elytra <strong>without markings, or with markings symmetrically arranged on both elytra</strong>. Pronotal base <strong>without basal bead</strong>, except sometimes medially and near posterior angles. Head completely unarmed, or with a dentate carina or one prolonged into horns at its extremities, or with one or two simple carinae. Size generally rather large, sometimes smaller in taurus.",
+      "terminal_fr": "4e groupe.",
+      "terminal_en": "Group 4"
+    },
+    "12": {
+      "id": 12,
+      "pair": 11,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Pygidium <strong>glabre, ou à pubescence courte</strong>, ou à pubescence non ou à peine plus longue que celle des élytres, sauf chez quelques espèces ayant le dessus du corps entièrement pubescent, ou des taches non situées symétriquement sur les deux élytres, ou la base du prothorax entièrement rebordée.",
+      "text_en": "Pygidium <strong>glabrous, or with short pubescence</strong>, or pubescence not or scarcely longer than that of the elytra, except in some species with dorsum entirely pubescent, or with markings <strong>not symmetrically arranged on both elytra</strong>, or with pronotal base entirely bordered.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "13": {
+      "id": 13,
+      "pair": 14,
+      "noteIds": [],
+      "speciesRange": [
+        86,
+        95
+      ],
+      "text_fr": "Élytres testacés ou d'un cuivreux rougeâtre clair, avec des petites taches noires ou brunes, ou d'un vert bronzé obscur, rondes, ayant pour centre un granule, et <strong>non situées symétriquement sur les deux élytres</strong>, parfois, en outre, quelques petites taches symétriques ; rarement élytres noirs, avec des petites macules testacées non symétriques et ordinairement plusieurs petites taches symétriques. Dessus du corps en grande partie glabre ou à pubescence extrêmement courte. Tête <strong>complètement inerme</strong>, ou ayant soit deux petites cornes, ou deux tubercules, ou un seul tubercule, et souvent une carène située plus en avant, soit seulement une ou deux carènes simples",
+      "text_en": "Elytra testaceous or light reddish-coppery, with small black or brown spots, or dark bronzy green, the spots rounded, centred on a granule, and <strong>not symmetrically arranged on both elytra</strong>, sometimes with additional small symmetrical spots; rarely elytra black with small non-symmetrical testaceous maculae and usually several small symmetrical spots. Dorsum largely glabrous or with extremely short pubescence. Head completely unarmed, or with two small horns or tubercles, or a single tubercle, often with a more anterior carina, or only one or two simple carinae.",
+      "terminal_fr": "5e groupe.",
+      "terminal_en": "Group 5"
+    },
+    "14": {
+      "id": 14,
+      "pair": 13,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Élytres <strong>sans taches, ou avec des taches situées symétriquement sur les deux élytres</strong>.",
+      "text_en": "Elytra <strong>without markings, or with markings symmetrically arranged on both elytra</strong>.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "15": {
+      "id": 15,
+      "pair": 16,
+      "noteIds": [],
+      "speciesRange": [
+        96,
+        99
+      ],
+      "text_fr": "Extrémité des élytres et pygidium <strong>garnis de grosses soies jaunes</strong>, assez longues et dressées, le reste des élytres à pubescence très courte, sauf la base glabre, les côtés à pubescence courte ou assez courte ; tête et prothorax glabres, sauf la partie antérieure de la tête et les côtés du prothorax à pubescence courte ou assez courte. Tête <strong>complètement inerme</strong>, ou ayant soit seulement un gros tubercule, ou deux petits tubercules, ou une carène dentée à ses extrémités, soit deux carènes",
+      "text_en": "Elytral apex and pygidium <strong>bearing coarse yellow setae</strong>, rather long and erect; remainder of elytra with very short pubescence, except base glabrous, sides with short or moderately short pubescence; head and pronotum glabrous, except anterior part of head and pronotal sides with short or moderately short pubescence. Head completely unarmed, or with a large tubercle, or two small tubercles, or a carina dentate at its extremities, or two carinae.",
+      "terminal_fr": "6e groupe.",
+      "terminal_en": "Group 6"
+    },
+    "16": {
+      "id": 16,
+      "pair": 15,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Extrémité des élytres et très souvent pygidium <strong>glabres</strong>, ou à pubescence courte, ou à pubescence pas plus longue que celle du reste des élytres.",
+      "text_en": "Elytral apex and very often pygidium <strong>glabrous</strong>, or with short pubescence, or pubescence not longer than that of remainder of elytra.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "17": {
+      "id": 17,
+      "pair": 18,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "<strong>Devant du prothorax déprimé de chaque côté</strong>. Épistome arrondi, ou tronqué, ou à peine sinué : tête complètement inerme, ou ayant seulement entre les yeux un tubercule ou une très courte carène tuberculiforme, très rarement, en outre, une très fine trace de carène frontale.",
+      "text_en": "<strong>Anterior portion of pronotum depressed on each side</strong>. Clypeus rounded, truncate, or barely sinuate. Head completely unarmed, or with only a tubercle or a very short tubercle-like carina between the eyes, very rarely with an additional very fine trace of frontal carina.",
+      "terminal_fr": "(Voir 18e groupe.)",
+      "terminal_en": "Group 18"
+    },
+    "18": {
+      "id": 18,
+      "pair": 17,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "<strong>Devant du prothorax sans dépression de chaque côté</strong>, sauf chez des insectes ayant l'épistome échancré, ou ayant sur la tête deux cornes ou tubercules, ou une longue carène.",
+      "text_en": "<strong>Anterior portion of pronotum not depressed on each side</strong>, except in species with clypeus emarginate, or head bearing two horns or tubercles, or a long carina.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "19": {
+      "id": 19,
+      "pair": 20,
+      "noteIds": [],
+      "speciesRange": [
+        100,
+        133
+      ],
+      "text_fr": "Dessus du corps en majeure partie glabre, ou au moins disque du prothorax glabre ou à pubescence extrêmement courte et à peine visible. Tête <strong>complètement inerme</strong> ou avec seulement une légère trace de carène, ou ayant soit deux cornes, ou au moins deux tubercules isolés, et souvent une ou deux carènes situées plus en avant, soit une carène dentée ou tuberculée à ses extrémités et précédée d'une ou de deux carènes, soit un seul tubercule ou une carène sur le vertex et deux carènes sur le front, soit, chez des insectes ayant les élytres tachés de testacé et les interstries à ponctuation simple, un seul tubercule ou une lame sur le vertex et souvent une carène sur le front, ou seulement une carène frontale",
+      "text_en": "Dorsum mostly glabrous, or at least pronotal disc glabrous or with extremely short, scarcely visible pubescence. Head completely unarmed or with only a slight trace of carina, or with two horns or at least two isolated tubercles, often with one or two additional anterior carinae; or with a carina dentate or tuberculate at its extremities and preceded by one or two carinae; or with a single tubercle or carina on the vertex and two carinae on the frons; or, in species with elytra marked with testaceous and interstriae with simple punctation, a single tubercle or lamella on the vertex and often a frontal carina, or only a frontal carina.",
+      "terminal_fr": "7e groupe.",
+      "terminal_en": "Group 7"
+    },
+    "20": {
+      "id": 20,
+      "pair": 19,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Dessus du corps soit glabre, soit en partie ou entièrement pubescent. Tête jamais inerme ou presque inerme, n'ayant jamais ni deux cornes, ni plusieurs tubercules isolés, ni une carène dentée ou tuberculée à ses extrémités et précédée d'une ou de deux carènes, ni, sauf chez des insectes entièrement et très distinctement pubescents, un seul tubercule ou une carène sur le vertex et deux carènes sur le front. Insectes n'ayant jamais simultanément le dessus du corps en majeure partie glabre, les élytres tachés de testacé et les interstries à ponctuation simple.",
+      "text_en": "Dorsum glabrous, or partly or entirely pubescent. Head never completely or nearly unarmed, never with two horns, nor several isolated tubercles, nor a carina dentate or tuberculate at its extremities preceded by one or two carinae, nor—except in entirely and distinctly pubescent species—a single tubercle or carina on the vertex and two carinae on the frons. Insects never simultaneously having dorsum mostly glabrous, elytra marked with testaceous, and interstriae with simple punctation.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "21": {
+      "id": 21,
+      "pair": 26,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Élytres <strong>sans taches bien délimitées</strong>, soit entièrement noirs, ou bruns, ou verts, ou métalliques, soit d'un brun plus ou moins foncé, avec les côtés ou la base ou l'extrémité graduellement plus clairs, parfois, chez des espèces presque entièrement glabres, dessus du corps entièrement d'un brun rougeâtre clair, ou avec seulement la tête plus obscure.",
+      "text_en": "Elytra <strong>without well-defined markings</strong>, entirely black, brown, green, or metallic, or dark brown with sides, base, or apex gradually lighter; in some nearly glabrous species dorsum entirely light reddish brown, or only head darker.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "22": {
+      "id": 22,
+      "pair": 23,
+      "noteIds": [],
+      "speciesRange": [
+        134,
+        147
+      ],
+      "text_fr": "Tête ayant soit une seule carène longue ou médiocrement courte, située à peu près entre les bords antérieurs des yeux ou plus en avant, parfois dentée ou tuberculée dans son milieu ou à ses extrémités, soit deux carènes dont la postérieure est située entre les bords antérieurs des yeux ou plus en avant. Dessus du corps entièrement ou en majeure partie glabre, ou au moins disque du prothorax glabre, sauf parfois à sa partie postérieure",
+      "text_en": "Head with either a single long or moderately short carina situated approximately between anterior margins of eyes or more anteriorly, sometimes dentate or tuberculate medially or at extremities; or with two carinae, the posterior one situated between anterior margins of eyes or more anteriorly. Dorsum entirely or largely glabrous, or at least pronotal disc glabrous, except sometimes posteriorly.",
+      "terminal_fr": "8e groupe.",
+      "terminal_en": "Group 8"
+    },
+    "23": {
+      "id": 23,
+      "pair": 22,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Tête ayant soit une corne ou une lame ou un tubercule sur le vertex, et souvent une carène ou très rarement deux carènes sur le front, soit seulement une carène simple très courte, ou située notablement en arrière du bord antérieur des yeux, soit deux carènes dont la postérieure est située notablement en arrière du bord antérieur des yeux, ou parfois, chez des espèces entièrement pubescentes, à peu près entre leurs bords antérieurs.",
+      "text_en": "Head with a horn, lamella, or tubercle on vertex, often with a frontal carina, or very rarely two; or with a single simple carina very short or situated distinctly posterior to anterior margins of eyes; or with two carinae, the posterior one situated distinctly posterior to anterior margins of eyes, or, in entirely pubescent species, approximately between them.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "24": {
+      "id": 24,
+      "pair": 25,
+      "noteIds": [],
+      "speciesRange": [
+        148,
+        184
+      ],
+      "text_fr": "Front <strong>avec une carène</strong> ou rarement deux carènes, sauf parfois chez des ♂ entièrement et très distinctement pubescents. Vertex muni d'une corne, ou d'une lame, ou d'une carène ordinairement longue ou médiocrement courte.",
+      "text_en": "Frons with one carina, rarely two, except sometimes in entirely and distinctly pubescent males. Vertex with a horn, lamella, or a usually long or moderately short carina.",
+      "terminal_fr": "9e groupe.",
+      "terminal_en": "Group 9"
+    },
+    "25": {
+      "id": 25,
+      "pair": 24,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Front <strong>sans trace de carène dans les deux sexes</strong>. Dessus du corps en majeure partie glabre, ou au moins tête et région antérieure du prothorax glabres ou à pubescence extrêmement courte et à peine visible. Vertex muni d'une petite lame ordinairement triangulaire, ou d'un tubercule, ou d'une très courte carène",
+      "text_en": "Frons <strong>without any trace of carina in both sexes</strong>. Dorsum largely glabrous, or at least head and anterior pronotal region glabrous or with extremely short pubescence. Vertex with a small, usually triangular lamella, or a tubercle, or a very short carina.",
+      "terminal_fr": "(Voir 19e groupe.)",
+      "terminal_en": "Group 19"
+    },
+    "26": {
+      "id": 26,
+      "pair": 21,
+      "noteIds": [],
+      "speciesRange": [
+        185,
+        213
+      ],
+      "text_fr": "Élytres <strong>soit entièrement d'un testacé clair</strong>, ou testacés, avec des taches noires ou brunes, soit noirs ou d'un brun foncé, avec des taches testacées ou d'un brun rougeâtre clair ; tête et prothorax entièrement ou en partie noirs, ou bleus, ou verts, ou métalliques. Dessus du corps entièrement pubescent, sauf chez quelques espèces ayant les élytres tachés de noir. Tête ayant soit une corne ou une lame ou un tubercule, et très souvent une carène située plus en avant, soit seulement une ou deux carènes simples",
+      "text_en": "Elytra <strong>entirely pale testaceous</strong>, or testaceous with black or brown markings, or black or dark brown with testaceous or light reddish-brown markings; head and pronotum entirely or partly black, blue, green, or metallic. Dorsum entirely pubescent, except in some species with black markings on elytra. Head with a horn, lamella, or tubercle, very often with a more anterior carina, or only one or two simple carinae.",
+      "terminal_fr": "10e groupe.",
+      "terminal_en": "Group 10"
+    },
+    "27": {
+      "id": 27,
+      "pair": 2,
+      "noteIds": [],
+      "speciesRange": [
+        214,
+        236
+      ],
+      "text_fr": "<strong>Interstries des élytres lisses</strong>, ou avec seulement quelques points ou granules épars, ou un très fin pointillé. Élytres entièrement ou en partie testacés. Base du prothorax <strong>entièrement rebordée</strong>. Dessus du corps presque entièrement glabre, ou entièrement à pubescence le plus souvent très éparse. Tête ayant ordinairement une carène ou deux cornes ou tubercules sur le vertex et le plus souvent une carène sur le front, parfois avec seulement une carène frontale, ou complètement inerme. Taille très petite ou assez petite",
+      "text_en": "<strong>Elytral interstriae <strong>smooth</strong></strong>, or with only a few scattered punctures or granules, or very finely punctulate. Elytra entirely or partly testaceous. Pronotal base <strong>entirely bordered</strong>. Dorsum almost entirely glabrous, or with very sparse pubescence. Head usually with a carina or two horns or tubercles on vertex, and most often a frontal carina, sometimes only a frontal carina, or completely unarmed. Size very small to moderately small.",
+      "terminal_fr": "11e groupe.",
+      "terminal_en": "Group 11"
+    },
+    "28": {
+      "id": 28,
+      "pair": 1,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "<strong>Prothorax granulé ou à ponctuation râpeuse</strong>, au moins en devant, ou seulement sur la région antérieure ou le milieu des côtés.",
+      "text_en": "<strong>Pronotum granulate or with rasp-like punctation</strong>, at least anteriorly, or only on anterior region or middle of lateral areas.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "29": {
+      "id": 29,
+      "pair": 30,
+      "noteIds": [],
+      "speciesRange": [
+        237,
+        260
+      ],
+      "text_fr": "Pygidium <strong>sans trace de carène à la base</strong>. Dessus du corps entièrement ou presque entièrement pubescent, le pygidium entièrement garni de longs poils, ou au moins sa base avec une longue touffe transverse de poils dressés. Tête ayant soit deux dents ou tubercules, ou une lame ou carène dentée ou prolongée en corne à ses extrémités, ou une seule corne ou un seul tubercule, ou une petite lame tronquée, et très souvent une carène située plus en avant, soit deux carènes simples, ou parfois l'antérieure interrompue dans son milieu, parfois la postérieure dentée dans son milieu ou tridentée",
+      "text_en": "Pygidium <strong>without any trace of basal carina</strong>. Dorsum entirely or almost entirely pubescent; pygidium entirely covered with long setae, or at least with a transverse basal tuft of long erect setae. Head with two teeth or tubercles, or a lamella or carina dentate or prolonged into horns at extremities, or a single horn or tubercle, or a small truncate lamella, very often with a more anterior carina; or with two simple carinae, sometimes the anterior one interrupted, sometimes the posterior one dentate or tridentate.",
+      "terminal_fr": "12e groupe.",
+      "terminal_en": "Group 12"
+    },
+    "30": {
+      "id": 30,
+      "pair": 29,
+      "terminal": null,
+      "noteIds": [
+        "6"
+      ],
+      "speciesRange": null,
+      "text_fr": "Pygidium <strong>ayant à la base une carène transverse</strong>, ou au moins une ligne cariniforme, située dans le prolongement de l'arête des côtés de l'abdomen, et régulièrement arquée, ou formant dans son milieu un angle souvent arrondi.",
+      "text_en": "Pygidium <strong>with a basal transverse carina</strong>, or at least a cariniform line extending from lateral abdominal ridge, regularly arcuate or forming a median angle.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "31": {
+      "id": 31,
+      "pair": 32,
+      "noteIds": [],
+      "speciesRange": [
+        261,
+        269
+      ],
+      "text_fr": "Interstries dorsaux des élytres <strong>lisses</strong>, ou finement pointillés, ou imperceptiblement granulés, ou avec seulement quelques assez gros granules très épars. Disque du prothorax, sur au moins sa moitié postérieure, soit lisse, soit très finement ponctué ou granulé, et parfois parsemé de gros points très écartés. Dessus du corps entièrement ou en majeure partie glabre, ou au moins prothorax glabre, sauf parfois ses côtés et sa partie postérieure à pubescence très courte. Tête <strong>complètement inerme</strong>, ou ayant soit deux cornes bien séparées, ou deux tubercules, ou une carène dentée ou prolongée en corne à ses extrémités, ou une lame prolongée en corne dans son milieu, ou simplement une corne, et souvent une carène située plus en avant, soit seulement une ou deux carènes simples.",
+      "text_en": "<strong>Elytral interstriae <strong>smooth</strong></strong>, finely punctulate, imperceptibly granulate, or with only a few scattered coarse granules. Pronotal disc, at least on posterior half, smooth, finely punctate or granulate, sometimes with a few widely spaced coarse punctures. Dorsum entirely or largely glabrous, or at least pronotum glabrous, except sometimes on sides and posterior region with very short pubescence. Head completely unarmed, or with two well-separated horns, or two tubercles, or a carina dentate or prolonged into horns, or a lamella prolonged into a horn, or a simple horn, often with a more anterior carina; or with one or two simple carinae.",
+      "terminal_fr": "13e groupe.",
+      "terminal_en": "Group 13"
+    },
+    "32": {
+      "id": 32,
+      "pair": 31,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Interstries des élytres <strong>très distinctement granulés ou ponctués</strong>, sauf parfois vers la suture. Disque du prothorax jamais lisse ou presque lisse, sauf chez des insectes ayant le prothorax en partie à pubescence longue ou assez longue, parfois aussi chez des ♂ ayant sur la tête deux longues cornes contiguës.",
+      "text_en": "Elytral interstriae <strong>distinctly granulate or punctate</strong>, except sometimes near suture. Pronotal disc never smooth or nearly so, except in species with long pubescence, or in some males with two contiguous horns.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "33": {
+      "id": 33,
+      "pair": 34,
+      "noteIds": [],
+      "speciesRange": [
+        270,
+        278
+      ],
+      "text_fr": "Tête munie seulement d'une longue et forte carène droite ou un peu arquée, atteignant ordinairement les yeux et située à peu près entre leurs milieux ; épistome arrondi, ou tronqué, ou légèrement sinué. Prothorax ayant en devant une assez large saillie médiane plus ou moins cariniforme, et très souvent un tubercule de chaque côté",
+      "text_en": "Head bearing only a single strong, long carina, straight or slightly arcuate, usually reaching the eyes and situated approximately between their midpoints; clypeus rounded, truncate, or slightly sinuate. Pronotum with a broad anterior median elevation, more or less cariniform, often with a tubercle on each side.",
+      "terminal_fr": "14e groupe.",
+      "terminal_en": "Group 14"
+    },
+    "34": {
+      "id": 34,
+      "pair": 33,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Tête jamais munie seulement d'une longue et forte carène située à peu près entre les milieux des yeux, sauf chez des insectes ayant l'épistome échancré, ou le devant du prothorax sans saillie.",
+      "text_en": "Head never bearing only a single long carina situated between the midpoints of the eyes, except in species with clypeus emarginate or pronotum lacking anterior elevation.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "35": {
+      "id": 35,
+      "pair": 42,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Base du prothorax <strong>sans rebord</strong>, ou avec un rebord interrompu de chaque côté sur une certaine longueur. Tête n'ayant jamais sur le vertex ni deux cornes, ni deux tubercules éloignés l'un de l'autre, ni une carène dentée ou prolongée en corne à ses extrémités, ni une longue et forte carène située en arrière des yeux.",
+      "text_en": "Pronotal base <strong>without basal bead</strong>, or with bead interrupted laterally. Head never with two horns, nor two widely separated tubercles, nor a carina dentate or prolonged into horns, nor a long strong carina situated posterior to the eyes.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "36": {
+      "id": 36,
+      "pair": 37,
+      "noteIds": [],
+      "speciesRange": [
+        279,
+        287
+      ],
+      "text_fr": "Tête <strong>complètement inerme</strong>, sauf parfois une courte et très fine carène à peine distincte, située à la partie postérieure du vertex, bien en arrière des yeux ; épistome arrondi ou tronqué. Prothorax entièrement couvert de fins granules très serrés, sauf parfois la région postérieure du disque garnie d'une ponctuation serrée ; la base complètement sans rebord, ou avec seulement une très courte trace de rebord dans le milieu. Élytres testacés, avec des taches noires",
+      "text_en": "Head completely unarmed, except sometimes with a very short and very fine carina located on posterior vertex well behind the eyes; clypeus rounded or truncate. Pronotum entirely covered with dense fine granules, except sometimes posterior disc with dense punctation; pronotal base without bead or with only a very short median trace. Elytra testaceous with black markings.",
+      "terminal_fr": "15e groupe.",
+      "terminal_en": "Group 15"
+    },
+    "37": {
+      "id": 37,
+      "pair": 36,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Tête jamais inerme ou avec seulement une carène située en arrière des yeux, sauf chez des insectes ayant l'épistome échancré.",
+      "text_en": "Head never completely unarmed or with only a posterior carina, except in species with clypeus emarginate.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "38": {
+      "id": 38,
+      "pair": 39,
+      "noteIds": [],
+      "speciesRange": [
+        288,
+        342
+      ],
+      "text_fr": "Prothorax <strong>entièrement garni de granules</strong>, sans ponctuation distincte, sauf parfois tout près de la base. Ordinairement front avec ou sans carène, vertex muni d'une corne, ou d'une petite lame, ou d'un tubercule, ou d'une carène simple, parfois divisée en deux très petits tubercules cariniformes, très rarement tête complètement inerme",
+      "text_en": "Pronotum <strong>entirely granulate</strong>, without distinct punctation, except sometimes near base. Frons with or without carina; vertex with a horn, small lamella, tubercle, or simple carina, sometimes divided into two very small tubercle-like carinae; very rarely head completely unarmed.",
+      "terminal_fr": "16e groupe.",
+      "terminal_en": "Group 16"
+    },
+    "39": {
+      "id": 39,
+      "pair": 38,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Prothorax <strong>distinctement ponctué</strong>, au moins sur la moitié postérieure du disque, la ponctuation en partie simple, ou râpeuse, ou granuleuse, ou composée de points simples, mélangés de granules.",
+      "text_en": "Pronotum <strong>distinctly punctate</strong>, at least on posterior half of disc, punctation partly simple, rasp-like, granulate, or composed of simple punctures mixed with granules.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "40": {
+      "id": 40,
+      "pair": 41,
+      "noteIds": [],
+      "speciesRange": [
+        343,
+        366
+      ],
+      "text_fr": "<strong>Devant du prothorax sans dépression de chaque côté</strong>, sauf chez des insectes ayant une carène sur le front ; vertex muni d'une corne, ou d'un tubercule, ou d'une lame prolongée en corne dans son milieu, ou d'une carène parfois dentée dans son milieu",
+      "text_en": "Anterior pronotum without lateral depressions, except in species with a frontal carina; vertex with a horn, tubercle, lamella prolonged into a horn, or a carina sometimes dentate medially.",
+      "terminal_fr": "17e groupe.",
+      "terminal_en": "Group 17"
+    },
+    "41": {
+      "id": 41,
+      "pair": 40,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Devant du prothorax largement déprimé de chaque côté ; front sans carène ; vertex muni d'un tubercule",
+      "text_en": "Anterior pronotum broadly depressed on each side; frons without carina; vertex tuberculate.",
+      "terminal_fr": "(Voir 18e groupe.)",
+      "terminal_en": "Group 18"
+    },
+    "42": {
+      "id": 42,
+      "pair": 35,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Base du prothorax <strong>entièrement rebordée</strong>, sauf chez quelques espèces ayant sur le vertex deux cornes, ou deux tubercules éloignés l'un de l'autre, ou une carène dentée ou prolongée en corne à ses extrémités, ou une longue et forte carène située en arrière des yeux.",
+      "text_en": "Pronotal base <strong>entirely bordered</strong>, except in some species with two horns or two widely separated tubercles on the vertex, or a carina dentate or prolonged into horns, or a long strong carina situated posterior to the eyes.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "43": {
+      "id": 43,
+      "pair": 44,
+      "noteIds": [],
+      "speciesRange": [
+        367,
+        380
+      ],
+      "text_fr": "Région antérieure du prothorax plus ou moins largement déprimée de chaque côté, le bord interne des dépressions formant une arête oblique, ordinairement cariniforme ou tuberculiforme ; tout le prothorax garni d'une ponctuation simple, ou seulement ses côtés granulés ou à ponctuation râpeuse. Épistome arrondi, ou tronqué, ou à peine sinué ; front le plus souvent sans carène, parfois avec une carène ; vertex ordinairement muni d'un tubercule ou d'une courte carène ; rarement tête complètement inerme",
+      "text_en": "Anterior pronotal region more or less broadly depressed on each side, inner margin of each depression forming an oblique ridge, usually cariniform or tuberculate; pronotum entirely with simple punctation, or only lateral portions granulate or with rasp-like punctation. Clypeus rounded, truncate, or weakly sinuate; frons usually without carina, sometimes with a carina; vertex usually tuberculate or with a short carina, rarely unarmed.",
+      "terminal_fr": "18e groupe.",
+      "terminal_en": "Group 18"
+    },
+    "44": {
+      "id": 44,
+      "pair": 43,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Région antérieure du prothorax sans dépression de chaque côté, sauf chez des insectes ayant soit le disque du prothorax au moins en partie garni de granules ou d'une ponctuation nettement râpeuse, soit l'épistome nettement échancré, ou le vertex muni de deux cornes ou d'une longue carène.",
+      "text_en": "Anterior pronotal region without lateral depressions, except in species with pronotal disc partly granulate or with distinctly rasp-like punctation, or with clypeus distinctly emarginate, or vertex with two horns or a long carina.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "45": {
+      "id": 45,
+      "pair": 46,
+      "noteIds": [],
+      "speciesRange": [
+        381,
+        414
+      ],
+      "text_fr": "Front <strong>sans trace de carène dans les deux sexes</strong> ; vertex ayant soit une petite lame dressée, ordinairement triangulaire, située en arrière des yeux ou entre leurs bords postérieurs, soit un tubercule, ou une courte carène parfois interrompue ; la tête entièrement à ponctuation simple, celle du front composée de points égaux, ordinairement fins ou assez fins. Disque du prothorax garni d'une ponctuation, simple ou râpeuse sur au moins sa moitié postérieure, chez quelques espèces prothorax entièrement garni d'une ponctuation simple. Dessus du corps à courte pubescence jaune, ou très souvent en grande partie glabre, la tête toujours entièrement glabre, ou en partie glabre, en partie à pubescence extrêmement courte",
+      "text_en": "Frons <strong>without any trace of carina in both sexes</strong>; vertex with a small erect lamella, usually triangular, situated posterior to the eyes or between their posterior margins, or tuberculate, or with a short carina sometimes interrupted; head entirely with simple punctation, that of frons composed of equal, usually fine punctures. Pronotal disc with punctation, simple or rasp-like, at least on posterior half; in some species entirely with simple punctation. Dorsum with short yellow pubescence or largely glabrous; head always entirely glabrous or partly glabrous with extremely short pubescence.",
+      "terminal_fr": "19e groupe.",
+      "terminal_en": "Group 19"
+    },
+    "46": {
+      "id": 46,
+      "pair": 45,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Front <strong>avec une carène</strong>, sauf parfois chez des ♂ ayant sur le vertex deux cornes ou tubercules, ou une seule corne située en avant du bord postérieur des yeux, ou une longue carène, sauf encore chez quelques espèces ayant la tête granulée, ou le front à ponctuation composée de gros points et de points fins, ou le prothorax entièrement granulé, ou le dessus du corps à pubescence longue, au moins sur la tête et le prothorax.",
+      "text_en": "Frons <strong>with a carina</strong>, except sometimes in males with two horns or tubercles on the vertex, or a single horn situated anterior to posterior margin of eyes, or a long carina; also except in some species with head granulate, or frons with coarse punctation mixed with fine punctures, or pronotum entirely granulate, or dorsum with long pubescence, at least on head and pronotum.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "47": {
+      "id": 47,
+      "pair": 48,
+      "noteIds": [],
+      "speciesRange": [
+        415,
+        419
+      ],
+      "text_fr": "Tête <strong>entièrement garnie de granules</strong>, sauf parfois le milieu presque lisse ; front sans trace de carène ; vertex muni d'une petite corne triangulaire, ou d'un tubercule, ou d'une courte carène. Côtés du prothorax nettement sinués près des angles postérieurs, non sinués près des angles antérieurs. La 7e strie des élytres <strong>nettement arquée ou sinueuse</strong>. Taille petite ou très petite",
+      "text_en": "Head <strong>entirely granulate</strong>, except sometimes nearly smooth medially; frons without carina; vertex with a small triangular horn, a tubercle, or a short carina. Pronotal sides distinctly sinuate near posterior angles, not sinuate near anterior angles. 7th elytral stria <strong>distinctly arcuate or sinuate</strong>. Size small to very small.",
+      "terminal_fr": "20e groupe.",
+      "terminal_en": "Group 20"
+    },
+    "48": {
+      "id": 48,
+      "pair": 47,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Tête ne présentant jamais simultanément les caractères indiqués ci-dessus, sauf parfois chez des insectes ayant les côtés du prothorax non ou à peine sinués près des angles postérieurs, distinctement sinués près des angles antérieurs, et la 7e strie des élytres droite ou presque droite.",
+      "text_en": "Head never presenting simultaneously the above characters, except sometimes in species with pronotal sides not or barely sinuate near posterior angles, distinctly sinuate near anterior angles, and 7th elytral stria straight or nearly so.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "49": {
+      "id": 49,
+      "pair": 50,
+      "noteIds": [],
+      "speciesRange": [
+        420,
+        422
+      ],
+      "text_fr": "Côtés de la tête <strong>très distinctement et largement sinués</strong> à la jonction de l'épistome et des joues, ces dernières très peu saillantes et régulièrement ou presque régulièrement arquées ; front avec une carène ; vertex muni d'une longue carène simple, droite ou presque droite, située entre les bords postérieurs des yeux ou à peine en arrière des yeux ; la tête garnie de granules. Élytres entièrement ou en partie testacés",
+      "text_en": "Sides of head <strong>very distinctly and broadly sinuate</strong> at junction of clypeus and genae; genae very weakly prominent and regularly or nearly regularly rounded; frons with a carina; vertex with a long simple carina, straight or nearly so, situated between posterior margins of eyes or slightly posterior to them; head granulate. Elytra entirely or partly testaceous.",
+      "terminal_fr": "21e groupe.",
+      "terminal_en": "Group 21"
+    },
+    "50": {
+      "id": 50,
+      "pair": 49,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Côtés de la tête <strong>non ou à peine sinués</strong> à la jonction de l'épistome et des joues, sauf chez des insectes ayant sur le vertex seulement une fine trace de carène en arc renversé, ou une corne, ou un tubercule, ou une carène située bien en avant du bord postérieur des yeux, ou ayant la tête garnie d'une ponctuation simple.",
+      "text_en": "Sides of head <strong>not or only weakly sinuate</strong> at junction of clypeus and genae, except in species with vertex bearing only a fine trace of a reversed-arc carina, or a horn, or a tubercle, or a carina situated well anterior to posterior margins of eyes, or with head bearing simple punctation.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "51": {
+      "id": 51,
+      "pair": 52,
+      "noteIds": [],
+      "speciesRange": [
+        423,
+        436
+      ],
+      "text_fr": "Tête <strong>complètement inerme</strong>, ou ayant soit seulement une carène fine ou assez fine, située entre les bords antérieurs des yeux ou plus en avant, soit une très courte mais forte carène presque tuberculiforme, située entre les bords antérieurs des yeux ou un peu plus en avant, parfois précédée d'une fine carène, soit deux fines carènes, la postérieure située entre les bords antérieurs des yeux ou parfois seulement un peu en avant de leur milieu, ordinairement en arc renversé, parfois droite, se prolongeant souvent obliquement en avant, de chaque côté, entre le front et les tempes jusqu'à l'extrémité de la carène antérieure. Côtés du prothorax non ou très indistinctement sinués entre le milieu et les angles antérieurs. Taille petite ou très petite",
+      "text_en": "Head <strong>unarmed</strong>, or with a fine carina situated between anterior margins of eyes or more anteriorly, or with a very short but strong carina, nearly tubercle-like, situated between anterior margins of eyes or slightly more anterior, sometimes preceded by a fine carina; or with two fine carinae, the posterior situated between anterior margins of eyes or slightly anterior to their midpoints, usually in reversed arc and often extending obliquely forward on each side between frons and postocular regions to the extremity of the anterior carina. Pronotal sides not or very weakly sinuate between midlength and anterior angles. Size small to very small.",
+      "terminal_fr": "22e groupe.",
+      "terminal_en": "Group 22"
+    },
+    "52": {
+      "id": 52,
+      "pair": 51,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Tête jamais complètement inerme ni avec seulement une carène située entre les bords antérieurs des yeux ou plus en avant, sauf chez des insectes ayant les côtés du prothorax très nettement sinués entre le milieu et les angles antérieurs ; souvent la tête avec deux carènes, mais la postérieure soit forte et située en arrière du bord antérieur des yeux, soit fine mais située bien en arrière du milieu des yeux, ou fortement arquée et non en arc renversé, ne se prolongeant jamais en avant, de chaque côté entre le front et les tempes.",
+      "text_en": "Head never completely unarmed nor with only a carina situated between anterior margins of eyes or more anteriorly, except in species with pronotal sides strongly sinuate between midlength and anterior angles; often head with two carinae, but the posterior either strong and situated posterior to anterior margin of eyes, or fine but located well posterior to midlength of eyes, or strongly arcuate, not in reversed arc, and never extending forward between frons and postocular regions.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "53": {
+      "id": 53,
+      "pair": 56,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Insectes ayant simultanément les élytres <strong>sans taches</strong>, ou avec des taches situées symétriquement sur les deux élytres, l'épistome arrondi ou légèrement sinué, le vertex muni d'une seule corne ou d'un seul tubercule, ou d'une lame simple ou prolongée en corne dans son milieu, ou d'une carène située entre les yeux et ordinairement simple, parfois dentée ou échancrée dans son milieu ou tridentée.",
+      "text_en": "Insects with elytra <strong>without markings</strong> or with markings symmetrically arranged on both elytra, clypeus rounded or slightly sinuate, vertex with a single horn, tubercle, lamella, or a carina situated between the eyes, usually simple, sometimes dentate, emarginate, or tridentate.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "54": {
+      "id": 54,
+      "pair": 55,
+      "noteIds": [],
+      "speciesRange": [
+        437,
+        469
+      ],
+      "text_fr": "Disque du prothorax <strong>soit lisse</strong>, soit entièrement garni d'une ponctuation simple ou râpeuse, ou avec seulement le devant granulé",
+      "text_en": "Pronotal disc <strong>smooth</strong>, or entirely with simple or rasp-like punctation, or only anterior region granulate.",
+      "terminal_fr": "23e groupe.",
+      "terminal_en": "Group 23"
+    },
+    "55": {
+      "id": 55,
+      "pair": 54,
+      "noteIds": [],
+      "speciesRange": [
+        470,
+        503
+      ],
+      "text_fr": "Disque du prothorax <strong>entièrement garni de granules</strong>, sauf parfois la base à ponctuation granuleuse, ou le devant lisse ou éparsement ponctué dans le milieu",
+      "text_en": "Pronotal disc <strong>entirely granulate</strong>, except sometimes basal region with granulate punctation, or anterior region smooth or sparsely punctate medially.",
+      "terminal_fr": "24e groupe.",
+      "terminal_en": "Group 24"
+    },
+    "56": {
+      "id": 56,
+      "pair": 53,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Insectes ayant soit des taches <strong>non situées symétriquement</strong> sur les deux élytres, soit l'épistome nettement échancré, soit le vertex muni de deux cornes ou tubercules, ou d'une carène dentée ou prolongée en corne à ses extrémités, ou située en arrière des yeux.",
+      "text_en": "Insects with elytral markings <strong>not symmetrically arranged</strong>, or clypeus distinctly emarginate, or vertex with two horns or tubercles, or a carina dentate or prolonged into horns, or situated posterior to the eyes.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "57": {
+      "id": 57,
+      "pair": 58,
+      "noteIds": [],
+      "speciesRange": [
+        504,
+        511
+      ],
+      "text_fr": "Élytres avec des petites taches non situées symétriquement sur les deux élytres, et parfois quelques taches symétriques. Vertex muni d'une seule corne ou d'un seul tubercule, ou d'une lame souvent prolongée en corne dans son milieu, ou d'une carène parfois dentée ou élevée en une petite corne à ses extrémités",
+      "text_en": "Elytra with small markings not symmetrically arranged, sometimes with additional symmetrical markings. Vertex with a single horn or tubercle, or a lamella often prolonged into a horn, or a carina sometimes dentate or raised into a small horn at its extremities.",
+      "terminal_fr": "25e groupe.",
+      "terminal_en": "Group 25"
+    },
+    "58": {
+      "id": 58,
+      "pair": 57,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Élytres <strong>sans taches, ou avec des taches situées symétriquement sur les deux élytres</strong>.",
+      "text_en": "Elytra <strong>without markings, or with markings symmetrically arranged on both elytra</strong>.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "59": {
+      "id": 59,
+      "pair": 60,
+      "noteIds": [
+        "7"
+      ],
+      "speciesRange": [
+        512,
+        516
+      ],
+      "text_fr": "Vertex armé d'une lame divisée en deux longues cornes presque cylindriques, contiguës sur presque toute leur longueur, ou muni d'une forte carène située entre les milieux des yeux ou un peu plus en avant, élevée en corne ou dentée à ses extrémités, ou parfois simple ; épistome arrondi ; front granulé, ou parfois garni d'une ponctuation uniformément assez grosse et ordinairement râpeuse ou granuleuse",
+      "text_en": "Vertex with a lamella divided into two long, nearly cylindrical horns, contiguous along almost their entire length, or with a strong carina situated between midpoints of eyes or slightly more anterior, elevated into horns or dentate at its extremities, or sometimes simple; clypeus rounded; frons granulate or with coarse, usually rasp-like punctation.",
+      "terminal_fr": "26e groupe.",
+      "terminal_en": "Group 26"
+    },
+    "60": {
+      "id": 60,
+      "pair": 59,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Vertex jamais armé d'une lame divisée en deux longues cornes presque cylindriques ; tête n'ayant jamais simultanément le vertex muni d'une carène située à peu près entre les milieux des yeux, épistome arrondi, et le front granulé ou à ponctuation uniforme de grosseur.",
+      "text_en": "Vertex never with a lamella divided into two long contiguous horns; head never simultaneously with vertex bearing a carina situated between midpoints of eyes, clypeus rounded, and frons granulate or with uniformly coarse punctation.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "61": {
+      "id": 61,
+      "pair": 62,
+      "noteIds": [
+        "8"
+      ],
+      "speciesRange": [
+        517,
+        519
+      ],
+      "text_fr": "Épistome <strong>arrondi ou à peine sinué</strong> ; tête garnie d'une ponctuation simple, composée de points fins, mélangés de gros points écartés, sauf l'épistome souvent garni de rugosités, ou parfois presque lisse dans le milieu ; vertex muni de deux cornes, ou d'une carène dentée ou prolongée en corne à ses extrémités, ou d'une carène simple. Prothorax garni d'une ponctuation entièrement râpeuse, ou en partie simple",
+      "text_en": "Clypeus <strong>rounded or slightly sinuate</strong>; head with simple punctation composed of fine punctures mixed with larger, scattered punctures, clypeus often with rugosities; vertex bicarinate, or with a carina dentate or prolonged into horns, or with a simple carina. Pronotum entirely with rasp-like punctation, or partly with simple punctation.",
+      "terminal_fr": "27e groupe.",
+      "terminal_en": "Group 27"
+    },
+    "62": {
+      "id": 62,
+      "pair": 61,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Épistome <strong>échancré</strong>, sauf parfois chez quelques espèces ayant soit la tête granulée ou à ponctuation râpeuse, soit le prothorax granulé.",
+      "text_en": "Clypeus <strong>emarginate</strong>, except sometimes in species with head granulate or with rasp-like punctation, or pronotum granulate.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "63": {
+      "id": 63,
+      "pair": 64,
+      "noteIds": [],
+      "speciesRange": [
+        520,
+        523
+      ],
+      "text_fr": "Front et tout le reste de la tête <strong>garnis d'une ponctuation simple et uniformément fine</strong>, sauf les joues et les tempes avec quelques points plus gros, l'épistome plus ou moins garni de rugosités ; épistome largement échancré ; vertex muni d'une seule corne, ou d'un tubercule, ou d'une petite lame, ou d'une carène. Prothorax <strong>entièrement garni de granules</strong>, ou avec seulement la base à ponctuation granuleuse",
+      "text_en": "Frons and remainder of head <strong>with uniformly fine punctation</strong>, except genae and postocular regions with some coarser punctures; clypeus more or less rugose; clypeus broadly emarginate; vertex with a single horn, tubercle, lamella, or carina. Pronotum <strong>entirely granulate</strong>, or only basal region with granulate punctation.",
+      "terminal_fr": "28e groupe.",
+      "terminal_en": "Group 28"
+    },
+    "64": {
+      "id": 64,
+      "pair": 63,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Front <strong>garni de granules ou d'une grosse ponctuation</strong> très souvent râpeuse ou granuleuse et parfois mélangée de points fins, le reste de la tête garni de granules, ou de gros points, ou de rugosités, sauf parfois le milieu de l'épistome finement ponctué.",
+      "text_en": "Frons <strong>granulate or with coarse punctation</strong>, often rasp-like or granulate and sometimes mixed with fine punctures; remainder of head granulate, coarsely punctate, or rugose, except sometimes clypeal midregion finely punctate.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "65": {
+      "id": 65,
+      "pair": 66,
+      "noteIds": [],
+      "speciesRange": [
+        524,
+        528
+      ],
+      "text_fr": "<strong>Tête remarquablement grande</strong>, ayant sa plus grande largeur tout près du milieu des yeux et rétrécie en avant depuis ce point ; épistome nettement sinué ou échancré ; vertex muni de deux cornes ou tubercules, ou d'une carène parfois interrompue dans le milieu ; la tête au moins en grande partie granulée. Prothorax soit granulé, soit garni d'une ponctuation en grande partie simple, ou même entièrement simple. Insectes entièrement ou presque entièrement testacés, sauf la tête noire ou brune. Taille très petite ou assez petite",
+      "text_en": "<strong>Head remarkably large</strong>, widest near midlength of eyes and narrowed anteriorly; clypeus distinctly sinuate or emarginate; vertex bidentate or bituberculate, or carinate, sometimes with carina interrupted medially; head at least partly granulate. Pronotum granulate or largely with simple punctation. Insects entirely or almost entirely testaceous, except head dark. Size small to moderately small.",
+      "terminal_fr": "29e groupe.",
+      "terminal_en": "Group 29"
+    },
+    "66": {
+      "id": 66,
+      "pair": 65,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "<strong>Tête de grandeur normale</strong>, ayant sa plus grande largeur en avant du milieu des yeux.",
+      "text_en": "<strong>Head of normal size</strong>, widest anterior to midlength of eyes.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "67": {
+      "id": 67,
+      "pair": 68,
+      "noteIds": [
+        "9"
+      ],
+      "speciesRange": [
+        529,
+        537
+      ],
+      "text_fr": "Ligne cariniforme des flancs du prosternum <strong>se dirigeant vers le bord latéral</strong>, sans atteindre ce bord, ou en l'atteignant très sinueusement et peu distinctement en arrière des angles antérieurs. Côtés du prothorax nettement sinués près des angles postérieurs, sauf chez des insectes ayant les angles antérieurs arrondis. Vertex ayant soit deux cornes ou tubercules souvent reliés par une carène, soit une lame ou carène échancrée à son bord supérieur ou dentée à ses extrémités, soit une carène simple, située entre les yeux ou en arrière des yeux ; épistome échancré, sauf chez des insectes ayant l'armature du vertex située en arrière des yeux ou au moins entre leurs bords postérieurs. Taille médiocrement petite ou assez grande",
+      "text_en": "Prosternal lateral cariniform line <strong>directed toward lateral margin</strong> without reaching it, or reaching it very sinuately and indistinctly posterior to anterior angles. Pronotal sides distinctly sinuate near posterior angles. Vertex with two horns or tubercles often connected by a carina, or with a lamella or carina emarginate apically or dentate at extremities, or with a simple carina situated between or posterior to eyes. Clypeus <strong>emarginate</strong>, except in species with vertex armature posterior to eyes.",
+      "terminal_fr": "30e groupe.",
+      "terminal_en": "Group 30"
+    },
+    "68": {
+      "id": 68,
+      "pair": 67,
+      "terminal": null,
+      "noteIds": [],
+      "speciesRange": null,
+      "text_fr": "Ligne cariniforme des flancs du prosternum <strong>se prolongeant très distinctement</strong> et à peine sinueusement jusqu'au sommet des angles antérieurs. Côtés du prothorax non ou à peine sinués près des angles postérieurs, sauf chez des insectes ayant les angles antérieurs à sommet vif ou presque vif et faisant ordinairement un peu saillie en dehors.",
+      "text_en": "Prosternal lateral cariniform line <strong>extending distinctly</strong> and almost straight to apex of anterior angles. Pronotal sides not or only weakly sinuate near posterior angles, except in species with anterior angles acute and slightly projecting.",
+      "terminal_fr": null,
+      "terminal_en": null
+    },
+    "69": {
+      "id": 69,
+      "pair": 70,
+      "noteIds": [],
+      "speciesRange": [
+        538,
+        572
+      ],
+      "text_fr": "La 7e strie des élytres <strong>fortement arquée ou sinueuse</strong>. Vertex très rarement muni d'un seul tubercule, ordinairement ayant soit deux cornes ou tubercules souvent reliés par une lame ou par une carène, et souvent un tubercule médian situé plus en avant, soit seulement une lame échancrée à son sommet, ou une carène dentée à ses extrémités, ou une forte carène simple, ou une assez fine carène fortement arquée ; épistome échancré, sauf parfois chez des espèces ayant l'armature du vertex située en arrière des yeux. Taille petite ou assez petite",
+      "text_en": "7th elytral stria <strong>strongly arcuate or sinuate</strong>. Vertex rarely with a single tubercle, usually with two horns or tubercles often connected by a lamella or carina, and often with an additional anterior tubercle; or with a lamella emarginate apically, or a carina dentate at extremities, or a strong simple carina, or a fine strongly arcuate carina. Clypeus <strong>emarginate</strong>, except in species with vertex armature posterior to eyes. Size small to moderately small.",
+      "terminal_fr": "31e groupe.",
+      "terminal_en": "Group 31"
+    },
+    "70": {
+      "id": 70,
+      "pair": 69,
+      "noteIds": [],
+      "speciesRange": [
+        573,
+        578
+      ],
+      "text_fr": "La 7e strie des élytres <strong>droite ou à peine sinueuse</strong>. Vertex inerme, ou ayant seulement une très fine carène située entre les bords postérieurs des yeux, droite ou légèrement sinueuse, parfois interrompue dans son milieu ; épistome profondément échancré. Côtés du prothorax non ou à peine sinués près des angles postérieurs, nettement sinués près des angles antérieurs qui sont aigus. Taille médiocrement petite ou assez grande",
+      "text_en": "7th elytral stria <strong>straight or only weakly sinuate</strong>. Vertex unarmed, or only with a very fine carina situated between posterior margins of eyes, straight or slightly sinuate, sometimes interrupted medially. Clypeus deeply emarginate. Pronotal sides not or only weakly sinuate near posterior angles, distinctly sinuate near anterior angles, which are acute. Size moderately small to fairly large.",
+      "terminal_fr": "32e groupe.",
+      "terminal_en": "Group 32"
+    }
+  },
+  "groups": {
+    "1": {
+      "frName": "1er groupe",
+      "enName": "Group 1",
+      "range": [
+        1,
+        12
+      ],
+      "count": 12,
+      "diagnosis": {
+        "fr": "Épistome largement arrondi en devant dans son ensemble, mais la courbe brusquement interrompue dans le milieu par deux petites dents très saillantes et souvent une très petite échancrure située au côté externe de chaque dent ; tête complètement inerme, ou ayant soit une corne tronquée ou un tubercule, et souvent une carène située plus en avant, soit une ou deux carènes, et parfois le bord interne des yeux élevé en denticule. Prothorax entièrement garni d'une ponctuation simple ; la base plus ou moins distinctement rebordée. Élytres souvent très allongés et à côtés parallèles; interstries très distinctement granulés ou ponctués ; la 7e strie droite ou très faiblement sinueuse. Insectes entièrement noirs ou bruns, rarement avec la tête et le prothorax bronzés ou verdâtres. Les espèces de ce groupe sont toutes rares et ont presque toujours été trouvées isolément (1).\n(1) Je n'ai vu qu'un seul exemplaire de la plupart de ces espèces, et sans pouvoir déterminer avec certitude le sexe de l'insecte; il est fort possible que l'armature de la tête et celle du prothorax varient suivant le sexe et ne concordent pas toujours avec ce que j'ai indiqué.",
+        "en": "Clypeus broadly rounded anteriorly as a whole, the curvature abruptly interrupted medially by two small, strongly produced teeth, often with a small lateral emargination. Head completely unarmed, or bearing a truncate horn or tubercle, often with a more anterior carina, or one or two carinae; inner eye margin sometimes denticulate. Pronotum with simple punctation throughout; base more or less distinctly bordered. Elytra often elongate with parallel sides; interstriae distinctly punctate or granulate; 7th stria straight or very weakly sinuate. Insects entirely black or brown, rarely with bronzed or greenish reflections. Species generally rare and often known from single specimens."
+      }
+    },
+    "2": {
+      "frName": "2e groupe",
+      "enName": "Group 2",
+      "range": [
+        13,
+        62
+      ],
+      "count": 50,
+      "diagnosis": {
+        "fr": "Épistome soit arrondi ou sinué, soit graduellement rétréci en devant et divisé en deux dents ; tête ayant soit deux cornes ou tubercules, ou deux petites carènes obliques, ou très rarement une seule corne ou un seul tubercule, et le plus souvent une carène frontale située plus en avant, soit seulement une ou deux carènes, l'unique carène ou la postérieure parfois interrompue dans le milieu ; la tête garnie de points simples ou de rugosités. Prothorax entièrement garni d'une ponctuation simple ; la base sans trace de rebord, sauf parfois dans le milieu ; les côtés nettement sinués près des angles postérieurs. Élytres sans taches, ou avec des taches situées symétriquement sur les deux élytres ; interstries très distinctement ponctués ou rarement granulés ; stries étroites, la 7e droite ou presque droite. Carène du pygidium régulièrement arquée en arc de cercle, sauf chez quelques espèces.",
+        "en": "Clypeus rounded or sinuate, or gradually narrowed anteriorly and divided into two teeth. Head bearing two horns or tubercles, or two small oblique carinae, very rarely a single horn or tubercle, most often with a frontal carina situated more anteriorly, or only one or two carinae, the posterior sometimes interrupted. Head with simple punctation or rugosities. Pronotum with simple punctation throughout; base without basal bead, except sometimes medially; sides distinctly sinuate near posterior angles. Elytra without markings or with symmetrically arranged markings; interstriae distinctly punctate, rarely granulate; striae narrow, 7th straight or nearly so. Pygidial carina regularly arcuate."
+      }
+    },
+    "3": {
+      "frName": "3e groupe",
+      "enName": "Group 3",
+      "range": [
+        63,
+        81
+      ],
+      "count": 19,
+      "diagnosis": {
+        "fr": "Insectes entièrement et très distinctement pubescents, ayant soit le prothorax muni d’une carène longitudinale, soit la tête complètement inerme, un avec deux cornes ou tubercules, ou deux petites carènes obliques, et souvent, en outre, une carène située plus en avant, soit la tête munie seulement d'une ou deux carènes, l'unique carène ou la postérieure étant située bien en avant des yeux, ou plus ou moins distinctement interrompue dans son milieu, ou se prolongeant obliquement en avant, de chaque côté, entre le front et les tempes; épistome soit arrondi ou sinué, soit graduellement rétréci en devant et divisé en deux dents ; tête de grandeur normale, non granulée, sauf chez des insectes au moins en grande partie noirs ou bruns. Prothorax entièrement garni d'une forte ou assez forte ponctuation simple. Élytres sans taches, ou avec des taches situées symétriquement sur les deux élytres; interstries entièrement et très distinctement ponctués ou granulés ; la 7e strie nettement arquée ou sinueuse, sauf chez quelques espèces ayant la base du prothorax entièrement rebordée, ou les côtés du prothorax non ou très indistinctement sinués près des angles postérieurs. Taille petite ou très petite (2,3-5,5 mm).",
+        "en": "Insects entirely and distinctly pubescent. Pronotum either with a longitudinal carina, or head unarmed, or bearing two horns or tubercles, or two oblique carinae, often with an additional anterior carina; or head with one or two carinae, the posterior situated well anterior to the eyes, sometimes interrupted or extending obliquely forward between frons and postocular regions. Clypeus rounded or sinuate, or gradually narrowed anteriorly and divided into two teeth. Head of normal size, not granulate except in darker species. Pronotum with strong simple punctation throughout. Elytra without markings or with symmetrical markings; interstriae distinctly punctate or granulate; 7th stria distinctly sinuate. Size small to very small."
+      }
+    },
+    "4": {
+      "frName": "4e groupe",
+      "enName": "Group 4",
+      "range": [
+        82,
+        85
+      ],
+      "count": 4,
+      "diagnosis": {
+        "fr": "Dessus du corps glabre, sauf le pygidium garni de longs ou assez longs poils dressés et écartés, souvent l'extrémité des élytres, leurs côtés et plus rarement les côtés du prothorax à pubescence courte. Épistome soit arrondi, ou tronqué, ou prolongé en pointe, soit graduellement rétréci en devant et divisé en deux dents; tête complètement inerme, ou ayant soit une carène prolongée en corne ou dentée à ses extrémités, soit une ou deux carènes simples; la tête garnie d'une fine ou assez fine ponctuation simple, sauf le milieu, ♂ souvent presque lisse, l'épistome ♀ couvert de fines rugosités serrées. Prothorax entièrement garni d'une ponctuation simple, souvent très fine; la base sans rebord, sauf parfois dans le milieu et près des angles postérieurs. Élytres sans taches, ou avec des taches situées symétriquement sur les deux élytres ; interstries distinctement ponctués ou granulés, ou garnis seulement d'un pointillé extrêmement fin; la 7e strie fortement arquée ou sinueuse. Pygidium garni de gros ou assez gros points pilifères très écartés, plus ou moins mélangés de points fins. Massue des antennes noire ou brune. Taille grande ou assez grande, sauf parfois chez le taurus.",
+        "en": "Dorsal surface glabrous except pygidium bearing long or moderately long erect setae; elytral apex and sides, and sometimes pronotal sides, with short pubescence. Clypeus rounded, truncate, pointed, or narrowed anteriorly into two teeth. Head unarmed, or with a carina prolonged into a horn or dentate apically, or one or two simple carinae. Head with fine punctation. Pronotum with simple punctation throughout, often very fine; base without basal bead except sometimes medially. Elytra without markings or with symmetrical markings; interstriae punctate or granulate, or very finely punctulate; 7th stria strongly sinuate. Pygidium with sparse coarse setigerous punctures. Size moderate to large."
+      }
+    },
+    "5": {
+      "frName": "5e groupe",
+      "enName": "Group 5",
+      "range": [
+        86,
+        95
+      ],
+      "count": 10,
+      "diagnosis": {
+        "fr": "Dessus du corps en grande partie glabre ou à pubescence extrêmement courte. Épistome arrondi ou sinué; tête complètement inerme, ou ayant soit deux petites cornes, ou deux tubercules, ou un seul tubercule, et souvent une carène située plus en avant, soit seulement une ou deux carènes simples. Prothorax entièrement garni d'une ponctuation simple, composée de gros points mélangés de points plus petits (1). Élytres testacés, ou rarement d'un cuivreux rougeâtre clair, avec des pétillas taches noires ou brunes, ou d'un vert bronzé obscur, rondes, ayant pour centre un granule, et non situées symétriquement sur les deux élytres, parfois, en outre, quelques petites taches symétriques, rarement élytres noirs, avec des petites macules testacées non symétriques et ordinairement plusieurs petites taches symétriques ; interstries garnis de granules écartés; la 7e strie plus ou moins arquée ou sinueuse. Massue des antennes ordinairement testacée, souvent chez l’obliquus brune ou d'un testacé obscur.\n(1) Le raffrayi Harold (voir 10e groupe) a souvent sur les élytres des petites taches noires rondes et non symétriques ; il diffère de toutes les espèces du 5e groupe par le prothorax à ponctuation uniforme, la tête à ponctuation simple, composée de points fins, mélangés de gros points, les joues très peu saillantes et régulièrement arquées, le vertex muni d'une corne ou d'une forte et courte carène, la taille petite.",
+        "en": "Dorsal surface largely glabrous or with extremely short pubescence. Clypeus rounded or sinuate. Head unarmed, or with two small horns or tubercles, or a single tubercle, often with a more anterior carina, or only one or two simple carinae. Pronotum with simple punctation throughout, composed of large punctures mixed with smaller ones. Elytra testaceous or rarely reddish-coppery, with small black or brown spots, or dark bronzy green with round spots centred on a granule; spots not symmetrically arranged, sometimes with additional symmetrical spots. Interstriae with scattered granules; 7th stria more or less sinuate. Antennal club usually testaceous."
+      }
+    },
+    "6": {
+      "frName": "6e groupe",
+      "enName": "Group 6",
+      "range": [
+        96,
+        99
+      ],
+      "count": 4,
+      "diagnosis": {
+        "fr": "Extrémité des élytres et pygidium garnis de grosses soies jaunes, assez longues et dressées, le reste des élytres à pubescence très courte, sauf la base glabre, les côtés à pubescence courte ou assez courte ; tête et prothorax glabres, sauf la partie antérieure de la tête et les côtés du prothorax à pubescence courte ou assez courte. Épistome soit arrondi ou sinué, soit graduellement rétréci en devant et divisé en deux dents; joues assez saillantes, formant en dehors un angle arrondi; tête complètement inerme, ou ayant soit seulement un gros tubercule, ou deux petits tubercules, ou une carène dentée à ses extrémités, soit deux carènes. Prothorax entièrement garni d'une ponctuation simple. Élytres sans taches, ou avec des taches situées symétriquement sur les deux élytres ; interstries entièrement et très distinctement ponctués ou granulés ; la 7e strie nettement arquée ou sinueuse. Massue des antennes testacée. Taille médiocrement petite ou assez grande (7,0-9,3 mm).",
+        "en": "Elytral apex and pygidium bearing coarse yellow setae, rather long and erect; remainder of elytra with very short pubescence, except base glabrous; sides with short or moderately short pubescence. Head and pronotum glabrous except anterior part of head and pronotal sides. Clypeus rounded or sinuate, or gradually narrowed anteriorly and divided into two teeth; genae fairly prominent, forming a rounded external angle. Head unarmed, or with a large tubercle, two small tubercles, a carina dentate at its extremities, or two carinae. Pronotum with simple punctation throughout. Elytra without markings or with symmetrical markings; interstriae distinctly punctate or granulate; 7th stria sinuate. Antennal club testaceous. Size moderately small to fairly large."
+      }
+    },
+    "7": {
+      "frName": "7e groupe",
+      "enName": "Group 7",
+      "range": [
+        100,
+        133
+      ],
+      "count": 34,
+      "diagnosis": {
+        "fr": "Dessus du corps en grande partie glabre, ou au moins disque du prothorax glabre ou à pubescence extrêmement courte et à peine visible. Épistome soit arrondi ou sinué, soit graduellement rétréci en devant et divisé en deux dents ; tête complètement inerme, ou ayant seulement une légère trace de carène, ou ayant soit deux cornes ou au moins deux tubercules sur le vertex, ou seulement une dépression entre les yeux, et souvent une ou deux carènes sur le front, soit une carène dentée ou prolongée en corne à ses extrémités et précédée d'une ou deux carènes frontales, soit un seul tubercule ou une carène sur le vertex et deux carènes sur le front, ou, chez des insectes ayant les élytres tachés de testacé et les interstries à ponctuation simple, une seule carène ou pas de carène sur le front. Prothorax entièrement garni d'une ponctuation simple. Élytres sans taches ou avec des taches situées symétriquement sur les deux élytres ; l'extrémité glabre ou à pubescence courte ; interstries distinctement ponctués ou granulés ; la 7e strie fortement arquée ou sinueuse, sauf très rarement chez des insectes ayant les côtés du prothorax non ou à peine sinués près des angles postérieurs. Pygidium à pubescence courte ou très courte.",
+        "en": "Dorsum largely glabrous, or at least pronotal disc glabrous or with extremely short pubescence. Clypeus rounded or sinuate, or gradually narrowed anteriorly and divided into two teeth. Head unarmed, or with slight carina, or with two horns or tubercles on vertex, or a depression between the eyes, often with one or two frontal carinae; or with a carina dentate or prolonged into horns at its extremities, preceded by one or two frontal carinae; or with a single tubercle or carina on vertex and two carinae on frons. Pronotum with simple punctation throughout. Elytra without markings or with symmetrical markings; interstriae punctate or granulate; 7th stria strongly sinuate. Pygidium with short or very short pubescence."
+      }
+    },
+    "8": {
+      "frName": "8e groupe",
+      "enName": "Group 8",
+      "range": [
+        134,
+        147
+      ],
+      "count": 14,
+      "diagnosis": {
+        "fr": "Dessus du corps entièrement ou en majeure partie glabre, ou au moins disque du prothorax glabre, sauf parfois à sa partie postérieure. Épistome soit arrondi ou sinué, soit graduellement rétréci en devant et divisé en deux dents; tête ayant soit une seule carène longue ou médiocrement courte, située à peu près entre les bords antérieurs des yeux ou plus en avant, parfois dentée ou tuberculée dans son milieu ou à ses extrémités, soit deux carènes dont la postérieure est située entre les bords antérieurs des yeux ou plus en avant. Prothorax soit entièrement garni d'une ponctuation simple, soit en partie lisse. Interstries des élytres très distinctement ponctués ou granulés, sauf chez des insectes entièrement noirs ou d'un brun foncé ; la 7e strie plus ou moins arquée ou sinueuse ; l'extrémité glabre ou à pubescence très courte. Pygidium à pubescence très courte, sauf chez des insectes ayant la base du prothorax entièrement et très distinctement rebordée. Insectes entièrement noirs ou d'un brun foncé, ou verts, ou d'un bronzé obscur, plus rarement d'un brun rougeâtre clair, avec la tête plus obscure, ou d'un noir brunâtre, avec les élytres vaguement tachés de brun rougeâtre à la base et- à l'extrémité, le pygidium d'un brun rougeâtre.",
+        "en": "Dorsum entirely or largely glabrous, or at least pronotal disc glabrous. Clypeus rounded or sinuate, or gradually narrowed anteriorly and divided into two teeth. Head with either a single long or moderately short carina situated approximately between anterior margins of eyes or more anteriorly, sometimes dentate or tuberculate, or with two carinae, the posterior one situated between anterior margins of eyes or more anteriorly. Pronotum entirely punctate or partly smooth. Elytral interstriae distinctly punctate or granulate, except in entirely black or dark brown species; 7th stria more or less sinuate. Elytral apex glabrous or with very short pubescence. Pygidium with very short pubescence. Colour variable, often dark."
+      }
+    },
+    "9": {
+      "frName": "9e groupe",
+      "enName": "Group 9",
+      "range": [
+        148,
+        184
+      ],
+      "count": 37,
+      "diagnosis": {
+        "fr": "Épistome soit arrondi ou sinué, soit graduellement rétréci en devant et divisé en deux dents; tête ayant soit une corne ou une lame ou un tubercule sur le vertex et ordinairement une carène sur le front, soit seulement une ou deux carènes simples, l'unique carène ou la postérieure étant longue ou médiocrement courte et située notablement en arrière du bord antérieur des yeux, ou parfois, chez des insectes entièrement pubescents, courte ou située à peu près entre les bords antérieurs des yeux; la tête non granulée, sauf chez des insectes entièrement noirs. Prothorax soit entièrement garni d'une ponctuation simple, soit en partie lisse ; le devant sans carène longitudinale médiane. Interstries des élytres très distinctement ponctués ou granulés, sauf chez des insectes entièrement noirs ou d'un brun foncé; la 7e strie nettement arquée ou sinueuse. Extrémité des élytres et pygidium glabres ou à pubescence courte. Élytres sans taches bien délimitées, soit entièrement noirs, ou bruns, ou verts, soit d'un brun assez foncé, avec les côtés et l'extrémité graduellement plus clairs, ou, chez des espèces au moins en majeure partie glabres, entièrement d'un brun rougeâtre clair.",
+        "en": "Clypeus rounded or sinuate, or gradually narrowed anteriorly and divided into two teeth. Head bearing a horn, lamella, or tubercle on vertex, usually with a frontal carina; or with only one or two simple carinae, the posterior long or moderately short and situated distinctly posterior to anterior margins of eyes, or sometimes, in entirely pubescent species, short or near those margins. Head not granulate except in dark species. Pronotum punctate or partly smooth; without longitudinal median carina. Elytral interstriae distinctly punctate or granulate; 7th stria sinuate. Elytra without well-defined markings; colour variable, often uniform."
+      }
+    },
+    "10": {
+      "frName": "10e groupe",
+      "enName": "Group 10",
+      "range": [
+        185,
+        213
+      ],
+      "count": 29,
+      "diagnosis": {
+        "fr": "Épistome soit arrondi ou sinué, soit graduellement rétréci en devant et divisé en deux dents ; tête garnie de points simples ou de rugosités, et ayant soit une corne ou un tubercule et très souvent une carène située plus en avant, soit seulement une ou deux carènes simples, l'unique carène ou la postérieure étant située à peu près entre les bords antérieurs des yeux ou plus en arrière, non interrompue, et ne se prolongeant pas en avant, de chaque côté, entre le front et les tempes. Prothorax entièrement garni d'une ponctuation simple; le devant sans carène longitudinale médiane. Interstries des élytres très distinctement granulés ou ponctués ; la 7e strie nettement arquée ou sinueuse. Dessus du corps entièrement pubescent, sauf chez quelques espèces ayant les interstries garnis de granules ; extrémité des élytres et pygidium à pubescence courte, saut chez des insectes entièrement pubescents. Tête et prothorax entièrement ou en partie noirs, ou bleus, ou verts, ou métalliques ; élytres soit entièrement d'un testacé clair, ou testacés, avec des taches noires ou brunes situées symétriquement sur les deux élytres, soit noirs ou d'un brun foncé, avec des taches symétriques testacées ou d'un brun rougeâtre clair.",
+        "en": "Clypeus rounded or sinuate, or gradually narrowed anteriorly and divided into two teeth. Head with simple punctation or rugosities, bearing a horn or tubercle and very often a more anterior carina, or only one or two simple carinae, the posterior situated approximately between anterior margins of eyes or further posterior, not interrupted, and not extending forward between frons and postocular regions. Pronotum with simple punctation throughout, without longitudinal median carina. Elytral interstriae distinctly punctate or granulate; 7th stria sinuate. Dorsum entirely pubescent, except in some species with granulate interstriae. Elytra testaceous with symmetrical dark markings, or dark with symmetrical pale markings."
+      }
+    },
+    "11": {
+      "frName": "11e groupe",
+      "enName": "Group 11",
+      "range": [
+        214,
+        236
+      ],
+      "count": 23,
+      "diagnosis": {
+        "fr": "Tête ayant ordinairement une carène ou deux cornes ou tubercules sur le vertex et le plus souvent une carène sur le front, parfois avec seulement une carène frontale, ou complètement inerme. Prothorax soit presque entièrement lisse, soit plus ou moins garni de points simples; la ligne médiane sans trace de sillon longitudinal ; la base rebordée sur toute la largeur, sauf chez le nigerianus. Élytres entièrement ou en partie testacés ; interstries absolument lisses, ou avec seulement quelques points ou granules épars ou un très fin pointillé. Dessus du corps presque entièrement glabre, ou entièrement à pubescence le plus souvent très éparse.",
+        "en": "Head usually with a carina or two horns or tubercles on vertex, and most often a frontal carina, sometimes only a frontal carina, or completely unarmed. Pronotum nearly smooth or more or less with simple punctation; median line without longitudinal groove; pronotal base bordered across its entire width, except in some species. Elytra entirely or partly testaceous; elytral interstriae completely smooth, or with a few scattered punctures or granules, or very finely punctulate. Dorsum almost entirely glabrous, or with very sparse pubescence."
+      }
+    },
+    "12": {
+      "frName": "12e groupe",
+      "enName": "Group 12",
+      "range": [
+        237,
+        260
+      ],
+      "count": 24,
+      "diagnosis": {
+        "fr": "Tête ayant soit deux dents ou tubercules, ou une lame ou carène dentée ou prolongée en corne à ses extrémités, ou une seule corne ou un seul tubercule, ou une petite lame tronquée, et très souvent une carène située plus en avant, soit deux carènes simples, ou parfois l'antérieure interrompue dans son milieu, parfois la postérieure dentée dans son milieu ou tridentée. Prothorax granulé ou à ponctuation râpeuse, au moins en devant ou sur la région antérieure des côtés. Interstries des élytres très distinctement granulés ou ponctués. Pygidium sans trace de carène à la base. Dessus du corps entièrement ou presque entièrement pubescent, le pygidium entièrement garni de longs poils, ou au moins sa base avec une longue touffe transverse de poils dressés.",
+        "en": "Head with two teeth or tubercles, or a lamella or carina dentate or prolonged into horns at extremities, or a single horn or tubercle, or a small truncate lamella, very often with a more anterior carina; or with two simple carinae, sometimes the anterior interrupted, sometimes the posterior dentate or tridentate. Pronotum granulate or with rasp-like punctation, at least anteriorly or on anterior lateral regions. Elytral interstriae distinctly granulate or punctate. Pygidium without basal carina. Dorsum entirely or almost entirely pubescent; pygidium with long setae, often forming a basal tuft."
+      }
+    },
+    "13": {
+      "frName": "13e groupe",
+      "enName": "Group 13",
+      "range": [
+        261,
+        269
+      ],
+      "count": 9,
+      "diagnosis": {
+        "fr": "Tête complètement inerme, ou ayant soit deux cornes bien séparées, ou deux tubercules, ou une carène dentée ou prolongée en corne à ses extrémités, ou une lame prolongée en corne dans son milieu, ou simplement une corne, et souvent une carène située plus en avant, soit seulement une ou deux carènes simples. Prothorax garni de granules ou d'une ponctuation râpeuse, au moins en devant ou sur la région antérieure des côtés, le disque, au moins sur sa moitié postérieure, soit lisse, soit très finement ponctué ou granulé, et parfois parsemé de gros points très écartés. Interstries dorsaux des élytres lisses, ou finement pointillés, ou imperceptiblement granulés, ou avec seulement quelques assez gros granules très épars. Base du pygidium avec une carène transverse. Dessus du corps entièrement ou en majeure partie glabre, ou au moins prothorax glabre, sauf parfois ses côtés à pubescence très courte.",
+        "en": "Head unarmed, or with two well-separated horns, or two tubercles, or a carina dentate or prolonged into horns, or a lamella prolonged into a horn, or a simple horn, often with a more anterior carina; or only one or two simple carinae. Pronotum granulate or with rasp-like punctation at least anteriorly; pronotal disc at least posteriorly smooth or finely punctate or granulate, sometimes with scattered large punctures. Elytral interstriae smooth, finely punctulate, imperceptibly granulate, or with a few scattered coarse granules. Pygidial base with a transverse carina. Dorsum entirely or largely glabrous."
+      }
+    },
+    "14": {
+      "frName": "14e groupe",
+      "enName": "Group 14",
+      "range": [
+        270,
+        278
+      ],
+      "count": 9,
+      "diagnosis": {
+        "fr": "Tête munie seulement d'une longue et forte carène droite ou un peu arquée, atteignant ordinairement les yeux et située à peu près entre leurs milieux ; épistome ordinairement arrondi ou tronqué, parfois légèrement sinué ; joues médiocrement saillantes, régulièrement arquées, ou formant en dehors un angle largement arrondi ; la tête couverte de rugosités serrées ou d'une grosse ponctuation rugueuse et serrée, sauf souvent le front, surtout ♂, à ponctuation peu serrée et parfois assez fine, le vertex assez finement et peu densément ponctué. Prothorax entièrement garni de granules ou d'une ponctuation au moins en partie râpeuse; le devant ayant une assez large saillie médiane plus ou moins cariniforme, occupant environ le quart de la largeur, souvent sinuée dans son milieu ou divisée en deux tubercules transverses, et très souvent de chaque côté un tubercule ordinairement conique, beaucoup plus rapproché de la saillie médiane que du bord latéral; les côtés très nettement sinués près des angles postérieurs ; la base à rebord très variable chez presque toutes les espèces, tantôt très distinct et continu, tantôt indistinct, ou interrompu de chaque côté. Interstries des élytres très distinctement ponctués ou granulés, sauf souvent le 2e en partie lisse. Pygidium à grosse ponctuation serrée et ordinairement rugueuse ; la base avec une carène transverse. Dessus du corps entièrement à courte pubescence jaune, sauf souvent la déclivité antérieure du prothorax et parfois le pygidium à pubescence un peu plus longue.",
+        "en": "Head with a single strong, long carina, straight or slightly arcuate, usually reaching the eyes and situated approximately between them; clypeus rounded, truncate, or slightly sinuate. Head with dense rugosities or coarse punctation. Pronotum entirely granulate or with rasp-like punctation; anterior margin with a broad median elevation, often sinuate or divided, usually accompanied laterally by a tubercle on each side. Elytral interstriae distinctly punctate or granulate. Pygidial base with transverse carina. Dorsum entirely with short yellow pubescence."
+      }
+    },
+    "15": {
+      "frName": "15e groupe",
+      "enName": "Group 15",
+      "range": [
+        279,
+        287
+      ],
+      "count": 9,
+      "diagnosis": {
+        "fr": "Tête complètement inerme, sauf parfois une courte et très fine carène à peine distincte, située à la partie postérieure du vertex, bien en arrière des yeux; épistome ordinairement un peu prolongé en avant, arrondi à son bord antérieur, ou en ogive arrondie, ou tronqué; joues peu saillantes, régulièrement arquées, ou formant en dehors un angle très peu prononcé; la tête ordinairement couverte d'une assez fine ponctuation très serrée et rugueuse, ou, surtout ♀, de fines rugosités très serrées, rarement en partie ou entièrement garnie de fins granules très serrés. Prothorax très convexe, uniformément couvert de fins granules très serrés et beaucoup plus longs que larges , sauf parfois la région postérieure du disque garnie d'une ponctuation serrée et médiocrement forte; la base complètement sans rebord, ou avec seulement une très courte trace de rebord dans le milieu ; le bord basilaire formant dans le milieu un angle dirigé en arrière, très prononcé et à sommet ordinairement un peu arrondi; les côtés très nettement sinués près des angles postérieurs, souvent un peu sinués entre leur milieu et les angles antérieurs ; le devant simple, ou avec seulement un très petit tubercule éloigné du bord antérieur. Élytres testacés, avec des taches noires au moins en majeure partie disposées sur deux rangées transverses; interstries entièrement et très distinctement granulés ou ponctués. Base du pygidium avec une carène transverse formant dans le milieu un angle très prononcé. Massue des antennes testacée. Dessus du corps à pubescence jaune extrêmement courte, sauf la tête glabre, et très souvent les taches noires des élytres à pubescence noire.",
+        "en": "Head completely unarmed, except sometimes with a very short, fine carina located well posterior to the eyes; clypeus slightly produced anteriorly, rounded, ogival, or truncate. Head with dense fine punctation or fine rugosities. Pronotum very convex, entirely covered with dense elongate granules; pronotal base without bead or with a very short median trace; basal margin forming a pronounced posterior angle medially. Elytra testaceous with black markings arranged in transverse rows; elytral interstriae distinctly punctate or granulate. Pygidial base with a strongly angled transverse carina. Dorsum with extremely short pubescence."
+      }
+    },
+    "16": {
+      "frName": "16e groupe",
+      "enName": "Group 16",
+      "range": [
+        288,
+        342
+      ],
+      "count": 55,
+      "diagnosis": {
+        "fr": "Front avec ou sans carène; vertex ordinairement muni d'une corne, ou d'une petite lame, ou d'un tubercule, ou d'une carène simple, courte ou médiocrement longue, parfois interrompue dans son milieu et divisée en deux très petits tubercules cariniformes, très rarement (et seulement chez le pilosus) vertex complètement inerme. Prothorax entièrement garni de granules, sans ponctuation distincte, sauf parfois tout près de la base; cette dernière ordinairement sans trace de rebord, sauf parfois sur une très petite longueur dans le milieu, plus rarement avec un rebord interrompu de chaque côté. Interstries des élytres entièrement et très distinctement granulés ou ponctués. Base du pygidium avec une carène transverse.",
+        "en": "Frons with or without carina; vertex usually with a horn, lamella, tubercle, or simple carina, sometimes interrupted medially and divided into two small carina-like tubercles, very rarely completely unarmed. Pronotum entirely granulate, without distinct punctation, except sometimes near base; pronotal base usually without bead, sometimes with a short median trace or interrupted laterally. Elytral interstriae entirely and distinctly granulate or punctate. Pygidial base with a transverse carina."
+      }
+    },
+    "17": {
+      "frName": "17e groupe",
+      "enName": "Group 17",
+      "range": [
+        343,
+        366
+      ],
+      "count": 24,
+      "diagnosis": {
+        "fr": "Front avec ou sans carène; vertex muni d'une corne, ou d'un tubercule, ou d'une lame prolongée en corne dans son milieu, ou d'une carène parfois dentée dans son milieu. Prothorax entièrement ou presque entièrement garni de granules ou d'une ponctuation en partie râpeuse, au moins la moitié postérieure du disque distinctement ponctuée, la ponctuation simple, ou râpeuse, ou granuleuse, ou composée de points simples, mélangés de granules; la base sans rebord, ou avec un rebord interrompu de chaque côté; le devant sans dépression de chaque côté, sauf chez des insectes ayant une carène frontale. Interstries des élytres très distinctement et entièrement granulés ou ponctués. Base du pygidium avec une carène transverse.",
+        "en": "Frons with or without carina; vertex with a horn, tubercle, lamella prolonged into a horn, or a carina sometimes dentate medially. Pronotum entirely or almost entirely granulate or with punctation partly rasp-like, at least posterior half distinctly punctate; punctation simple, rasp-like, granulate, or mixed. Pronotal base without bead or with bead interrupted laterally; anterior region without lateral depressions. Elytral interstriae entirely and distinctly granulate or punctate. Pygidial base with a transverse carina."
+      }
+    },
+    "18": {
+      "frName": "18e groupe",
+      "enName": "Group 18",
+      "range": [
+        367,
+        380
+      ],
+      "count": 14,
+      "diagnosis": {
+        "fr": "Épistome étroit en devant, ordinairement prolongé en une petite lame relevée, tronquée ou un peu arrondie ou à peine sinuée à son sommet, parfois non relevé en lame, mais simplement en ogive arrondie ou un peu tronquée; joues peu ou médiocrement saillantes, régulièrement arquées, ou formant en dehors un angle arrondi et peu accusé; front sans carène, ou rarement ♀ avec une carène arquée: vertex ordinairement muni d'un tubercule ou d'une courte carène: rarement tête complètement inerme; toute la tête à ponctuation simple, fine ou assez fine et plus ou moins serrée, souvent plus forte sur les joues, parfois en partie ou presque entièrement rugueuse, sauf l'épistome ♀ au moins en grande partie garni de rides transverses. Prothorax entièrement garni d'une ponctuation simple, ou seulement ses côtés granulés ou à ponctuation râpeuse ; le devant ayant de chaque côté une grande dépression dont le bord interne forme une arête oblique, ordinairement cariniforme ou tuberculiforme, ces dépressions moins grandes et moins prononcées chez les petits exemplaires; la base ordinairement rebordée sur toute sa largeur, rarement en partie sans rebord. Interstries des élytres entièrement et très distinctement granulés ou ponctués, sauf parfois vers la suture. Base du pygidium avec une carène transverse.",
+        "en": "Clypeus narrow anteriorly, usually prolonged into a small elevated lamella, truncate or slightly rounded or weakly sinuate; genae weakly to moderately prominent. Frons without carina, rarely in females with an arcuate carina; vertex usually tuberculate or with a short carina, rarely unarmed. Head with fine punctation, sometimes partly rugose. Pronotum with simple punctation, or sides granulate; anterior region with a large depression on each side, inner margin forming an oblique ridge, often cariniform or tuberculate. Pronotal base usually entirely bordered. Elytral interstriae distinctly punctate or granulate. Pygidial base with transverse carina."
+      }
+    },
+    "19": {
+      "frName": "19e groupe",
+      "enName": "Group 19",
+      "range": [
+        381,
+        414
+      ],
+      "count": 34,
+      "diagnosis": {
+        "fr": "Tête entièrement garnie d'une ponctuation simple, uniforme et ordinairement fine ou assez fine, sauf parfois les côtés de l’épistome, les joues et les tempes à ponctuation fine, mélangée de points plus gros, souvent l'épistome, surtout ♀ garni de fines rides transverses ; front sans trace de carène dans les deux sexes; vertex ayant soit une petite lame dressée, ordinairement triangulaire, située en arrière des yeux ou entre leurs bords postérieurs, soit un tubercule, ou une courte carène parfois interrompue. Prothorax entièrement ponctué, sauf ordinairement les côtés et parfois le devant granulés, chez quelques espèces toute la surface à ponctuation simple; le devant sans dépression de chaque côté, sauf parfois chez le rhynchophorus; la base rebordée sur toute sa largeur ; les côtés nettement sinués près des angles postérieurs. Interstries des élytres entièrement et très distinctement granulés ou ponctués, sauf parfois vers la suture. Base du pygidium avec une carène transverse. Dessus du corps à courte pubescence jaune, ou très souvent en grande partie glabre, la tête soit entièrement glabre, soit en partie glabre, en partie à pubescence extrêmement courte. Massue des antennes testacée, sauf chez le laminidorsis, le confertus et le bisignatus.",
+        "en": "Head with simple, uniform, usually fine punctation, sometimes with coarser punctures on the clypeal sides, genae, and postocular regions; clypeus often with transverse rugosities. Frons without carina in both sexes; vertex with a small erect lamella, usually triangular, or tuberculate, or with a short carina sometimes interrupted. Pronotum entirely punctate, sides sometimes granulate; pronotal base entirely bordered; sides distinctly sinuate near posterior angles. Elytral interstriae entirely and distinctly granulate or punctate. Pygidial base with a transverse carina. Dorsum with short yellow pubescence or largely glabrous."
+      }
+    },
+    "20": {
+      "frName": "20e groupe",
+      "enName": "Group 20",
+      "range": [
+        415,
+        419
+      ],
+      "count": 5,
+      "diagnosis": {
+        "fr": "Tête entièrement garnie de granules très distincts, sauf parfois (chez le purifrons) le milieu presque lisse ; front sans trace de carène dans les deux sexes; vertex muni d'une petite corne triangulaire, ou d'un tubercule transverse, ou d'une courte carène. Prothorax entièrement garni de granules ou de points râpeux, sauf parfois la région basilaire à ponctuation simple; le devant sans dépressions ni saillies; la base rebordée sur toute sa largeur ; les côtés nettement sinués près des angles postérieurs, arrondis ou parfois en ligne droite entre le milieu et les angles antérieurs. Interstries des élytres entièrement et très distinctement granulés. Base du pygidium avec une carène transverse. Dessus du corps entièrement à très courte pubescence jaune, sauf la tête et la déclivité antérieure du prothorax à pubescence un peu moins courte. Taille petite (3,0-5,2 mm).",
+        "en": "Head entirely covered with distinct granules, except sometimes smooth medially; frons without carina; vertex with a small triangular horn, transverse tubercle, or short carina. Pronotum entirely granulate or with rasp-like punctation; pronotal base entirely bordered; sides distinctly sinuate near posterior angles. Elytral interstriae entirely granulate. Pygidial base with a transverse carina. Dorsum entirely with very short yellow pubescence. Size small."
+      }
+    },
+    "21": {
+      "frName": "21e groupe",
+      "enName": "Group 21",
+      "range": [
+        420,
+        422
+      ],
+      "count": 3,
+      "diagnosis": {
+        "fr": "Tête garnie de granules, sauf souvent le devant et parfois le milieu de l'épistome finement pointillés; les côtés très distinctement et largement sinués à la jonction de l'épistome et des joues, ces dernières très peu saillantes et régulièrement ou presque régulièrement arquées ; front avec une carène arquée atteignant la suture des joues ; vertex muni d'une longue carène simple, peu élevée, droite ou presque droite, située entre les bords postérieurs des yeux ou à peine en arrière des yeux et aussi longue ou presque aussi longue que leur intervalle. Prothorax entièrement garni de granules ou d'une ponctuation râpeuse; la base rebordée sur toute sa largeur ; les côtés nettement sinués près des angles postérieurs, non sinués près des angles antérieurs ; le devant sans saillie ni dépression, ou avec seulement une petite trace de callosité médiane. Élytres soit entièrement testacés, soit avec des taches situées symétriquement sur les deux élytres; interstries entièrement et très distinctement granulés ou ponctués. Base du pygidium avec une carène transverse. Dessus du corps entièrement pubescent Angle apical interne des tibias antérieurs prolongé en dent ou en épine ♂, simple ♀.",
+        "en": "Head granulate, except often anteriorly and sometimes medially finely punctulate; clypeal sides distinctly sinuate at junction with genae; genae weakly prominent, regularly rounded. Frons with an arcuate carina reaching the clypeo-genal suture. Vertex with a long, low carina, straight or nearly so, situated between posterior margins of eyes or slightly posterior. Pronotum entirely granulate or with rasp-like punctation; pronotal base entirely bordered; pronotal sides distinctly sinuate near posterior angles, not sinuate anteriorly. Elytra entirely or partly testaceous; elytral interstriae distinctly granulate or punctate. Pygidial base with transverse carina. Dorsum entirely pubescent."
+      }
+    },
+    "22": {
+      "frName": "22e groupe",
+      "enName": "Group 22",
+      "range": [
+        423,
+        436
+      ],
+      "count": 14,
+      "diagnosis": {
+        "fr": "Tête complètement inerme, ou ayant soit seulement une carène line ou assez fine, située entre les bords antérieurs des yeux ou plus en avant, soit une très courte mais forte carène presque tuberculiforme située entre les bords antérieurs des yeux ou un peu plus en avant, parfois précédée d'une fine carène, soit deux fines carènes, la postérieure située entre les bords antérieurs des yeux ou parfois seulement un peu en avant de leur milieu, ordinairement en arc renversé, parfois droite, se prolongeant souvent obliquement en avant, de chaque côté, entre le front et les tempes jusqu'à l'extrémité de la carène antérieure; joues peu saillantes, régulièrement ou presque régulièrement arquées. Prothorax entièrement garni de granules ou d'une ponctuation au moins en partie râpeuse ; les côtés non ou très indistinctement sinués entre le milieu et les angles antérieurs; le devant sans saillie ni dépression; la base rebordée sur toute sa largeur. Élytres sans taches, ou avec des taches situées symétriquement sur les deux élytres; interstries entièrement garnis de granules ou d'aspérités. Base du pygidium avec une carène transverse. Dessus du corps entièrement à courte pubescence jaune ou d'un gris clair. Taille petite ou très petite (2,2-5,5 mm).",
+        "en": "Head unarmed, or with a fine carina situated between anterior margins of eyes or more anteriorly, or a very short, strong carina, sometimes preceded by a finer one; or with two fine carinae, the posterior situated between anterior margins of eyes or slightly anterior to their midpoints, often in reversed arc and extending obliquely forward on each side between frons and postocular regions. Genae weakly prominent, regularly rounded. Pronotum granulate or with partly rasp-like punctation; pronotal sides not or only weakly sinuate between midlength and anterior angles; pronotal base entirely bordered. Elytra without markings or with symmetrical markings; elytral interstriae entirely granulate or asperate. Pygidial base with transverse carina. Dorsum with short pale pubescence. Size small to very small."
+      }
+    },
+    "23": {
+      "frName": "23e groupe",
+      "enName": "Group 23",
+      "range": [
+        437,
+        469
+      ],
+      "count": 33,
+      "diagnosis": {
+        "fr": "Épistome arrondi ou légèrement sinué; front avec une carène, sauf parfois chez les ♂ ; vertex ayant soit une seule corne, ou une lame, ou un tubercule, soit une carène située entre les yeux, ordinairement simple, parfois échancrée ou dentée dans son milieu, ou tridentée, jamais nettement en arc renversé, ne se prolongeant pas obliquement en avant, de chaque côté, entre le front et les tempes; la tête n'ayant jamais seulement une carène située entre les bords antérieurs des yeux ou plus en avant. Prothorax soit lisse sur le disque, soit entièrement garni d'une ponctuation au moins en partie râpeuse, ou tout au plus avec le devant et les côtés granulés ; le devant sans dépression de chaque côté; la base rebordée sur toute sa largeur. Élytres sans taches, ou avec des taches situées symétriquement sur les deux élytres ; interstries très distinctement granulés ou ponctués, sauf parfois vers la suture. Base du pygidium avec une carène transverse.",
+        "en": "Clypeus rounded or slightly sinuate; frons with a carina, except sometimes in males. Vertex with a single horn, lamella, or tubercle, or a carina situated between the eyes, usually simple, sometimes emarginate, dentate, or tridentate, never distinctly forming a reversed arc nor extending obliquely forward between frons and postocular regions. Head never with only a carina situated between anterior margins of eyes or more anteriorly. Pronotal disc smooth or entirely with punctation partly rasp-like, or at most anterior portion and sides granulate; pronotal base entirely bordered. Elytra without markings or with symmetrical markings; elytral interstriae distinctly granulate or punctate. Pygidial base with transverse carina."
+      }
+    },
+    "24": {
+      "frName": "24e groupe",
+      "enName": "Group 24",
+      "range": [
+        470,
+        503
+      ],
+      "count": 34,
+      "diagnosis": {
+        "fr": "Épistome arrondi ou tronqué, ou rarement un peu sinué ; côtés de la tête non ou à peine sinués à la jonction de l'épistome et des joues ; front avec une carène, sauf parfois chez les ♂ ; vertex muni d'une corne, ou d'un tubercule, ou d'une carène située entre les yeux et ordinairement simple, parfois dentée ou échancrée dans son milieu, ou tridentée. Prothorax entièrement garni de granules, sauf parfois la base à ponctuation granuleuse (1), ou le devant lisse ou éparsement ponctué dans le milieu ; la base rebordée sur toute sa largeur ; les côtés nettement sinués près des angles postérieurs. Élytres sans taches, ou avec des taches situées symétriquement sur les deux élytres ; interstries entièrement et très distinctement granulés ou ponctués, sauf parfois vers la suture ; la 7e strie fortement arquée ou sinueuse. Base du pygidium avec une carène transverse. Dessus du corps entièrement à pubescence courte ou assez courte, jaunâtre ou blanchâtre, sauf parfois le bord antérieur et les côtés du prothorax ou le pygidium à pubescence plus longue.\n(1) Certains exemplaires du proteus d'Orbigny (voir 26e groupe), n'ont sur le vertex qu'une carène simple; ils diffèrent de toutes les espèces des 23e et 24e groupes par le prothorax uniformément couvert d'une grosse ponctuation serrée et très finement granuleuse.",
+        "en": "Clypeus rounded, truncate, or rarely slightly sinuate; sides of head not or only weakly sinuate at junction of clypeus and genae. Frons with a carina, except sometimes in males; vertex with a horn, tubercle, or carina situated between the eyes, usually simple, sometimes dentate, emarginate, or tridentate. Pronotum entirely granulate, except sometimes basal region with granulate punctation or anterior region smooth or sparsely punctate medially; pronotal base entirely bordered; pronotal sides distinctly sinuate near posterior angles. Elytra without markings or with symmetrical markings; elytral interstriae entirely and distinctly granulate or punctate. Pygidial base with transverse carina. Dorsum with short pubescence."
+      }
+    },
+    "25": {
+      "frName": "25e groupe",
+      "enName": "Group 25",
+      "range": [
+        504,
+        511
+      ],
+      "count": 8,
+      "diagnosis": {
+        "fr": "Épistome ordinairement plus ou moins échancré ou sinué, parfois arrondi ou tronqué; front avec une carène, sauf parfois chez les ♂; vertex muni d'une seule corne ou d'un seul tubercule, ou d'une lame souvent prolongée en corne dans son milieu, ou d'une carène parfois dentée ou élevée en une petite corne à ses extrémités. Prothorax entièrement garni de granules ou d'une ponctuation au moins en partie râpeuse ; la base rebordée sur toute sa largeur ; les côtés nettement] sinués près des angles postérieurs (1). Élytres avec des petites taches non situées symétriquement sur les deux élytres, et parfois quelques taches symétriques; interstries distinctement granulés. Base du pygidium avec une carène transverse. Massue des antennes noire ou d'un brun foncé.\n(1) La variété marmoreus du depressus Harold (voir 32e groupe) diffère de toutes les espèces du 25e groupe par les côtés du thorax non ou à peine sinués près des angles postérieurs, la massue des antennes testacée.",
+        "en": "Clypeus usually emarginate or sinuate, sometimes rounded or truncate. Frons with a carina, except sometimes in males; vertex with a single horn or tubercle, or a lamella often prolonged into a horn, or a carina sometimes dentate or raised into small horns at its extremities. Pronotum entirely granulate or with punctation partly rasp-like; pronotal base entirely bordered; pronotal sides distinctly sinuate near posterior angles. Elytra with small markings not symmetrically arranged, sometimes with additional symmetrical markings; elytral interstriae granulate. Pygidial base with transverse carina. Antennal club dark."
+      }
+    },
+    "26": {
+      "frName": "26e groupe",
+      "enName": "Group 26",
+      "range": [
+        512,
+        516
+      ],
+      "count": 5,
+      "diagnosis": {
+        "fr": "Épistome arrondi ; joues médiocrement saillantes et régulièrement ou presque régulièrement arquées ; front avec une forte carène arquée atteignant la suture des joues, ou parfois ♂ n'atteignant pas tout à fait cette suture ; vertex ♂ tantôt armé d'une lame située entre les milieux des yeux, graduellement rétrécie dès sa base, et se divisant, à une certaine distance de sa base, en deux longues cornes contiguës sur toute ou presque toute leur longueur, grêles, presque cylindriques, plus ou moins courbées en arrière, tronquées à leur sommet, tantôt, même chez de grands exemplaires, avec deux cornes dressées, médiocrement longues ou assez courtes, éloignées l'une de l'autre, et reliées par une forte carène située à peu près entre les milieux des yeux ou un peu plus en avant; vertex ♀ et petits ♂ muni d'une forte carène située entre les milieux des yeux ou un peu plus en avant, ordinairement élevée en dent ou en une très courte corne à ses extrémités, parfois complètement simple ; la tête couverte de rugosités serrées, sauf le front garni de granulations, ou parfois ♂ d'une ponctuation uniformément assez grosse et ordinairement râpeuse ou granuleuse, parfois les joues à ponctuation serrée et rugueuse. Prothorax entièrement ou presque entièrement garni de granules ou d'une ponctuation au moins en partie râpeuse, sauf parfois, chez des ♂ à très longues cornes contiguës, le milieu largement lisse sur toute la longueur ou sur sa majeure partie ; le devant, chez les ♂ à longues cornes, largement déclive, et souvent un peu déprimé dans le milieu ; le devant, chez les ♂ à courtes cornes et chez les ♀, avec une forte et longue carène transverse, droite ou légèrement arquée, parfois interrompue dans son milieu, occupant ordinairement le tiers ou un peu plus du tiers de la largeur, et ordinairement de chaque côté une dépression à l'extrémité de la carène. Élytres sans taches, ou avec des taches situées symétriquement sur les deux élytres ; interstries entièrement et très distinctement granulés ou ponctués. Pygidium à ponctuation simple, assez serrée et assez variable de grosseur ; la base avec une carène transverse. Massue des antennes noire ou d'un brun foncé.",
+        "en": "Clypeus rounded; genae moderately prominent, regularly rounded. Frons with a strong arcuate carina reaching the clypeo-genal suture. Vertex in major males with a lamella dividing into two long contiguous horns; in other individuals with two separate horns or a strong carina between the eyes. Head with dense rugosities or granulation. Pronotum granulate or with rasp-like punctation, sometimes partly smooth in large males. Elytral interstriae distinctly granulate or punctate. Pygidium with simple punctation; base carinate. Antennal club dark."
+      }
+    },
+    "27": {
+      "frName": "27e groupe",
+      "enName": "Group 27",
+      "range": [
+        517,
+        519
+      ],
+      "count": 3,
+      "diagnosis": {
+        "fr": "Tête à ponctuation simple, composée de points fins, mélangés de gros points écartés, sauf l'épistome souvent plus ou moins garni de rugosités, ou parfois ♂ presque lisse dans le milieu; épistome arrondi ou à peine sinué ; joues assez saillantes et largement arrondies ; front avec une carène, sauf parfois chez les ♂ ; vertex muni de deux cornes ou d'une carène. Prothorax garni d'une ponctuation entièrement râpeuse ou en partie simple; les côtés arrondis entre le milieu et les angles antérieurs. Élytres sans taches, ou avec des taches situées symétriquement sur les deux élytres; interstries entièrement garnis de granules. Base du pygidium avec une carène transverse. Dessus du corps entièrement à très courte pubescence jaune, ou celle du pygidium seulement un peu moins courte. Massue des antennes brune ou d'un testacé obscur.",
+        "en": "Head with simple punctation composed of fine punctures mixed with larger scattered punctures; clypeus often rugose. Clypeus rounded or slightly sinuate; genae fairly prominent. Frons usually carinate; vertex bidentate or carinate. Pronotum with entirely rasp-like punctation or partly simple punctation. Elytral interstriae entirely granulate. Pygidial base carinate. Dorsum with very short pubescence."
+      }
+    },
+    "28": {
+      "frName": "28e groupe",
+      "enName": "Group 28",
+      "range": [
+        520,
+        523
+      ],
+      "count": 4,
+      "diagnosis": {
+        "fr": "Tête entièrement à ponctuation simple et uniformément fine, sauf les joues et les tempes avec quelques points plus gros, l'épistome plus ou moins garni de rugosités ; épistome largement échancré ; joues peu ou médiocrement saillantes et régulièrement arquées ; front avec une carène, sauf parfois chez les ♂ ; vertex ayant une seule corne, ou un tubercule, ou une petite lame, ou une carène. Prothorax entièrement garni de granules, parfois la base à ponctuation granuleuse ; le devant muni de deux assez gros tubercules complètement séparés ; les côtés nettement sinués près des angles postérieurs, parfois légèrement sinués entre le milieu et les angles antérieurs ; la base rebordée sur toute sa largeur. Élytres sans taches ; interstries entièrement garnis de granules. Base du pygidium avec une carène transverse. Dessus du corps entièrement à courte pubescence jaune. Insectes noirs, ou verts, ou métalliques, ou en partie d'un bleu foncé.",
+        "en": "Head with uniformly fine punctation, except clypeal sides, genae, and postocular regions with coarser punctures; clypeus more or less rugose and broadly emarginate. Frons usually carinate; vertex with a single horn, tubercle, lamella, or carina. Pronotum entirely granulate. Elytral interstriae entirely granulate. Pygidial base carinate. Dorsum with short pubescence."
+      }
+    },
+    "29": {
+      "frName": "29e groupe",
+      "enName": "Group 29",
+      "range": [
+        524,
+        528
+      ],
+      "count": 5,
+      "diagnosis": {
+        "fr": "Tête remarquablement grande, ayant sa plus grande largeur tout près du milieu des yeux, et rétrécie en avant depuis ce point ; épistome nettement sinué ou échancré; joues très peu saillantes et formant en dehors une courbe régulière; front avec une carène ordinairement peu arquée, atteignant la suture des joues, ou parfois ♂ n'atteignant pas cette suture; vertex muni de deux cornes, ou de deux tubercules, ou d'une carène parfois interrompue dans son milieu. Prothorax soit entièrement garni de granules ou d'une ponctuation en partie râpeuse, soit entièrement à ponctuation simple; les côtés non sinués près des angles antérieurs. Interstries des élytres entièrement et très distinctement granulés ou ponctués, sauf parfois près de la suture. Base du pygidium avec une carène trans verse. Insectes entièrement ou presque entièrement testacés, sauf la tête noire ou brune; massue des antennes testacée. Dessus du corps entièrement pubescent. Taille assez petite ou très petite.",
+        "en": "Head very large, widest near midlength of eyes and narrowed anteriorly; clypeus distinctly sinuate or emarginate; genae weakly prominent. Frons carinate; vertex bidentate, bituberculate, or carinate. Head at least partly granulate. Pronotum granulate or partly with simple punctation. Elytral interstriae distinctly granulate or punctate. Pygidial base carinate. Dorsum entirely pubescent. Colour testaceous with darker head. Size small."
+      }
+    },
+    "30": {
+      "frName": "30e groupe",
+      "enName": "Group 30",
+      "range": [
+        529,
+        537
+      ],
+      "count": 9,
+      "diagnosis": {
+        "fr": "Tête de grandeur normale, ayant sa plus grande largeur en avant du milieu des yeux, garnie de granules ou d'aspérités irrégulières, ou d'une grosse ou assez grosse ponctuation ordinairement râpeuse; front avec une carène, ou parfois ♂ sans carène; vertex ayant soit deux cornes ou tubercules souvent reliés par une carène, soit une lame ou carène échancrée à son bord supérieur ou dentée à ses extrémités, soit une carène simple située entre les yeux ou en arrière des yeux; épistome échancré, sauf chez des insectes ayant l'armature du vertex située en arrière des yeux ou au moins entre leurs bords postérieurs. Prothorax entièrement garni de granules ou d'une ponctuation au moins en partie râpeuse ; les côtés nettement sinués près des angles postérieurs, sauf chez des espèces ayant les angles antérieurs arrondis ; la base entièrement rebordée, sauf parfois chez le meliteus. Élytres sans taches, ou avec des taches situées symétriquement sur les deux élytres ; interstries entièrement garnis de granules ; la 7e strie nettement arquée ou sinueuse. Base du pygidium avec une carène transverse. Ligne cariniforme des flancs du prosternum se dirigeant vers le bord latéral, sans atteindre ce bord, ou en l'atteignant très sinueusement et peu distinctement en arrière des angles antérieurs.",
+        "en": "Head of normal size, granulate or coarsely punctate; clypeus emarginate. Frons carinate or not; vertex with two horns or tubercles often connected, or with a lamella or dentate carina, or a simple carina between or posterior to eyes. Pronotum granulate or with rasp-like punctation; pronotal sides sinuate posteriorly; base entirely bordered. Elytral interstriae granulate; 7th stria sinuate. Pygidial base carinate. Prosternal lateral cariniform line not reaching lateral margin or doing so indistinctly."
+      }
+    },
+    "31": {
+      "frName": "31e groupe",
+      "enName": "Group 31",
+      "range": [
+        538,
+        572
+      ],
+      "count": 35,
+      "diagnosis": {
+        "fr": "Tête de grandeur normale, ayant sa plus grande largeur en avant du milieu des yeux, garnie de granules, ou de gros points, ou de rugosités; épistome nettement échancré, sauf parfois chez le suffusus et l'immundus qui ont l'armature du vertex située en arrière des yeux ; front avec une carène, ou parfois ♂ sans carène ; vertex très rarement muni d'un seul tubercule, ordinairement ayant soit deux cornes ou tubercules souvent reliés par une lame ou par une carène, et souvent, en outre, un tubercule médian situé plus en avant, soit seulement une lame échancrée à son sommet, ou une carène dentée à ses extrémités, ou une forte carène simple, ou une assez fine carène fortement arquée Prothorax entièrement garni de granules ou d'une ponctuation au moins en partie râpeuse ; les côtés non ou à peine sinués près des angles postérieurs, sauf chez des insectes ayant les angles antérieurs à sommet vil ou presque vif et faisant ordinairement un peu saillie en dehors; la base entièrement mais parfois très finement rebordée. Élytres sans taches, ou avec des taches situées symétriquement sur les deux élytres ; interstries entièrement et très distinctement garnis de granules; la 7e strie nettement arquée ou sinueuse. Base du pygidium avec une carène transverse. Ligne cariniforme des flancs du prosternum se prolongeant très distinctement et à peine sinueusement jusqu'au sommet des angles antérieurs. Dessus du corps entièrement à courte pubescence jaune, sauf souvent la tête et le devant du prothorax à pubescence un peu plus longue. Taille petite ou assez petite (3,0-6,0 mm).",
+        "en": "Head granulate or rugose; clypeus emarginate. Frons usually carinate; vertex with two horns or tubercles, often connected, sometimes with an additional anterior tubercle, or with a lamella or dentate carina. Pronotum granulate or with rasp-like punctation; pronotal sides not or weakly sinuate posteriorly; base bordered. Elytral interstriae granulate; 7th stria sinuate. Pygidial base carinate. Prosternal lateral cariniform line reaching anterior angles. Dorsum with short pubescence."
+      }
+    },
+    "32": {
+      "frName": "32e groupe",
+      "enName": "Group 32",
+      "range": [
+        573,
+        578
+      ],
+      "count": 6,
+      "diagnosis": {
+        "fr": "Tête de grandeur normale, ayant sa plus grande largeur en avant du milieu des yeux; épistome profondément échancré, ses angles antérieurs ordinairement dentiformes; front avec une fine carène arquée, située vers le milieu de la tête et le plus souvent n'atteignant pas la suture des joues, ou parfois ♂ front sans carène; vertex parfois inerme, ordinairement muni d'une très fine carène située entre les bords postérieurs des yeux, plus ou moins longue, droite ou presque droite, souvent sinuée ou interrompue dans son milieu; la tête entièrement ou presque entièrement garnie de granules. Prothorax entièrement garni de granules ou d'une ponctuation au moins en partie râpeuse ou granuleuse; la base rebordée, formant une courbe régulière et peu prononcée ; les côtés non ou à peine sinués près des angles postérieurs, nettement sinués près des angles antérieurs qui sont aigus. Interstries des élytres très distinctement granulés ou ponctués; la 7e strie droite ou à peine sinueuse. Base du pygidium avec une carène transverse. Dessus du corps entièrement à très courte pubescence jaune. Massue des antennes testacée. Ligne cariniforme des flancs du prosternum se prolongeant très distinctement et à peine sinueusement jusqu'au sommet des angles antérieurs. Angle apical interne des tibias antérieurs prolongé en une grosse épine ♂, simple et obtus ♀.",
+        "en": "Head of normal size; clypeus deeply emarginate. Vertex unarmed or with a very fine carina between posterior margins of eyes. Frons usually without strong armature. Pronotal sides weakly sinuate posteriorly, strongly sinuate anteriorly; anterior angles acute. Elytral interstriae granulate or punctate; 7th stria straight or weakly sinuate. Pygidial base carinate. Size variable."
+      }
+    }
+  },
+  "notes": {
+    "fr": {
+      "1": "Je dis de la tête qu'elle est inerme, lorsqu'elle n'a ni carènes, ni cornes ou tubercules, et non, comme le font certains auteurs lorsqu'elle est seulement dépourvue de cornes. Pour le prothorax, je dis que le devant est simple, quand il ne présente ni saillies ni dépressions.",
+      "2": "J'appelle carène du front celle qui est située en avant des yeux, entre l'épistome et le front, et carène ou corne du vertex celle qui est située entre les yeux ou en arrière des yeux ; la carène frontale est ordinairement arquée en formant une courbe convexe, celle du vertex est souvent arquée en sens inverse, j'emploie toujours le mot arqué exclusivement pour une courbe convexe, et celui d'arc renversé pour une courbe concave.",
+      "3": "Ce rebord est le prolongement de celui des côtés ; en examinant les angles postérieurs, on voit facilement si le rebord des côtés se prolonge sur la base au-delà de ces angles.",
+      "4": "Pour bien voir ce caractère, il faut examiner l'insecte de profil et son arrière tourné vers soi ; au contraire, pour étudier la forme des côtés du prothorax entre le milieu et les angles antérieurs, l'insecte doit être vu de dessus.",
+      "5": "Pour étudier la position des carènes ou tubercules de la tête par rapport aux yeux, l'insecte doit être examiné de profil.",
+      "6": "Cette carène existe également chez toutes les espèces des 11 premiers groupes et chez toutes celles des autres sous-genres ; elle existe également chez les autres genres d'Onthophagides.",
+      "7": "Certaines ♀ ont la carène simple et peuvent être confondues avec les espèces des groupes précédents ; elles sont indiquées en note dans les tableaux de ces groupes.",
+      "8": "Les ♀ et petits ♂ qui ont seulement sur le vertex une carène simple peuvent être confondus avec les espèces du 23e groupe ; ils sont indiqués en note dans le tableau de ce groupe.",
+      "9": "Ce caractère existe chez presque toutes les espèces des groupes précédents, quelques-unes seulement ont la ligne cariniforme conformée comme chez les espèces des 31e et 32e groupes."
+    },
+    "en": {
+      "1": "I describe the head as unarmed when it has neither carinae nor horns or tubercles, and not, as some authors do, when it lacks horns only. For the pronotum, I describe the anterior portion as simple when it has neither elevations nor depressions.",
+      "2": "I call the carina situated anterior to the eyes, between the clypeus and frons, the frontal carina, and the carina or horn situated between the eyes or posterior to them the vertexal carina or horn; the frontal carina is usually arcuate, forming a convex curve, whereas the vertexal carina is often curved in the opposite direction. I always use arcuate only for a convex curve, and reversed arc for a concave curve.",
+      "3": "This basal bead is the continuation of the lateral bead; by examining the posterior angles, one can easily see whether the lateral bead continues onto the base beyond these angles.",
+      "4": "To see this character properly, the insect must be examined in profile with its posterior end facing the observer; conversely, to study the shape of the pronotal sides between the middle and the anterior angles, the insect must be viewed from above.",
+      "5": "To study the position of the cephalic carinae or tubercles in relation to the eyes, the insect must be examined in profile.",
+      "6": "This carina is also present in all species of the first 11 groups and in all species of the other subgenera; it is also present in the other genera of Onthophagides.",
+      "7": "Some females have a simple carina and may be confused with species of the preceding groups; they are indicated in notes in the tables of those groups.",
+      "8": "Females and small males with only a simple carina on the vertex may be confused with species of Group 23; they are indicated in a note in the table for that group.",
+      "9": "This character is present in almost all species of the preceding groups; only a few have the cariniform line shaped as in the species of Groups 31 and 32."
+    }
+  }
+}
+
+let KEY = DATA.key;
+let GROUPS = DATA.groups;
+let NOTES = DATA.notes;
+let current = 1;
+let history = [];
+let lang = 'fr';
+
+const UI = {
+  fr: {
+    title: "Clé interactive multilingue des groupes d’<i>Onthophagus</i> de Henri d’Orbigny (1913), version 1.0",
+    subtitle: "Interface fondée sur les couplets originaux, avec notes, sommaires de groupes et navigation arrière.",
+    question: "Choisissez l’énoncé qui correspond au spécimen examiné.",
+    current: "Couplet",
+    beginning: "Début de la clé",
+    choice: "Énoncé",
+    goTo: "Aller au couplet",
+    result: "Résultat",
+    seeGroup: "Renvoi",
+    back: "← Retour",
+    restart: "Nouvelle détermination",
+    pathTitle: "Parcours",
+    noPath: "Aucun choix effectué.",
+    searchTitle: "Recherche rapide dans les énoncés",
+    searchPh: "Ex. pygidium, 7e strie, prothorax…",
+    notes: "Notes de d’Orbigny associées à ce couplet",
+    summary: "Sommaire du groupe",
+    speciesRange: "Séquence d’espèces",
+    speciesCount: "Nombre d’espèces",
+    originalDiagnosis: "Diagnose originale de d’Orbigny",
+    species: "espèces",
+    oneSpecies: "espèce",
+    chooseLangTitle: "Choisir la langue / Choose the language",
+    chooseLangText: "Sélectionnez la langue de la clé avant de commencer la détermination. / Select the language of the key before starting the identification.",
+    searchNone: "Aucun résultat.",
+    searchCount: "résultat(s)",
+    citationTitle: "Comment citer cette ressource",
+    citationIntro: "Citation suggérée pour l’interface interactive; la source taxonomique originale demeure d’Orbigny (1913).",
+    citationText: "Génier, F. 2026. Clé interactive multilingue des groupes d’<i>Onthophagus</i> de Henri d’Orbigny (1913), version 1.0. Ressource électronique fondée sur le <i>Tableau des groupes d’Onthophagus</i> et les diagnoses originales.",
+    copyCitation: "Copier la citation",
+    copiedCitation: "Citation copiée",
+    noteFor: "Note pour le couplet"
+  },
+  en: {
+    title: "Multilingual interactive key to Henri d’Orbigny’s groups of <i>Onthophagus</i> (1913), version 1.0",
+    subtitle: "Interface based on the original couplets, with notes, group summaries, and back navigation.",
+    question: "Choose the statement that matches the specimen examined.",
+    current: "Couplet",
+    beginning: "Start of the key",
+    choice: "Statement",
+    goTo: "Go to couplet",
+    result: "Result",
+    seeGroup: "Reference",
+    back: "← Back",
+    restart: "New identification",
+    pathTitle: "Path",
+    noPath: "No choice made.",
+    searchTitle: "Quick search in the statements",
+    searchPh: "E.g., pygidium, 7th stria, prothorax…",
+    notes: "d’Orbigny’s notes associated with this couplet",
+    summary: "Group summary",
+    speciesRange: "Species sequence",
+    speciesCount: "Number of species",
+    originalDiagnosis: "Original diagnosis by d’Orbigny",
+    species: "species",
+    oneSpecies: "species",
+    chooseLangTitle: "Choisir la langue / Choose the language",
+    chooseLangText: "Sélectionnez la langue de la clé avant de commencer la détermination. / Select the language of the key before starting the identification.",
+    searchNone: "No results.",
+    searchCount: "result(s)",
+    citationTitle: "How to cite this resource",
+    citationIntro: "Suggested citation for the interactive interface; the original taxonomic source remains d’Orbigny (1913).",
+    citationText: "Génier, F. 2026. Multilingual interactive key to Henri d’Orbigny’s groups of <i>Onthophagus</i> (1913), version 1.0. Electronic resource based on d’Orbigny’s <i>Tableau des groupes d’Onthophagus</i> and original group diagnoses.",
+    copyCitation: "Copy citation",
+    copiedCitation: "Citation copied",
+    noteFor: "Note for couplet"
+  }
+}
+
+const choicesEl = document.getElementById('choices');
+const resultEl = document.getElementById('result');
+const currentBadge = document.getElementById('currentBadge');
+const progressBadge = document.getElementById('progressBadge');
+const backBtn = document.getElementById('backBtn');
+const restartBtn = document.getElementById('restartBtn');
+const pathEl = document.getElementById('path');
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+const startCard = document.getElementById('startCard');
+const mainCard = document.getElementById('mainCard');
+const pathCard = document.getElementById('pathCard');
+const searchCard = document.getElementById('searchCard');
+const citationCard = document.getElementById('citationCard');
+const langSelect = document.getElementById('langSelect');
+const copyCitationBtn = document.getElementById('copyCitationBtn');
+const copyStatus = document.getElementById('copyStatus');
+
+
+const TAXON_NAMES = ["Onthophagus","taurus","raffrayi","obliquus","nigerianus","pilosus","rhynchophorus","laminidorsis","confertus","bisignatus","purifrons","proteus","depressus","marmoreus","suffusus","immundus","meliteus"];
+
+function escapeHtml(str) {
+  return String(str ?? "").replace(/[&<>"']/g, ch => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", "\"":"&quot;", "'":"&#39;"
+  }[ch]));
+}
+
+function markupText(str) {
+  let out = escapeHtml(str);
+  TAXON_NAMES.forEach(name => {
+    const re = new RegExp(`(^|[^A-Za-zÀ-ÿ])(${name})(?![A-Za-zÀ-ÿ])`, "g");
+    out = out.replace(re, `$1<i>$2<\/i>`);
+  });
+  out = out.replace(/&lt;(\/?)(strong|b|i|em)&gt;/gi, "<$1$2>");
+  return out;
+}
+
+function stripHtml(str) {
+  const div = document.createElement('div');
+  div.innerHTML = str;
+  return div.textContent || div.innerText || '';
+}
+
+function groupNumberFromTerminal(terminal) {
+  if (!terminal) return null;
+  const m = terminal.match(/(?:Group|groupe)\s*(\d+)|(\d+)\s*(?:er|e)?\s*groupe/i);
+  return m ? parseInt(m[1] || m[2], 10) : null;
+}
+
+function labelTerminal(node) {
+  const term = node['terminal_' + lang];
+  return term || "";
+}
+
+function isSeeTerminal(node) {
+  const term = node.terminal_fr || "";
+  return /^\s*\(?\s*Voir/i.test(term);
+}
+
+function groupTitle(n) {
+  const g = GROUPS[String(n)];
+  return g ? g[lang + 'Name'] : (lang === 'fr' ? n + "e groupe" : "Group " + n);
+}
+
+function startWithLang(l) {
+  lang = l;
+  langSelect.value = l;
+  startCard.classList.add('hidden');
+  mainCard.classList.remove('hidden');
+  pathCard.classList.remove('hidden');
+  searchCard.classList.remove('hidden');
+  citationCard.classList.remove('hidden');
+  restart();
+}
+
+function applyUI() {
+  const u = UI[lang];
+  document.documentElement.lang = lang;
+  document.getElementById('title').innerHTML = u.title;
+  document.getElementById('subtitle').textContent = u.subtitle;
+  document.getElementById('question').textContent = u.question;
+  document.getElementById('pathTitle').textContent = u.pathTitle;
+  document.getElementById('searchTitle').textContent = u.searchTitle;
+  document.getElementById('chooseLangTitle').textContent = u.chooseLangTitle;
+  document.getElementById('chooseLangText').textContent = u.chooseLangText;
+  searchInput.placeholder = u.searchPh;
+  backBtn.textContent = u.back;
+  restartBtn.textContent = u.restart;
+  document.getElementById('citationTitle').textContent = u.citationTitle;
+  document.getElementById('citationIntro').textContent = u.citationIntro;
+  document.getElementById('citationText').innerHTML = markupText(u.citationText);
+  copyCitationBtn.textContent = u.copyCitation;
+  copyStatus.textContent = '';
+}
+
+function choiceText(node) {
+  return node['text_' + lang] || node.text_fr || "";
+}
+
+function render() {
+  applyUI();
+  const u = UI[lang];
+  resultEl.classList.add('hidden');
+  choicesEl.innerHTML = '';
+  const a = KEY[String(current)];
+  const b = KEY[String(a.pair)];
+  currentBadge.textContent = `${u.current} ${a.id} / ${b.id}`;
+  progressBadge.textContent = history.length ? `${history.length} ${u.choice.toLowerCase()}(s)` : u.beginning;
+  [a,b].forEach(node => {
+    const btn = document.createElement('button');
+    btn.className = 'choice';
+    const next = node.terminal_fr ? (isSeeTerminal(node) ? u.seeGroup + " : " + labelTerminal(node) : u.result + " : " + labelTerminal(node)) : u.goTo + " " + nextCouplet(node);
+    btn.innerHTML = `<div class="choice-head"><span class="choice-num">${u.choice} ${node.id} (${node.pair})</span><span class="choice-next">${next}</span></div><div class="choice-text">${markupText(choiceText(node))}</div>`;
+    btn.onclick = () => choose(node.id);
+    choicesEl.appendChild(btn);
+  });
+  renderNotesForCouplet([a,b]);
+  renderPath();
+  backBtn.disabled = history.length === 0;
+}
+
+function renderNotesForCouplet(nodes) {
+  const old = document.getElementById('notesBox');
+  if (old) old.remove();
+  const entries = [];
+  nodes.forEach(n => (n.noteIds || []).forEach(id => {
+    entries.push({id, node:n});
+  }));
+  if (!entries.length) return;
+  const box = document.createElement('div');
+  box.id = 'notesBox';
+  box.className = 'notes';
+  box.innerHTML = `<h3>${UI[lang].notes}</h3><ol>${entries.map(e => {
+    const coupletLabel = `${e.node.id} (${e.node.pair})`;
+    return `<li><strong>${UI[lang].noteFor} ${coupletLabel}, note ${e.id}.</strong> ${markupText(NOTES[lang][e.id] || NOTES.fr[e.id])}</li>`;
+  }).join('')}</ol>`;
+  choicesEl.parentNode.insertBefore(box, choicesEl.nextSibling);
+}
+
+function nextCouplet(node) {
+  // In d’Orbigny’s key, the chosen statement number controls the continuation.
+  // The number in parentheses identifies the reciprocal statement of the same couplet.
+  return node.id + 1;
+}
+
+function choose(id) {
+  const node = KEY[String(id)];
+  history.push({couplet: current, choice: id});
+  if (node.terminal_fr) {
+    showResult(node);
+  } else {
+    current = nextCouplet(node);
+    render();
+  }
+}
+
+function showResult(node) {
+  const u = UI[lang];
+  choicesEl.innerHTML = '';
+  const old = document.getElementById('notesBox');
+  if (old) old.remove();
+  currentBadge.textContent = u.result;
+  progressBadge.textContent = labelTerminal(node);
+  const gnum = groupNumberFromTerminal(labelTerminal(node));
+  let groupHtml = '';
+  if (gnum && GROUPS[String(gnum)]) {
+    const g = GROUPS[String(gnum)];
+    const spLabel = g.count === 1 ? u.oneSpecies : u.species;
+    groupHtml = `<h2>${groupTitle(gnum)}</h2>
+      <div class="summary-grid">
+        <div class="summary-item"><strong>${u.speciesRange}</strong>${g.range[0]}–${g.range[1]}</div>
+        <div class="summary-item"><strong>${u.speciesCount}</strong>${g.count} ${spLabel}</div>
+      </div>
+      <h3>${u.originalDiagnosis}</h3>
+      <div class="diagnosis">${markupText(g.diagnosis[lang] || g.diagnosis.fr)}</div>`;
+  } else {
+    groupHtml = `<h2>${labelTerminal(node)}</h2>`;
+  }
+  resultEl.innerHTML = `<div class="small">${u.result} : ${labelTerminal(node)}</div>${groupHtml}`;
+  resultEl.classList.remove('hidden');
+  renderPath();
+  backBtn.disabled = history.length === 0;
+}
+
+function renderPath() {
+  const u = UI[lang];
+  if (!history.length) {
+    pathEl.textContent = u.noPath;
+    return;
+  }
+  pathEl.innerHTML = '<ol>' + history.map(h => {
+    const n = KEY[String(h.choice)];
+    const status = n.terminal_fr ? labelTerminal(n) : (u.goTo + ' ' + nextCouplet(n));
+    return `<li>${u.current} ${h.couplet} — ${u.choice} ${h.choice} → ${status}</li>`;
+  }).join('') + '</ol>';
+}
+
+function goBack() {
+  if (!history.length) return;
+  const last = history.pop();
+  current = last.couplet;
+  render();
+}
+
+function restart() {
+  current = 1;
+  history = [];
+  render();
+}
+
+function search() {
+  const q = searchInput.value.trim().toLowerCase();
+  if (!q) { searchResults.innerHTML = ''; return; }
+  const hits = Object.values(KEY).filter(n => choiceText(n).toLowerCase().includes(q)).slice(0,30);
+  if (!hits.length) { searchResults.textContent = UI[lang].searchNone; return; }
+  searchResults.innerHTML = `<p>${hits.length} ${UI[lang].searchCount}</p><ul>` + hits.map(n => `<li><strong>${n.id} (${n.pair})</strong> — ${choiceText(n).slice(0,220)}${choiceText(n).length>220?'…':''}</li>`).join('') + '</ul>';
+}
+
+backBtn.onclick = goBack;
+restartBtn.onclick = restart;
+searchInput.addEventListener('input', search);
+async function copyCitation() {
+  const u = UI[lang];
+  const citationPlainText = stripHtml(u.citationText);
+  try {
+    await navigator.clipboard.writeText(citationPlainText);
+  } catch (err) {
+    const ta = document.createElement('textarea');
+    ta.value = citationPlainText;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+  copyStatus.textContent = u.copiedCitation;
+}
+copyCitationBtn.addEventListener('click', copyCitation);
+
+langSelect.addEventListener('change', e => { lang = e.target.value; render(); search(); });
+applyUI();
+</script>
+</body>
+</html>
