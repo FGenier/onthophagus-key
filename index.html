@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Multilingual interactive key to Henri d’Orbigny’s groups of Onthophagus (1913), version 1.2</title>
+<title>Multilingual interactive key to Henri d’Orbigny’s groups of Onthophagus (1913), version 1.2.1</title>
 
 <link rel="icon" href="images/onthophagus.ico" sizes="any" />
 <link rel="icon" type="image/jpeg" href="images/onthophagus.jpg" />
@@ -87,22 +87,23 @@ button.control:disabled{opacity:.45;cursor:not-allowed}
 
 @media (min-width:850px){.choices{grid-template-columns:1fr 1fr}}
 .home-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.home-actions.hidden{display:none}
 </style>
 </head>
 <body>
 <div class="app">
 <header>
   <div>
-    <h1 id="title">Clé interactive multilingue des groupes d’<i>Onthophagus</i> de Henri d’Orbigny (1913), version 1.2</h1>
+    <h1 id="title">Clé interactive multilingue des groupes d’<i>Onthophagus</i> de Henri d’Orbigny (1913), version 1.2.1</h1>
     <p class="subtitle" id="subtitle">Interface fondée sur les couplets originaux, avec notes, sommaires de groupes et navigation arrière.</p>
   </div>
   <div class="hero" aria-label="Illustrations">
     <figure class="portrait">
-      <img id="homePortrait" src="images/henry_dorbigny_small.jpg?v=1.2" alt="Henri d’Orbigny" title="Accueil / Home" style="cursor:pointer" onerror="this.closest('figure').style.display='none'">
+      <img id="homePortrait" src="images/henry_dorbigny_small.jpg?v=1.2.1" alt="Henri d’Orbigny" title="Accueil / Home" style="cursor:pointer" onerror="this.closest('figure').style.display='none'">
       <figcaption>Henri d’Orbigny</figcaption>
     </figure>
     <figure class="beetle">
-      <img src="images/onthophagus.jpg?v=1.2" alt="Onthophagus teitanicus" onerror="this.closest('figure').style.display='none'">
+      <img src="images/onthophagus.jpg?v=1.2.1" alt="Onthophagus teitanicus" onerror="this.closest('figure').style.display='none'">
       <figcaption><i>Onthophagus teitanicus</i></figcaption>
     </figure>
   </div>
@@ -124,7 +125,7 @@ button.control:disabled{opacity:.45;cursor:not-allowed}
 
 <section class="card intro-card" id="introCard">
   <figure class="intro-portrait">
-    <img src="images/henry_dorbigny_portrait.jpg?v=1.2" alt="M. Henry d’Orbigny" onerror="this.closest('figure').style.display='none'">
+    <img src="images/henry_dorbigny_portrait.jpg?v=1.2.1" alt="M. Henry d’Orbigny" onerror="this.closest('figure').style.display='none'">
     <figcaption>M. Henry d’Orbigny d’après une photo de Nadar</figcaption>
   </figure>
   <div class="intro-text">
@@ -1496,7 +1497,7 @@ let lang = 'fr';
 
 const UI = {
   fr: {
-    title: "Clé interactive multilingue des groupes d’<i>Onthophagus</i> de Henri d’Orbigny (1913), version 1.2",
+    title: "Clé interactive multilingue des groupes d’<i>Onthophagus</i> de Henri d’Orbigny (1913), version 1.2.1",
     subtitle: "Interface fondée sur les couplets originaux, avec notes, sommaires de groupes et navigation arrière.",
     question: "Choisissez l’énoncé qui correspond au spécimen examiné.",
     current: "Couplet",
@@ -1532,7 +1533,7 @@ const UI = {
     noteFor: "Note pour le couplet"
   },
   en: {
-    title: "Multilingual interactive key to Henri d’Orbigny’s groups of <i>Onthophagus</i> (1913), version 1.2",
+    title: "Multilingual interactive key to Henri d’Orbigny’s groups of <i>Onthophagus</i> (1913), version 1.2.1",
     subtitle: "Interface based on the original couplets, with notes, group summaries, and back navigation.",
     question: "Choose the statement that matches the specimen examined.",
     current: "Couplet",
@@ -1562,7 +1563,7 @@ const UI = {
     searchCount: "result(s)",
     citationTitle: "How to cite this resource",
     citationIntro: "Suggested citation for the interactive interface; the original taxonomic source remains d’Orbigny (1913).",
-    citationText: "Génier, F. 2026. Multilingual interactive key to Henri d’Orbigny’s groups of <i>Onthophagus</i> (1913). Version 1.2. Electronic resource. https://fgenier.github.io/onthophagus-key/. https://doi.org/10.5281/zenodo.19830544",
+    citationText: "Génier, F. 2026. Multilingual interactive key to Henri d’Orbigny’s groups of <i>Onthophagus</i> (1913). Version 1.2. Electronic resource. https://fgenier.github.io/onthophagus-key/. DOI: https://doi.org/10.5281/zenodo.19830544",
     copyCitation: "Copy citation",
     copiedCitation: "Citation copied",
     noteFor: "Note for couplet"
