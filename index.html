@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Multilingual interactive key to Henri d’Orbigny’s groups of Onthophagus (1913), version 1.0</title>
+<title>Multilingual interactive key to Henri d’Orbigny’s groups of Onthophagus (1913), version 1.2</title>
 
 <link rel="icon" href="images/onthophagus.ico" sizes="any" />
 <link rel="icon" type="image/jpeg" href="images/onthophagus.jpg" />
@@ -40,10 +40,20 @@ button.control:disabled{opacity:.45;cursor:not-allowed}
 .summary-item{font-family:Arial,sans-serif;border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px}
 .summary-item strong{display:block;color:var(--accent);font-size:.85rem;margin-bottom:4px}
 .diagnosis{white-space:pre-line;margin-top:12px}
+
+.group-extra{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;white-space:normal}
+.group-extra h3{font-family:Georgia,serif;color:var(--accent);font-size:1.08rem;margin:.2rem 0 .7rem}
+.group-extra p{margin:.65rem 0;line-height:1.55}
+.group-extra .genus-list{columns:2;column-gap:28px;margin:.5rem 0 .9rem 1.2rem;padding:0}
+.group-extra .genus-list li{break-inside:avoid;margin:.18rem 0}
+.group-extra .reference-list{margin:.5rem 0 .2rem 1.2rem;padding:0}
+.group-extra .reference-list li{margin:.45rem 0;line-height:1.45}
+@media (max-width:700px){.group-extra .genus-list{columns:1}}
+
 .notes{border-left:4px solid #e0c879;background:#fff9df;border-radius:12px;padding:12px 14px;margin-top:14px}
 .notes h3{font-family:Arial,sans-serif;color:var(--note);font-size:1rem;margin:.1rem 0 .5rem}
 .notes ol{margin:.2rem 0 .2rem 1.2rem;padding:0}
-.notes li{margin:.35rem 0}
+.notes li{margin:.35rem 0;white-space:pre-line}
 .path{font-family:Arial,sans-serif;font-size:.92rem;color:var(--muted)}
 .path ol{margin:.35rem 0 0;padding-left:1.2rem}
 .path li{margin:.2rem 0}
@@ -62,23 +72,37 @@ button.control:disabled{opacity:.45;cursor:not-allowed}
 .hero figcaption{font-family:Arial,sans-serif;color:var(--muted);font-size:.72rem;margin-top:4px;max-width:132px}
 @media (max-width:700px){header{align-items:flex-start;flex-direction:column}.hero{justify-content:flex-start;flex-wrap:wrap}.hero .portrait img,.hero .beetle img{width:112px;height:112px}}
 
+
+
+.intro-card{overflow:auto}
+.intro-card h2{margin:.1rem 0 1rem;color:var(--accent);font-size:1.35rem}
+.intro-portrait{float:left;width:min(42%,380px);margin:0 24px 14px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 6px 18px rgba(65,45,22,.14)}
+.intro-portrait img{display:block;width:100%;height:auto}
+.intro-portrait figcaption{font-family:Arial,sans-serif;color:var(--muted);font-size:.82rem;padding:8px 10px;background:#fffdf8;text-align:center}
+.intro-text{font-size:1rem}
+.intro-text h3{color:var(--accent);font-size:1.08rem;margin:.2rem 0 .6rem}
+.intro-text p{margin:.65rem 0}
+.intro-text hr{border:0;border-top:1px solid var(--line);margin:1.15rem 0}
+@media (max-width:760px){.intro-portrait{float:none;width:100%;max-width:420px;margin:0 auto 16px}.intro-text{font-size:.98rem}}
+
 @media (min-width:850px){.choices{grid-template-columns:1fr 1fr}}
+.home-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 </style>
 </head>
 <body>
 <div class="app">
 <header>
   <div>
-    <h1 id="title">Clé interactive multilingue des groupes d’<i>Onthophagus</i> de Henri d’Orbigny (1913), version 1.0</h1>
+    <h1 id="title">Clé interactive multilingue des groupes d’<i>Onthophagus</i> de Henri d’Orbigny (1913), version 1.2</h1>
     <p class="subtitle" id="subtitle">Interface fondée sur les couplets originaux, avec notes, sommaires de groupes et navigation arrière.</p>
   </div>
   <div class="hero" aria-label="Illustrations">
     <figure class="portrait">
-      <img src="images/orbigny.jpg" alt="Henri d’Orbigny" onerror="this.closest('figure').style.display='none'">
+      <img id="homePortrait" src="images/henry_dorbigny_small.jpg?v=1.2" alt="Henri d’Orbigny" title="Accueil / Home" style="cursor:pointer" onerror="this.closest('figure').style.display='none'">
       <figcaption>Henri d’Orbigny</figcaption>
     </figure>
     <figure class="beetle">
-      <img src="images/onthophagus.jpg" alt="Onthophagus teitanicus" onerror="this.closest('figure').style.display='none'">
+      <img src="images/onthophagus.jpg?v=1.2" alt="Onthophagus teitanicus" onerror="this.closest('figure').style.display='none'">
       <figcaption><i>Onthophagus teitanicus</i></figcaption>
     </figure>
   </div>
@@ -90,6 +114,37 @@ button.control:disabled{opacity:.45;cursor:not-allowed}
   <div class="language">
     <button class="control flag" onclick="startWithLang('fr')"><span class="flag-emoji" aria-hidden="true">🇫🇷</span> Français / French</button>
     <button class="control flag" onclick="startWithLang('en')"><span class="flag-emoji" aria-hidden="true">🇬🇧</span> English / Anglais</button>
+  
+  <div class="home-actions hidden" id="homeActions">
+    <button class="control" id="resumeHomeBtn"></button>
+    <button class="control" id="newHomeBtn"></button>
+  </div>
+</div>
+</section>
+
+<section class="card intro-card" id="introCard">
+  <figure class="intro-portrait">
+    <img src="images/henry_dorbigny_portrait.jpg?v=1.2" alt="M. Henry d’Orbigny" onerror="this.closest('figure').style.display='none'">
+    <figcaption>M. Henry d’Orbigny d’après une photo de Nadar</figcaption>
+  </figure>
+  <div class="intro-text">
+    <section lang="fr">
+      <h2>Henry d’Orbigny et les groupes d’espèces d’<i>Onthophagus</i></h2>
+      <p>Henry d'Orbigny (1845–1915) était un entomologiste français dont les travaux ont porté sur la systématique des Scarabaeidae, avec un accent particulier sur le genre <i>Onthophagus</i> Latreille, 1802. Il était le fils de Alcide d'Orbigny, mais, contrairement à ce dernier dont les recherches couvraient un large éventail de disciplines, il s’est spécialisé en taxonomie des coléoptères.</p>
+      <p>La contribution principale de d’Orbigny réside dans son traitement du genre <i>Onthophagus</i> au début du XXe siècle, dans lequel il propose une division en groupes d’espèces fondée sur des caractères morphologiques externes, notamment l’armature céphalique, la structure du pronotum et la morphologie générale du corps. Bien que ces regroupements soient antérieurs aux approches phylogénétiques modernes, ils constituent l’une des premières tentatives d’organisation globale de ce genre particulièrement diversifié.</p>
+      <p>Remarquablement, plus d’un siècle après leur publication, les clés d’identification de d’Orbigny demeurent le seul cadre synthétique disponible pour une grande partie de la faune d’Afrique subsaharienne. En conséquence, une proportion importante des espèces décrites ultérieurement a été explicitement rattachée à ses groupes d’espèces, ou comparée à ceux-ci dans leur diagnose. Ces groupes se sont ainsi maintenus comme un standard de facto dans la littérature taxonomique consacrée à <i>Onthophagus</i>, malgré leur absence de fondement phylogénétique.</p>
+      <p>d’Orbigny a décrit de nombreuses espèces, principalement à partir de matériel de collection d’origine extra-européenne. Ses descriptions, bien que souvent concises, sont généralement suffisantes pour assurer la reconnaissance taxonomique des espèces et continuent d’être consultées dans les révisions modernes.</p>
+      <p>La persistance de l’utilité pratique de cette classification, conjuguée à l’absence d’une synthèse moderne couvrant l’ensemble de la faune afrotropicale, a directement motivé le développement de la présente clé interactive. Cet outil s’appuie sur le cadre original de d’Orbigny tout en visant à améliorer l’accessibilité, la cohérence du codage des caractères et son intégration aux standards taxonomiques contemporains.</p>
+    </section>
+    <hr>
+    <section lang="en">
+      <h2>Henry d’Orbigny and the species groups of <i>Onthophagus</i></h2>
+      <p>Henry d'Orbigny (1845–1915) was a French entomologist whose work focused on the systematics of Scarabaeidae, with particular emphasis on the genus <i>Onthophagus</i> Latreille, 1802. He was the son of Alcide d'Orbigny, but, in contrast to his father’s broad natural history scope, he specialized in coleopteran taxonomy.</p>
+      <p>d’Orbigny’s principal contribution lies in his early twentieth-century treatment of <i>Onthophagus</i>, in which he proposed a division of the genus into species groups based on external morphological characters, notably cephalic armature, pronotal structure, and general body form. Although these groupings predate phylogenetic methodology, they represent one of the earliest attempts to impose a global structure on this highly diverse genus.</p>
+      <p>Remarkably, more than a century after their publication, d’Orbigny’s identification keys remain the only comprehensive framework available for a substantial portion of the sub-Saharan African fauna. As a consequence, a large proportion of species described subsequently have been explicitly assigned to, or compared against, his species groups in their diagnoses. These groups have therefore persisted as a de facto standard in the taxonomic literature on <i>Onthophagus</i>, despite their non-phylogenetic basis.</p>
+      <p>d’Orbigny described numerous species, primarily from extra-European regions, based largely on museum material. His descriptions, though often concise, are generally sufficient to support taxonomic recognition and continue to be consulted in modern revisions.</p>
+      <p>The enduring practical utility of his classification, coupled with the absence of a modern, fully revised synthesis for much of the Afrotropical fauna, directly motivated the development of the present interactive key. This tool builds upon d’Orbigny’s original framework while aiming to improve accessibility, consistency of character coding, and integration with contemporary taxonomic standards.</p>
+    </section>
   </div>
 </section>
 
@@ -137,7 +192,9 @@ const DATA = {
       "id": 1,
       "pair": 28,
       "terminal": null,
-      "noteIds": [],
+      "noteIds": [
+        10
+      ],
       "speciesRange": null,
       "text_fr": "<strong>Prothorax à ponctuation simple</strong>, non râpeuse ni granuleuse, même en devant ou sur les côtés, mais souvent ombiliquée, parfois l'intervalle des points légèrement convexe et formant des rides plus ou moins prononcées ; chez certaines espèces prothorax presque entièrement lisse.",
       "text_en": "<strong>Pronotum with simple punctation</strong>, neither rasp-like nor granulate, even anteriorly or laterally; punctures often umbilicate; interpunctural surface sometimes slightly convex, forming more or less distinct wrinkles; in some species pronotum almost entirely smooth.",
@@ -992,6 +1049,10 @@ const DATA = {
       "diagnosis": {
         "fr": "Épistome largement arrondi en devant dans son ensemble, mais la courbe brusquement interrompue dans le milieu par deux petites dents très saillantes et souvent une très petite échancrure située au côté externe de chaque dent ; tête complètement inerme, ou ayant soit une corne tronquée ou un tubercule, et souvent une carène située plus en avant, soit une ou deux carènes, et parfois le bord interne des yeux élevé en denticule. Prothorax entièrement garni d'une ponctuation simple ; la base plus ou moins distinctement rebordée. Élytres souvent très allongés et à côtés parallèles; interstries très distinctement granulés ou ponctués ; la 7e strie droite ou très faiblement sinueuse. Insectes entièrement noirs ou bruns, rarement avec la tête et le prothorax bronzés ou verdâtres. Les espèces de ce groupe sont toutes rares et ont presque toujours été trouvées isolément (1).\n(1) Je n'ai vu qu'un seul exemplaire de la plupart de ces espèces, et sans pouvoir déterminer avec certitude le sexe de l'insecte; il est fort possible que l'armature de la tête et celle du prothorax varient suivant le sexe et ne concordent pas toujours avec ce que j'ai indiqué.",
         "en": "Clypeus broadly rounded anteriorly as a whole, the curvature abruptly interrupted medially by two small, strongly produced teeth, often with a small lateral emargination. Head completely unarmed, or bearing a truncate horn or tubercle, often with a more anterior carina, or one or two carinae; inner eye margin sometimes denticulate. Pronotum with simple punctation throughout; base more or less distinctly bordered. Elytra often elongate with parallel sides; interstriae distinctly punctate or granulate; 7th stria straight or very weakly sinuate. Insects entirely black or brown, rarely with bronzed or greenish reflections. Species generally rare and often known from single specimens."
+      },
+      "extra": {
+        "fr": "<div class=\"group-extra\">\n<h3>Statut actuel des espèces du premier groupe</h3>\n<p>Les espèces appartenant au premier groupe de d’Orbigny sont aujourd’hui toutes placées dans des genres distincts d’<i>Onthophagus</i>. La majorité de ces genres a été décrite postérieurement à son synopsis. Seuls trois d’entre eux avaient été établis antérieurement.</p>\n<p>Le premier, <i>Stiptopodius</i> Harold, 1871, fut décrit à partir d’un seul spécimen et rapproché du genre <i>Onthocharis</i> Westwood, 1847 (actuellement synonyme de <i>Anomiopus</i> Westwood, 1842), un taxon strictement néotropical. Par la suite, Kolbe (1905) rattacha <i>Stiptopodius</i> aux « Pinotinae ».</p>\n<p>Un second genre, <i>Pinacotarsus</i> Harold, 1875, également décrit par Harold et ultérieurement placé dans les Oniticellini par Kolbe (1905), n’avait jamais été examiné directement par d’Orbigny, qui précise : « Ne connaissant ce genre que d’après la description de Harold, qui le place près des <i>Oniticellus</i>, je ne l’avais pas compris dans mon synopsis des Onthophagides d’Afrique ».</p>\n<p>Le troisième genre, <i>Heteroclitopus</i> Péringuey, 1901, n’est mentionné dans aucun des travaux de d’Orbigny, probablement en raison de son positionnement taxonomique encore incertain à l’époque, et de son absence de rattachement explicite aux Onthophagini. Sa description originale suit celle du genre <i>Macroderes</i> dans le travail de Péringuey (1901), où figure également le genre <i>Saproecius</i> Péringuey, 1901, aujourd’hui considéré comme synonyme de <i>Stiptopodius</i>.</p>\n<p>Les espèces de ce groupe sont, dans l’ensemble, rares dans les collections. À quelques exceptions près, elles sont très rarement capturées au moyen de pièges à fosse appâtés avec des excréments. Elles sont plus fréquemment collectées à la lumière ou au moyen de pièges d’interception.</p>\n<p>Les espèces du premier groupe sont actuellement réparties dans les genres suivants :</p>\n<ul class=\"genus-list\">\n<li><i>Alloscellus</i> Boucomont, 1923</li>\n<li><i>Cambefortius</i> Branco, 1989</li>\n<li><i>Dorbignyolus</i> Branco, 1989</li>\n<li><i>Eusaproecius</i> Branco, 1989</li>\n<li><i>Heteroclitopus</i> Péringuey, 1901</li>\n<li><i>Krikkenius</i> Branco, 1992</li>\n<li><i>Neosaproecius</i> Branco, 1990</li>\n<li><i>Pinacopodius</i> Branco, 1992</li>\n<li><i>Pinacotarsus</i> Harold, 1875</li>\n<li><i>Pseudosaproecius</i> Balthasar, 1941</li>\n<li><i>Stiptocnemis</i> Branco, 1989</li>\n<li><i>Stiptopodius</i> Harold, 1871</li>\n<li><i>Stiptotarsus</i> Branco, 1989</li>\n<li><i>Sukelus</i> Branco, 1992</li>\n</ul>\n<p>La plupart des espèces ont été révisées dans une série de travaux de Branco, qui culminent avec une synthèse incluant une clé des genres (Branco 2002).</p>\n<h3>Références</h3>\n<ul class=\"reference-list\">\n<li>Branco, T. (1989) Étude de <i>Cambefortius</i> gen. n. et diagnose préliminaire de quatre nouveaux genres d’Onthophagini afrotropicaux (Coleoptera: Scarabaeidae). <i>Annales de la Société Entomologique de France (Nouvelle série)</i>, 25 (3), 249–263.</li>\n<li>Branco, T. (1990) Essai de révision des genres du « groupe » <i>Stiptopodius</i>: le genre <i>Neosaproecius</i> nov. (Coleoptera: Scarabaeidae). <i>Annales de la Société Entomologique de France (Nouvelle série)</i>, 26 (4), 595–599.</li>\n<li>Branco, T. (1991) Révision des genres du « groupe » <i>Stiptopodius</i>: les genres <i>Stiptopodius</i> Harold et <i>Stiptotarsus</i> Branco (Coleoptera: Scarabaeidae). <i>Annales de la Société Entomologique de France (Nouvelle série)</i>, 27 (3), 265–285.</li>\n<li>Branco, T. (1992a) Essai de révision des genres du « groupe » <i>Stiptopodius</i>: les genres <i>Pinacotarsus</i> Harold, <i>Heteroclitopus</i> Péringuey, <i>Dorbignyolus</i> Branco, <i>Eusaproecius</i> Branco, <i>Stiptocnemis</i> Branco, <i>Falcidius</i> nov., <i>Krikkenius</i> nov. et <i>Pinacopodius</i> nov. (Coleoptera: Scarabaeidae). <i>Memorie della Società Entomologica Italiana</i>, 70 (2), 103–162.</li>\n<li>Branco, T. (1992b) Révision des genres du « groupe » <i>Stiptopodius</i>: données complémentaires (Coleoptera: Scarabaeidae). <i>Annales de la Société Entomologique de France (Nouvelle série)</i>, 28 (2), 101–108.</li>\n<li>Branco, T. (1992c) <i>Sukelus</i>, un nouveau nom pour <i>Falcidius</i> Branco (Coleoptera: Scarabaeidae). <i>Nouvelle Revue d’Entomologie (N.S.)</i>, 9 (3), 231.</li>\n<li>Branco, T. (1995) Essai de révision des genres du « groupe » <i>Stiptopodius</i>: le genre <i>Pseudosaproecius</i> Balthasar (Coleoptera: Scarabaeidae). <i>Memorie della Società Entomologica Italiana</i>, 73, 195–230.</li>\n<li>Branco, T. (1997) Révision du genre <i>Alloscellus</i> Boucomont, 1923 (Coleoptera: Scarabaeidae). <i>Elytron</i>, 10, 107–122.</li>\n<li>Branco, T. (2002) Number of segments in the hind tarsi of <i>Dorbignyolus mirecribratus</i> and <i>Krikkenius smeenki</i>: a rectification to Branco (1992) (Coleoptera: Scarabaeidae: Onthophagini). <i>Elytron</i>, 16, 69–74.</li>\n</ul>\n</div>",
+        "en": "<div class=\"group-extra\">\n<h3>Current status of species of the first group</h3>\n<p>The species belonging to d’Orbigny’s first group are now all placed in genera other than <i>Onthophagus</i>. Most of these genera were described after his synopsis, with only three having been established beforehand.</p>\n<p>The first, <i>Stiptopodius</i> Harold, 1871, was described from a single specimen and considered close to <i>Onthocharis</i> Westwood, 1847 (now a synonym of <i>Anomiopus</i> Westwood, 1842), a strictly Neotropical genus. It was later placed in the “Pinotinae” by Kolbe (1905).</p>\n<p>A second genus, <i>Pinacotarsus</i> Harold, 1875, also described by Harold and subsequently assigned to the Oniticellini by Kolbe (1905), had not been examined directly by d’Orbigny, who stated: “Knowing this genus only from Harold’s description, who places it near <i>Oniticellus</i>, I did not include it in my synopsis of the African Onthophagides.”</p>\n<p>The third genus, <i>Heteroclitopus</i> Péringuey, 1901, is not mentioned in any of d’Orbigny’s works, probably because its taxonomic placement remained unclear at the time and it had not been explicitly associated with the Onthophagini. Its original description follows that of the genus <i>Macroderes</i> in Péringuey’s work, which also includes the genus <i>Saproecius</i> Péringuey, 1901, now considered a synonym of <i>Stiptopodius</i>.</p>\n<p>Species of this group are generally rare in collections. With a few exceptions, they are only rarely collected in dung-baited pitfall traps. They are more frequently obtained using light traps or interception traps.</p>\n<p>The species of the first group are currently distributed among the following genera:</p>\n<ul class=\"genus-list\">\n<li><i>Alloscellus</i> Boucomont, 1923</li>\n<li><i>Cambefortius</i> Branco, 1989</li>\n<li><i>Dorbignyolus</i> Branco, 1989</li>\n<li><i>Eusaproecius</i> Branco, 1989</li>\n<li><i>Heteroclitopus</i> Péringuey, 1901</li>\n<li><i>Krikkenius</i> Branco, 1992</li>\n<li><i>Neosaproecius</i> Branco, 1990</li>\n<li><i>Pinacopodius</i> Branco, 1992</li>\n<li><i>Pinacotarsus</i> Harold, 1875</li>\n<li><i>Pseudosaproecius</i> Balthasar, 1941</li>\n<li><i>Stiptocnemis</i> Branco, 1989</li>\n<li><i>Stiptopodius</i> Harold, 1871</li>\n<li><i>Stiptotarsus</i> Branco, 1989</li>\n<li><i>Sukelus</i> Branco, 1992</li>\n</ul>\n<p>Most species have been revised in a series of works by Branco, culminating in a synthesis that includes a key to the genera (Branco 2002).</p>\n<h3>References</h3>\n<ul class=\"reference-list\">\n<li>Branco, T. (1989) Étude de <i>Cambefortius</i> gen. n. et diagnose préliminaire de quatre nouveaux genres d’Onthophagini afrotropicaux (Coleoptera: Scarabaeidae). <i>Annales de la Société Entomologique de France (Nouvelle série)</i>, 25 (3), 249–263.</li>\n<li>Branco, T. (1990) Essai de révision des genres du « groupe » <i>Stiptopodius</i>: le genre <i>Neosaproecius</i> nov. (Coleoptera: Scarabaeidae). <i>Annales de la Société Entomologique de France (Nouvelle série)</i>, 26 (4), 595–599.</li>\n<li>Branco, T. (1991) Révision des genres du « groupe » <i>Stiptopodius</i>: les genres <i>Stiptopodius</i> Harold et <i>Stiptotarsus</i> Branco (Coleoptera: Scarabaeidae). <i>Annales de la Société Entomologique de France (Nouvelle série)</i>, 27 (3), 265–285.</li>\n<li>Branco, T. (1992a) Essai de révision des genres du « groupe » <i>Stiptopodius</i>: les genres <i>Pinacotarsus</i> Harold, <i>Heteroclitopus</i> Péringuey, <i>Dorbignyolus</i> Branco, <i>Eusaproecius</i> Branco, <i>Stiptocnemis</i> Branco, <i>Falcidius</i> nov., <i>Krikkenius</i> nov. et <i>Pinacopodius</i> nov. (Coleoptera: Scarabaeidae). <i>Memorie della Società Entomologica Italiana</i>, 70 (2), 103–162.</li>\n<li>Branco, T. (1992b) Révision des genres du « groupe » <i>Stiptopodius</i>: données complémentaires (Coleoptera: Scarabaeidae). <i>Annales de la Société Entomologique de France (Nouvelle série)</i>, 28 (2), 101–108.</li>\n<li>Branco, T. (1992c) <i>Sukelus</i>, un nouveau nom pour <i>Falcidius</i> Branco (Coleoptera: Scarabaeidae). <i>Nouvelle Revue d’Entomologie (N.S.)</i>, 9 (3), 231.</li>\n<li>Branco, T. (1995) Essai de révision des genres du « groupe » <i>Stiptopodius</i>: le genre <i>Pseudosaproecius</i> Balthasar (Coleoptera: Scarabaeidae). <i>Memorie della Società Entomologica Italiana</i>, 73, 195–230.</li>\n<li>Branco, T. (1997) Révision du genre <i>Alloscellus</i> Boucomont, 1923 (Coleoptera: Scarabaeidae). <i>Elytron</i>, 10, 107–122.</li>\n<li>Branco, T. (2002) Number of segments in the hind tarsi of <i>Dorbignyolus mirecribratus</i> and <i>Krikkenius smeenki</i>: a rectification to Branco (1992) (Coleoptera: Scarabaeidae: Onthophagini). <i>Elytron</i>, 16, 69–74.</li>\n</ul>\n</div>"
       }
     },
     "2": {
@@ -1408,7 +1469,8 @@ const DATA = {
       "6": "Cette carène existe également chez toutes les espèces des 11 premiers groupes et chez toutes celles des autres sous-genres ; elle existe également chez les autres genres d'Onthophagides.",
       "7": "Certaines ♀ ont la carène simple et peuvent être confondues avec les espèces des groupes précédents ; elles sont indiquées en note dans les tableaux de ces groupes.",
       "8": "Les ♀ et petits ♂ qui ont seulement sur le vertex une carène simple peuvent être confondus avec les espèces du 23e groupe ; ils sont indiqués en note dans le tableau de ce groupe.",
-      "9": "Ce caractère existe chez presque toutes les espèces des groupes précédents, quelques-unes seulement ont la ligne cariniforme conformée comme chez les espèces des 31e et 32e groupes."
+      "9": "Ce caractère existe chez presque toutes les espèces des groupes précédents, quelques-unes seulement ont la ligne cariniforme conformée comme chez les espèces des 31e et 32e groupes.",
+      "10": "<strong>Glossaire des ponctuations (d’Orbigny)</strong>\n\n• <strong>Ponctuation simple.</strong> Points plus ou moins profonds, à bords non saillants ; points ponctiformes, à fond plat, ocellés (à fond convexe), ou ombiliqués (avec un point plus profond au centre).\n• <strong>Ponctuation rugueuse.</strong> Ponctuation simple dont les intervalles forment des rides transverses ou obliques.\n• <strong>Ponctuation râpeuse.</strong> Points dont le bord antérieur est relevé en aspérité irrégulière.\n• <strong>Ponctuation granuleuse.</strong> Points dont le bord antérieur forme un granule arrondi, échancrant souvent ce bord.\n• <strong>Ponctuation composée (rare).</strong> Grand point peu profond contenant un petit granule interne.\n• <strong>Granulation.</strong> Surface garnie de granules (petites élévations hémisphériques ou allongées) ; avec dépression visible associée, transition vers une ponctuation granuleuse."
     },
     "en": {
       "1": "I describe the head as unarmed when it has neither carinae nor horns or tubercles, and not, as some authors do, when it lacks horns only. For the pronotum, I describe the anterior portion as simple when it has neither elevations nor depressions.",
@@ -1419,10 +1481,11 @@ const DATA = {
       "6": "This carina is also present in all species of the first 11 groups and in all species of the other subgenera; it is also present in the other genera of Onthophagides.",
       "7": "Some females have a simple carina and may be confused with species of the preceding groups; they are indicated in notes in the tables of those groups.",
       "8": "Females and small males with only a simple carina on the vertex may be confused with species of Group 23; they are indicated in a note in the table for that group.",
-      "9": "This character is present in almost all species of the preceding groups; only a few have the cariniform line shaped as in the species of Groups 31 and 32."
+      "9": "This character is present in almost all species of the preceding groups; only a few have the cariniform line shaped as in the species of Groups 31 and 32.",
+      "10": "<strong>Glossary of punctation types (d’Orbigny)</strong>\n\n• <strong>Simple punctation.</strong> Punctures more or less deep, with non-raised margins; punctures punctiform, flat-bottomed, ocellate (with convex bottom), or umbilicate (with a deeper point at the center).\n• <strong>Rugose punctation.</strong> Simple punctation in which the intervals form transverse or oblique ridges.\n• <strong>Rasp-like punctation.</strong> Punctures with the anterior margin raised into an irregular asperity.\n• <strong>Granulate punctation.</strong> Punctures whose anterior margin forms a rounded granule, often notching that margin.\n• <strong>Composite punctation (rare).</strong> Large, shallow puncture containing a small internal granule.\n• <strong>Granulation.</strong> Surface covered with granules (small, usually hemispherical or elongate elevations); when associated with a visible depression, grading into granulate punctation."
     }
   }
-}
+};
 
 let KEY = DATA.key;
 let GROUPS = DATA.groups;
@@ -1433,7 +1496,7 @@ let lang = 'fr';
 
 const UI = {
   fr: {
-    title: "Clé interactive multilingue des groupes d’<i>Onthophagus</i> de Henri d’Orbigny (1913), version 1.0",
+    title: "Clé interactive multilingue des groupes d’<i>Onthophagus</i> de Henri d’Orbigny (1913), version 1.2",
     subtitle: "Interface fondée sur les couplets originaux, avec notes, sommaires de groupes et navigation arrière.",
     question: "Choisissez l’énoncé qui correspond au spécimen examiné.",
     current: "Couplet",
@@ -1444,6 +1507,8 @@ const UI = {
     seeGroup: "Renvoi",
     back: "← Retour",
     restart: "Nouvelle détermination",
+    resumeIdentification: "Reprendre l’identification",
+    newIdentification: "Nouvelle identification",
     pathTitle: "Parcours",
     noPath: "Aucun choix effectué.",
     searchTitle: "Recherche rapide dans les énoncés",
@@ -1461,13 +1526,13 @@ const UI = {
     searchCount: "résultat(s)",
     citationTitle: "Comment citer cette ressource",
     citationIntro: "Citation suggérée pour l’interface interactive; la source taxonomique originale demeure d’Orbigny (1913).",
-    citationText: "Génier, F. 2026. Clé interactive multilingue des groupes d’<i>Onthophagus</i> de Henri d’Orbigny (1913), version 1.0. Ressource électronique fondée sur le <i>Tableau des groupes d’Onthophagus</i> et les diagnoses originales.",
+    citationText: "Génier, F. 2026. Clé interactive multilingue des groupes d’<i>Onthophagus</i> de Henri d’Orbigny (1913). Version 1.2. Ressource électronique. https://fgenier.github.io/onthophagus-key/. DOI: https://doi.org/10.5281/zenodo.19793731",
     copyCitation: "Copier la citation",
     copiedCitation: "Citation copiée",
     noteFor: "Note pour le couplet"
   },
   en: {
-    title: "Multilingual interactive key to Henri d’Orbigny’s groups of <i>Onthophagus</i> (1913), version 1.0",
+    title: "Multilingual interactive key to Henri d’Orbigny’s groups of <i>Onthophagus</i> (1913), version 1.2",
     subtitle: "Interface based on the original couplets, with notes, group summaries, and back navigation.",
     question: "Choose the statement that matches the specimen examined.",
     current: "Couplet",
@@ -1478,6 +1543,8 @@ const UI = {
     seeGroup: "Reference",
     back: "← Back",
     restart: "New identification",
+    resumeIdentification: "Resume identification",
+    newIdentification: "New identification",
     pathTitle: "Path",
     noPath: "No choice made.",
     searchTitle: "Quick search in the statements",
@@ -1495,7 +1562,7 @@ const UI = {
     searchCount: "result(s)",
     citationTitle: "How to cite this resource",
     citationIntro: "Suggested citation for the interactive interface; the original taxonomic source remains d’Orbigny (1913).",
-    citationText: "Génier, F. 2026. Multilingual interactive key to Henri d’Orbigny’s groups of <i>Onthophagus</i> (1913), version 1.0. Electronic resource based on d’Orbigny’s <i>Tableau des groupes d’Onthophagus</i> and original group diagnoses.",
+    citationText: "Génier, F. 2026. Multilingual interactive key to Henri d’Orbigny’s groups of <i>Onthophagus</i> (1913). Version 1.2. Electronic resource. https://fgenier.github.io/onthophagus-key/. DOI: https://doi.org/10.5281/zenodo.19793731",
     copyCitation: "Copy citation",
     copiedCitation: "Citation copied",
     noteFor: "Note for couplet"
@@ -1512,6 +1579,7 @@ const pathEl = document.getElementById('path');
 const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
 const startCard = document.getElementById('startCard');
+const introCard = document.getElementById('introCard');
 const mainCard = document.getElementById('mainCard');
 const pathCard = document.getElementById('pathCard');
 const searchCard = document.getElementById('searchCard');
@@ -1519,6 +1587,10 @@ const citationCard = document.getElementById('citationCard');
 const langSelect = document.getElementById('langSelect');
 const copyCitationBtn = document.getElementById('copyCitationBtn');
 const copyStatus = document.getElementById('copyStatus');
+const homeActions = document.getElementById('homeActions');
+const resumeHomeBtn = document.getElementById('resumeHomeBtn');
+const newHomeBtn = document.getElementById('newHomeBtn');
+const homePortrait = document.getElementById('homePortrait');
 
 
 const TAXON_NAMES = ["Onthophagus","taurus","raffrayi","obliquus","nigerianus","pilosus","rhynchophorus","laminidorsis","confertus","bisignatus","purifrons","proteus","depressus","marmoreus","suffusus","immundus","meliteus"];
@@ -1566,15 +1638,62 @@ function groupTitle(n) {
   return g ? g[lang + 'Name'] : (lang === 'fr' ? n + "e groupe" : "Group " + n);
 }
 
-function startWithLang(l) {
-  lang = l;
-  langSelect.value = l;
+let lastTerminalChoiceId = null;
+
+function hasActiveIdentification() {
+  return history.length > 0 || current !== 1 || lastTerminalChoiceId !== null;
+}
+
+function showHome() {
+  startCard.classList.remove('hidden');
+  introCard.classList.remove('hidden');
+  mainCard.classList.add('hidden');
+  pathCard.classList.add('hidden');
+  searchCard.classList.add('hidden');
+  citationCard.classList.add('hidden');
+  const u = UI[lang];
+  if (hasActiveIdentification()) {
+    homeActions.classList.remove('hidden');
+    resumeHomeBtn.textContent = u.resumeIdentification;
+    newHomeBtn.textContent = u.newIdentification;
+  } else {
+    homeActions.classList.add('hidden');
+  }
+}
+
+function resumeIdentification() {
   startCard.classList.add('hidden');
+  introCard.classList.add('hidden');
   mainCard.classList.remove('hidden');
   pathCard.classList.remove('hidden');
   searchCard.classList.remove('hidden');
   citationCard.classList.remove('hidden');
-  restart();
+  if (lastTerminalChoiceId !== null) {
+    showResult(KEY[String(lastTerminalChoiceId)]);
+  } else {
+    render();
+  }
+  search();
+}
+
+function newIdentification(l = lang) {
+  lang = l;
+  langSelect.value = l;
+  current = 1;
+  history = [];
+  lastTerminalChoiceId = null;
+  startCard.classList.add('hidden');
+  introCard.classList.add('hidden');
+  mainCard.classList.remove('hidden');
+  pathCard.classList.remove('hidden');
+  searchCard.classList.remove('hidden');
+  citationCard.classList.remove('hidden');
+  render();
+  search();
+}
+
+function startWithLang(l) {
+  newIdentification(l);
 }
 
 function applyUI() {
@@ -1602,6 +1721,7 @@ function choiceText(node) {
 }
 
 function render() {
+  lastTerminalChoiceId = null;
   applyUI();
   const u = UI[lang];
   resultEl.classList.add('hidden');
@@ -1651,6 +1771,7 @@ function choose(id) {
   const node = KEY[String(id)];
   history.push({couplet: current, choice: id});
   if (node.terminal_fr) {
+    lastTerminalChoiceId = id;
     showResult(node);
   } else {
     current = nextCouplet(node);
@@ -1676,7 +1797,8 @@ function showResult(node) {
         <div class="summary-item"><strong>${u.speciesCount}</strong>${g.count} ${spLabel}</div>
       </div>
       <h3>${u.originalDiagnosis}</h3>
-      <div class="diagnosis">${markupText(g.diagnosis[lang] || g.diagnosis.fr)}</div>`;
+      <div class="diagnosis">${markupText(g.diagnosis[lang] || g.diagnosis.fr)}</div>${g.extra ? `
+      ${g.extra[lang] || g.extra.fr}` : ``}`;
   } else {
     groupHtml = `<h2>${labelTerminal(node)}</h2>`;
   }
@@ -1701,6 +1823,7 @@ function renderPath() {
 
 function goBack() {
   if (!history.length) return;
+  lastTerminalChoiceId = null;
   const last = history.pop();
   current = last.couplet;
   render();
@@ -1709,6 +1832,7 @@ function goBack() {
 function restart() {
   current = 1;
   history = [];
+  lastTerminalChoiceId = null;
   render();
 }
 
@@ -1740,7 +1864,26 @@ async function copyCitation() {
 }
 copyCitationBtn.addEventListener('click', copyCitation);
 
-langSelect.addEventListener('change', e => { lang = e.target.value; render(); search(); });
+function changeLanguage(l) {
+  lang = l;
+  langSelect.value = l;
+  const showingHome = !startCard.classList.contains('hidden');
+  const activeResultNode = lastTerminalChoiceId !== null ? KEY[String(lastTerminalChoiceId)] : null;
+  if (showingHome) {
+    applyUI();
+    showHome();
+  } else if (activeResultNode && activeResultNode.terminal_fr) {
+    applyUI();
+    showResult(activeResultNode);
+  } else {
+    render();
+  }
+  search();
+}
+langSelect.addEventListener('change', e => changeLanguage(e.target.value));
+resumeHomeBtn.addEventListener('click', resumeIdentification);
+newHomeBtn.addEventListener('click', () => newIdentification(lang));
+homePortrait.addEventListener('click', showHome);
 applyUI();
 </script>
 </body>
