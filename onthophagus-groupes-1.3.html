@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Multilingual interactive key to Henri d’Orbigny’s groups of Onthophagus (1913), version 1.3</title>
+
+<link rel="icon" href="images/onthophagus.ico" sizes="any" />
+<link rel="icon" type="image/jpeg" href="images/onthophagus.jpg" />
+<style>
+:root {
+  --bg:#f6f3ee; --panel:#fffdf8; --ink:#1f1d1a; --muted:#69645d; --line:#d8d0c4; --accent:#5b3418; --accent2:#efe3d3; --ok:#1f5f3b; --note:#6b4a00;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--ink);line-height:1.46}
+.app{max-width:1120px;margin:0 auto;padding:28px 18px 42px}
+header{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:18px}
+h1{font-size:clamp(1.4rem,2.5vw,2.25rem);margin:0;color:var(--accent)}
+.subtitle{margin:.25rem 0 0;color:var(--muted);font-size:.98rem}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 24px rgba(65,45,22,.08);padding:20px;margin:14px 0}
+.topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.badge{font-family:Arial,sans-serif;font-size:.82rem;border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 10px;color:var(--muted)}
+.question{font-family:Arial,sans-serif;color:var(--muted);font-size:.98rem;margin:12px 0 0}
+.choices{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px}
+.choice{text-align:left;width:100%;border:1.5px solid var(--line);background:#fff;border-radius:16px;padding:16px 18px;cursor:pointer;transition:.15s ease;font:inherit;color:inherit;display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;height:100%}
+.choice:hover{border-color:var(--accent);background:var(--accent2);transform:translateY(-1px)}
+.choice:focus{outline:3px solid rgba(91,52,24,.25)}
+.choice-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;font-family:Arial,sans-serif}
+.choice-num{font-weight:700;color:var(--accent)}
+.choice-next{font-size:.85rem;color:var(--muted)}
+.choice-text{font-size:1.02rem;text-align:left}.citation{font-size:.95rem}.citation p{margin:.45rem 0}.citation .cite-line{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}.citation-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}.copy-status{font-family:Arial,sans-serif;color:var(--ok);font-size:.85rem}
+.controls,.language{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+button.control, select.control{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 13px;cursor:pointer;font-family:Arial,sans-serif;color:var(--ink)}
+button.flag{font-size:1rem;min-width:170px;text-align:left}.flag-emoji{font-size:1.35rem;margin-right:8px;vertical-align:-.1em}
+button.control:hover, select.control:hover{border-color:var(--accent);background:var(--accent2)}
+button.control:disabled{opacity:.45;cursor:not-allowed}
+.result{border-color:#bdd8c2;background:#f6fff7}
+.result h2{margin:0 0 10px;color:var(--ok)}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:12px 0}
+.summary-item{font-family:Arial,sans-serif;border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px}
+.summary-item strong{display:block;color:var(--accent);font-size:.85rem;margin-bottom:4px}
+.diagnosis{white-space:pre-line;margin-top:12px}
+
+.group-extra{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;white-space:normal}
+.group-extra h3{font-family:Georgia,serif;color:var(--accent);font-size:1.08rem;margin:.2rem 0 .7rem}
+.group-extra p{margin:.65rem 0;line-height:1.55}
+.group-extra .genus-list{columns:2;column-gap:28px;margin:.5rem 0 .9rem 1.2rem;padding:0}
+.group-extra .genus-list li{break-inside:avoid;margin:.18rem 0}
+.group-extra .reference-list{margin:.5rem 0 .2rem 1.2rem;padding:0}
+.group-extra .reference-list li{margin:.45rem 0;line-height:1.45}
+@media (max-width:700px){.group-extra .genus-list{columns:1}}
+
+.notes{border-left:4px solid #e0c879;background:#fff9df;border-radius:12px;padding:12px 14px;margin-top:14px}
+.notes h3{font-family:Arial,sans-serif;color:var(--note);font-size:1rem;margin:.1rem 0 .5rem}
+.notes ol{margin:.2rem 0 .2rem 1.2rem;padding:0}
+.notes li{margin:.35rem 0;white-space:pre-line}
+.path{font-family:Arial,sans-serif;font-size:.92rem;color:var(--muted)}
+.path ol{margin:.35rem 0 0;padding-left:1.2rem}
+.path li{margin:.2rem 0}
+.search{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.search input{flex:1;min-width:230px;border:1px solid var(--line);border-radius:12px;padding:10px;font-family:Arial,sans-serif}
+.small{font-family:Arial,sans-serif;color:var(--muted);font-size:.88rem}
+.hidden{display:none}
+
+.hero{display:flex;gap:14px;align-items:flex-start;justify-content:flex-end;flex-wrap:nowrap;min-width:290px}
+.hero figure{margin:0;text-align:center}
+.hero img{display:block;object-fit:cover;border-radius:16px;border:1px solid var(--line);background:#fff;box-shadow:0 4px 14px rgba(65,45,22,.10)}
+.hero .portrait img,.hero .beetle img{width:132px;height:132px}
+.hero .portrait img{object-fit:cover}
+.hero .beetle img{object-fit:contain;padding:4px}
+.hero .portrait img{filter:sepia(.15)}
+.hero figcaption{font-family:Arial,sans-serif;color:var(--muted);font-size:.72rem;margin-top:4px;max-width:132px}
+@media (max-width:700px){header{align-items:flex-start;flex-direction:column}.hero{justify-content:flex-start;flex-wrap:wrap}.hero .portrait img,.hero .beetle img{width:112px;height:112px}}
+
+
+
+.intro-card{overflow:auto}
+.intro-card h2{margin:.1rem 0 1rem;color:var(--accent);font-size:1.35rem}
+.intro-portrait{float:left;width:min(42%,380px);margin:0 24px 14px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 6px 18px rgba(65,45,22,.14)}
+.intro-portrait img{display:block;width:100%;height:auto}
+.intro-portrait figcaption{font-family:Arial,sans-serif;color:var(--muted);font-size:.82rem;padding:8px 10px;background:#fffdf8;text-align:center}
+.intro-text{font-size:1rem}
+.intro-text h3{color:var(--accent);font-size:1.08rem;margin:.2rem 0 .6rem}
+.intro-text p{margin:.65rem 0}
+.intro-text hr{border:0;border-top:1px solid var(--line);margin:1.15rem 0}
+@media (max-width:760px){.intro-portrait{float:none;width:100%;max-width:420px;margin:0 auto 16px}.intro-text{font-size:.98rem}}
+
+@media (min-width:850px){.choices{grid-template-columns:1fr 1fr}}
+.home-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.home-actions.hidden{display:none}
+.doi-badge{margin:.5rem 0 0}
+.doi-badge img{height:20px;border:0;vertical-align:middle}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div>
+    <h1 id="title">Clé interactive multilingue des groupes d’<i>Onthophagus</i> de Henri d’Orbigny (1913), version 1.3</h1>
+    <p class="subtitle" id="subtitle">Interface fondée sur les couplets originaux, avec notes, sommaires de groupes et navigation arrière.</p>
+  </div>
+  <div class="hero" aria-label="Illustrations">
+    <figure class="portrait">
+      <img id="homePortrait" src="images/henry_dorbigny_small.jpg?v=1.3" alt="Henri d’Orbigny" title="Accueil / Home" style="cursor:pointer" onerror="this.closest('figure').style.display='none'">
+      <figcaption>Henri d’Orbigny</figcaption>
+    </figure>
+    <figure class="beetle">
+      <img src="images/onthophagus.jpg?v=1.3" alt="Onthophagus teitanicus" onerror="this.closest('figure').style.display='none'">
+      <figcaption><i>Onthophagus teitanicus</i></figcaption>
+    </figure>
+  </div>
+</header>
+
+<section class="card" id="startCard">
+  <strong id="chooseLangTitle">Choisir la langue / Choose the language</strong>
+  <p class="small" id="chooseLangText">Sélectionnez la langue de la clé avant de commencer la détermination. / Select the language of the key before starting the identification.</p>
+  <div class="language">
+    <button class="control flag langStartBtn" onclick="startWithLang('fr')" disabled><span class="flag-emoji" aria-hidden="true">🇫🇷</span> Français / French</button>
+    <button class="control flag langStartBtn" onclick="startWithLang('en')" disabled><span class="flag-emoji" aria-hidden="true">🇬🇧</span> English / Anglais</button>
+    <button class="control flag langStartBtn" onclick="startWithLang('de')" disabled><span class="flag-emoji" aria-hidden="true">🇩🇪</span> Deutsch / German</button>
+  </div>
+  <div class="home-actions hidden" id="homeActions">
+    <button class="control" id="resumeHomeBtn"></button>
+    <button class="control" id="newHomeBtn"></button>
+  </div>
+</section>
+
+<section class="card intro-card" id="introCard">
+  <figure class="intro-portrait">
+    <img src="images/henry_dorbigny_portrait.jpg?v=1.3" alt="M. Henry d’Orbigny" onerror="this.closest('figure').style.display='none'">
+    <figcaption>M. Henry d’Orbigny d’après une photo de Nadar</figcaption>
+  </figure>
+  <div class="intro-text">
+    <section lang="fr">
+      <h2>Henry d’Orbigny et les groupes d’espèces d’<i>Onthophagus</i></h2>
+      <p>Henry d'Orbigny (1845–1915) était un entomologiste français dont les travaux ont porté sur la systématique des Scarabaeidae, avec un accent particulier sur le genre <i>Onthophagus</i> Latreille, 1802. Il était le fils de Alcide d'Orbigny, mais, contrairement à ce dernier dont les recherches couvraient un large éventail de disciplines, il s’est spécialisé en taxonomie des coléoptères.</p>
+      <p>La contribution principale de d’Orbigny réside dans son traitement du genre <i>Onthophagus</i> au début du XXe siècle, dans lequel il propose une division en groupes d’espèces fondée sur des caractères morphologiques externes, notamment l’armature céphalique, la structure du pronotum et la morphologie générale du corps. Bien que ces regroupements soient antérieurs aux approches phylogénétiques modernes, ils constituent l’une des premières tentatives d’organisation globale de ce genre particulièrement diversifié.</p>
+      <p>Remarquablement, plus d’un siècle après leur publication, les clés d’identification de d’Orbigny demeurent le seul cadre synthétique disponible pour une grande partie de la faune d’Afrique subsaharienne. En conséquence, une proportion importante des espèces décrites ultérieurement a été explicitement rattachée à ses groupes d’espèces, ou comparée à ceux-ci dans leur diagnose. Ces groupes se sont ainsi maintenus comme un standard de facto dans la littérature taxonomique consacrée à <i>Onthophagus</i>, malgré leur absence de fondement phylogénétique.</p>
+      <p>d’Orbigny a décrit de nombreuses espèces, principalement à partir de matériel de collection d’origine extra-européenne. Ses descriptions, bien que souvent concises, sont généralement suffisantes pour assurer la reconnaissance taxonomique des espèces et continuent d’être consultées dans les révisions modernes.</p>
+      <p>La persistance de l’utilité pratique de cette classification, conjuguée à l’absence d’une synthèse moderne couvrant l’ensemble de la faune afrotropicale, a directement motivé le développement de la présente clé interactive. Cet outil s’appuie sur le cadre original de d’Orbigny tout en visant à améliorer l’accessibilité, la cohérence du codage des caractères et son intégration aux standards taxonomiques contemporains.</p>
+    </section>
+    <hr>
+    <section lang="en">
+      <h2>Henry d’Orbigny and the species groups of <i>Onthophagus</i></h2>
+      <p>Henry d'Orbigny (1845–1915) was a French entomologist whose work focused on the systematics of Scarabaeidae, with particular emphasis on the genus <i>Onthophagus</i> Latreille, 1802. He was the son of Alcide d'Orbigny, but, in contrast to his father’s broad natural history scope, he specialized in coleopteran taxonomy.</p>
+      <p>d’Orbigny’s principal contribution lies in his early twentieth-century treatment of <i>Onthophagus</i>, in which he proposed a division of the genus into species groups based on external morphological characters, notably cephalic armature, pronotal structure, and general body form. Although these groupings predate phylogenetic methodology, they represent one of the earliest attempts to impose a global structure on this highly diverse genus.</p>
+      <p>Remarkably, more than a century after their publication, d’Orbigny’s identification keys remain the only comprehensive framework available for a substantial portion of the sub-Saharan African fauna. As a consequence, a large proportion of species described subsequently have been explicitly assigned to, or compared against, his species groups in their diagnoses. These groups have therefore persisted as a de facto standard in the taxonomic literature on <i>Onthophagus</i>, despite their non-phylogenetic basis.</p>
+      <p>d’Orbigny described numerous species, primarily from extra-European regions, based largely on museum material. His descriptions, though often concise, are generally sufficient to support taxonomic recognition and continue to be consulted in modern revisions.</p>
+      <p>The enduring practical utility of his classification, coupled with the absence of a modern, fully revised synthesis for much of the Afrotropical fauna, directly motivated the development of the present interactive key. This tool builds upon d’Orbigny’s original framework while aiming to improve accessibility, consistency of character coding, and integration with contemporary taxonomic standards.</p>
+    </section>
+    <hr>
+    <section lang="de">
+      <h2>Henry d’Orbigny und die Artengruppen von <i>Onthophagus</i></h2>
+      <p>Henry d’Orbigny (1845–1915) war ein französischer Entomologe, dessen Arbeiten der Systematik der Scarabaeidae galten, mit besonderem Schwerpunkt auf der Gattung <i>Onthophagus</i> Latreille, 1802. Er war der Sohn von Alcide d’Orbigny, spezialisierte sich jedoch, im Gegensatz zum breiten naturhistorischen Arbeitsfeld seines Vaters, auf die Taxonomie der Käfer.</p>
+      <p>d’Orbignys wichtigster Beitrag liegt in seiner Bearbeitung von <i>Onthophagus</i> zu Beginn des 20. Jahrhunderts. Darin schlug er eine Einteilung der Gattung in Artengruppen vor, die auf äußeren morphologischen Merkmalen beruhte, insbesondere auf der Kopfbewaffnung, der Struktur des Pronotums und der allgemeinen Körperform. Obwohl diese Gruppierungen den modernen phylogenetischen Methoden vorausgehen, stellen sie einen der frühesten Versuche dar, dieser außerordentlich diversen Gattung eine umfassende Ordnung zu geben.</p>
+      <p>Bemerkenswerterweise bleiben d’Orbignys Bestimmungsschlüssel mehr als ein Jahrhundert nach ihrer Veröffentlichung der einzige zusammenfassende Rahmen für einen beträchtlichen Teil der subsaharischen afrikanischen Fauna. Daher wurde ein großer Anteil der später beschriebenen Arten in den Diagnosen ausdrücklich seinen Artengruppen zugeordnet oder mit ihnen verglichen. Diese Gruppen haben sich somit, trotz ihrer nicht phylogenetischen Grundlage, als De-facto-Standard in der taxonomischen Literatur zu <i>Onthophagus</i> erhalten.</p>
+      <p>d’Orbigny beschrieb zahlreiche Arten, vor allem aus außereuropäischen Regionen und überwiegend auf der Grundlage von Museumsmaterial. Seine Beschreibungen sind zwar oft knapp, reichen aber im Allgemeinen für die taxonomische Erkennung aus und werden in modernen Revisionen weiterhin herangezogen.</p>
+      <p>Die anhaltende praktische Nützlichkeit seiner Klassifikation und das Fehlen einer modernen, vollständig revidierten Synthese für große Teile der afrotropischen Fauna haben die Entwicklung dieses interaktiven Schlüssels unmittelbar angeregt. Dieses Werkzeug baut auf d’Orbignys ursprünglichem Rahmen auf und soll zugleich die Zugänglichkeit, die Konsistenz der Merkmalskodierung und die Einbindung in zeitgenössische taxonomische Standards verbessern.</p>
+    </section>
+  </div>
+</section>
+
+<section class="card hidden" id="mainCard">
+  <div class="topbar">
+    <span class="badge" id="currentBadge">Couplet</span>
+    <span class="badge" id="progressBadge">Début de la clé</span>
+  </div>
+  <p class="question" id="question">Choisissez l’énoncé qui correspond au spécimen examiné. Lire tout le paragraphe (exceptions possibles).</p>
+  <div id="choices" class="choices"></div>
+  <div id="result" class="card result hidden"></div>
+  <div class="controls">
+    <button class="control" id="backBtn">← Retour</button>
+    <button class="control" id="restartBtn">Nouvelle détermination</button>
+    <select class="control" id="langSelect" aria-label="Langue">
+      <option value="fr">Français</option>
+      <option value="en">English</option>
+      <option value="de">Deutsch</option>
+    </select>
+  </div>
+</section>
+
+<section class="card hidden" id="pathCard">
+  <strong id="pathTitle">Parcours</strong>
+  <div id="path" class="path small">Aucun choix effectué.</div>
+</section>
+
+<section class="card hidden" id="searchCard">
+  <strong id="searchTitle">Recherche rapide dans les énoncés</strong>
+  <div class="search"><input id="searchInput" type="search" placeholder="Ex. pygidium, 7e strie, prothorax…" /></div>
+  <div id="searchResults" class="small"></div>
+</section>
+
+<section class="card hidden citation" id="citationCard">
+  <strong id="citationTitle">Comment citer cette ressource</strong>
+  <p id="citationIntro" class="small"></p>
+  <p id="citationText" class="cite-line"></p>
+  <p class="doi-badge"><a href="https://doi.org/10.5281/zenodo.19830544" target="_blank" rel="noopener"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.19830544.svg" alt="DOI"></a></p>
+  <div class="citation-actions"><button class="control" id="copyCitationBtn" type="button">Copier la citation</button><span id="copyStatus" class="copy-status" aria-live="polite"></span></div>
+</section>
+</div>
+
+<script>
+let DATA = null;
+let KEY = null;
+let GROUPS = null;
+let NOTES = null;
+
+let current = 1;
+let history = [];
+let lang = 'fr';
+let pendingStartLang = null;
+
+const UI = {
+  fr: {
+    title: "Clé interactive multilingue des groupes d’<i>Onthophagus</i> de Henri d’Orbigny (1913), version 1.3",
+    subtitle: "Interface fondée sur les couplets originaux, avec notes, sommaires de groupes et navigation arrière.",
+    question: "Choisissez l’énoncé qui correspond au spécimen examiné. Lire tout le paragraphe (exceptions possibles).",
+    current: "Couplet",
+    beginning: "Début de la clé",
+    choice: "Énoncé",
+    goTo: "Aller au couplet",
+    result: "Résultat",
+    seeGroup: "Renvoi",
+    back: "← Retour",
+    restart: "Nouvelle détermination",
+    resumeIdentification: "Reprendre l’identification",
+    newIdentification: "Nouvelle identification",
+    pathTitle: "Parcours",
+    noPath: "Aucun choix effectué.",
+    searchTitle: "Recherche rapide dans les énoncés",
+    searchPh: "Ex. pygidium, 7e strie, prothorax…",
+    notes: "Notes de d’Orbigny associées à ce couplet",
+    summary: "Sommaire du groupe",
+    speciesRange: "Séquence d’espèces",
+    speciesCount: "Nombre d’espèces",
+    originalDiagnosis: "Diagnose originale de d’Orbigny",
+    species: "espèces",
+    oneSpecies: "espèce",
+    chooseLangTitle: "Choisir la langue / Choose the language",
+    chooseLangText: "Sélectionnez la langue de la clé avant de commencer la détermination. / Select the language of the key before starting the identification.",
+    searchNone: "Aucun résultat.",
+    searchCount: "résultat(s)",
+    citationTitle: "Comment citer cette ressource",
+    citationIntro: "Citation suggérée pour l’interface interactive; la source taxonomique originale demeure d’Orbigny (1913).",
+    citationText: "Génier, F. 2026. Clé interactive multilingue des groupes d’<i>Onthophagus</i> de Henri d’Orbigny (1913). Version 1.3. Ressource électronique. https://fgenier.github.io/onthophagus-key/. DOI: https://doi.org/10.5281/zenodo.19830544",
+    copyCitation: "Copier la citation",
+    copiedCitation: "Citation copiée",
+    noteFor: "Note pour le couplet"
+  },
+  en: {
+    title: "Multilingual interactive key to Henri d’Orbigny’s groups of <i>Onthophagus</i> (1913), version 1.3",
+    subtitle: "Interface based on the original couplets, with notes, group summaries, and back navigation.",
+    question: "Choose the statement that matches the specimen examined. Read the full paragraph (possible exceptions).",
+    current: "Couplet",
+    beginning: "Start of the key",
+    choice: "Statement",
+    goTo: "Go to couplet",
+    result: "Result",
+    seeGroup: "Reference",
+    back: "← Back",
+    restart: "New identification",
+    resumeIdentification: "Resume identification",
+    newIdentification: "New identification",
+    pathTitle: "Path",
+    noPath: "No choice made.",
+    searchTitle: "Quick search in the statements",
+    searchPh: "E.g., pygidium, 7th stria, prothorax…",
+    notes: "d’Orbigny’s notes associated with this couplet",
+    summary: "Group summary",
+    speciesRange: "Species sequence",
+    speciesCount: "Number of species",
+    originalDiagnosis: "Original diagnosis by d’Orbigny",
+    species: "species",
+    oneSpecies: "species",
+    chooseLangTitle: "Choisir la langue / Choose the language",
+    chooseLangText: "Sélectionnez la langue de la clé avant de commencer la détermination. / Select the language of the key before starting the identification.",
+    searchNone: "No results.",
+    searchCount: "result(s)",
+    citationTitle: "How to cite this resource",
+    citationIntro: "Suggested citation for the interactive interface; the original taxonomic source remains d’Orbigny (1913).",
+    citationText: "Génier, F. 2026. Multilingual interactive key to Henri d’Orbigny’s groups of <i>Onthophagus</i> (1913). Version 1.3. Electronic resource. https://fgenier.github.io/onthophagus-key/. DOI: https://doi.org/10.5281/zenodo.19830544",
+    copyCitation: "Copy citation",
+    copiedCitation: "Citation copied",
+    noteFor: "Note for couplet"
+  }
+  ,
+  de: {
+    title: "Mehrsprachiger interaktiver Schlüssel zu Henri d’Orbignys Gruppen von <i>Onthophagus</i> (1913), Version 1.3",
+    subtitle: "Benutzeroberfläche auf Grundlage der ursprünglichen Couplets, mit Anmerkungen, Gruppenzusammenfassungen und Rücknavigation.",
+    question: "Wählen Sie die Aussage, die dem untersuchten Exemplar entspricht. Lesen Sie den gesamten Absatz (mögliche Ausnahmen).",
+    current: "Couplet",
+    beginning: "Beginn des Schlüssels",
+    choice: "Aussage",
+    goTo: "Gehe zu Couplet",
+    result: "Ergebnis",
+    seeGroup: "Verweis",
+    back: "← Zurück",
+    restart: "Neue Bestimmung",
+    resumeIdentification: "Bestimmung fortsetzen",
+    newIdentification: "Neue Bestimmung",
+    pathTitle: "Verlauf",
+    noPath: "Keine Auswahl getroffen.",
+    searchTitle: "Schnellsuche in den Aussagen",
+    searchPh: "z. B. Pygidium, 7. Strie, Prothorax…",
+    notes: "d’Orbignys Anmerkungen zu diesem Couplet",
+    summary: "Zusammenfassung der Gruppe",
+    speciesRange: "Artenfolge",
+    speciesCount: "Anzahl der Arten",
+    originalDiagnosis: "Originaldiagnose von d’Orbigny",
+    species: "Arten",
+    oneSpecies: "Art",
+    chooseLangTitle: "Choisir la langue / Choose the language / Sprache wählen",
+    chooseLangText: "Sélectionnez la langue de la clé avant de commencer la détermination. / Select the language of the key before starting the identification. / Wählen Sie die Sprache des Schlüssels, bevor Sie mit der Bestimmung beginnen.",
+    searchNone: "Keine Ergebnisse.",
+    searchCount: "Ergebnis(se)",
+    citationTitle: "Diese Ressource zitieren",
+    citationIntro: "Vorgeschlagene Zitierung der interaktiven Benutzeroberfläche; die ursprüngliche taxonomische Quelle bleibt d’Orbigny (1913).",
+    citationText: "Génier, F. 2026. Mehrsprachiger interaktiver Schlüssel zu Henri d’Orbignys Gruppen von <i>Onthophagus</i> (1913). Version 1.3. Elektronische Ressource. https://fgenier.github.io/onthophagus-key/. DOI: https://doi.org/10.5281/zenodo.19830544",
+    copyCitation: "Zitat kopieren",
+    copiedCitation: "Zitat kopiert",
+    noteFor: "Anmerkung zu Couplet"
+  }
+}
+
+const choicesEl = document.getElementById('choices');
+const resultEl = document.getElementById('result');
+const currentBadge = document.getElementById('currentBadge');
+const progressBadge = document.getElementById('progressBadge');
+const backBtn = document.getElementById('backBtn');
+const restartBtn = document.getElementById('restartBtn');
+const pathEl = document.getElementById('path');
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+const startCard = document.getElementById('startCard');
+const introCard = document.getElementById('introCard');
+const mainCard = document.getElementById('mainCard');
+const pathCard = document.getElementById('pathCard');
+const searchCard = document.getElementById('searchCard');
+const citationCard = document.getElementById('citationCard');
+const langSelect = document.getElementById('langSelect');
+const copyCitationBtn = document.getElementById('copyCitationBtn');
+const copyStatus = document.getElementById('copyStatus');
+const homeActions = document.getElementById('homeActions');
+const resumeHomeBtn = document.getElementById('resumeHomeBtn');
+const newHomeBtn = document.getElementById('newHomeBtn');
+const homePortrait = document.getElementById('homePortrait');
+
+
+const TAXON_NAMES = ["Onthophagus","taurus","raffrayi","obliquus","nigerianus","pilosus","rhynchophorus","laminidorsis","confertus","bisignatus","purifrons","proteus","depressus","marmoreus","suffusus","immundus","meliteus"];
+
+function escapeHtml(str) {
+  return String(str ?? "").replace(/[&<>"']/g, ch => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", "\"":"&quot;", "'":"&#39;"
+  }[ch]));
+}
+
+function markupText(str) {
+  let out = escapeHtml(str);
+  TAXON_NAMES.forEach(name => {
+    const re = new RegExp(`(^|[^A-Za-zÀ-ÿ])(${name})(?![A-Za-zÀ-ÿ])`, "g");
+    out = out.replace(re, `$1<i>$2<\/i>`);
+  });
+  out = out.replace(/&lt;(\/?)(strong|b|i|em)&gt;/gi, "<$1$2>");
+  return out;
+}
+
+function stripHtml(str) {
+  const div = document.createElement('div');
+  div.innerHTML = str;
+  return div.textContent || div.innerText || '';
+}
+
+function groupNumberFromTerminal(terminal) {
+  if (!terminal) return null;
+  const m = terminal.match(/(?:Group|groupe|Gruppe)\s*(\d+)|(\d+)\s*(?:er|e)?\s*(?:groupe|Gruppe)/i);
+  return m ? parseInt(m[1] || m[2], 10) : null;
+}
+
+function labelTerminal(node) {
+  const term = node['terminal_' + lang];
+  return term || "";
+}
+
+function isSeeTerminal(node) {
+  const term = node.terminal_fr || "";
+  return /^\s*\(?\s*Voir/i.test(term);
+}
+
+function groupTitle(n) {
+  const g = GROUPS[String(n)];
+  return g ? g[lang + 'Name'] : (lang === 'fr' ? n + "e groupe" : "Group " + n);
+}
+
+let lastTerminalChoiceId = null;
+
+function hasActiveIdentification() {
+  return history.length > 0 || current !== 1 || lastTerminalChoiceId !== null;
+}
+
+function showHome() {
+  startCard.classList.remove('hidden');
+  introCard.classList.remove('hidden');
+  mainCard.classList.add('hidden');
+  pathCard.classList.add('hidden');
+  searchCard.classList.add('hidden');
+  citationCard.classList.add('hidden');
+  const u = UI[lang];
+  if (hasActiveIdentification()) {
+    homeActions.classList.remove('hidden');
+    resumeHomeBtn.textContent = u.resumeIdentification;
+    newHomeBtn.textContent = u.newIdentification;
+  } else {
+    homeActions.classList.add('hidden');
+  }
+}
+
+function resumeIdentification() {
+  startCard.classList.add('hidden');
+  introCard.classList.add('hidden');
+  mainCard.classList.remove('hidden');
+  pathCard.classList.remove('hidden');
+  searchCard.classList.remove('hidden');
+  citationCard.classList.remove('hidden');
+  if (lastTerminalChoiceId !== null) {
+    showResult(KEY[String(lastTerminalChoiceId)]);
+  } else {
+    render();
+  }
+  search();
+}
+
+function newIdentification(l = lang) {
+  lang = l;
+  langSelect.value = l;
+  current = 1;
+  history = [];
+  lastTerminalChoiceId = null;
+  startCard.classList.add('hidden');
+  introCard.classList.add('hidden');
+  mainCard.classList.remove('hidden');
+  pathCard.classList.remove('hidden');
+  searchCard.classList.remove('hidden');
+  citationCard.classList.remove('hidden');
+  render();
+  search();
+}
+
+function startWithLang(l) {
+  if (!KEY) {
+    pendingStartLang = l;
+    return;
+  }
+  newIdentification(l);
+}
+
+function applyUI() {
+  const u = UI[lang];
+  document.documentElement.lang = lang;
+  document.getElementById('title').innerHTML = u.title;
+  document.getElementById('subtitle').textContent = u.subtitle;
+  document.getElementById('question').textContent = u.question;
+  document.getElementById('pathTitle').textContent = u.pathTitle;
+  document.getElementById('searchTitle').textContent = u.searchTitle;
+  document.getElementById('chooseLangTitle').textContent = u.chooseLangTitle;
+  document.getElementById('chooseLangText').textContent = u.chooseLangText;
+  searchInput.placeholder = u.searchPh;
+  backBtn.textContent = u.back;
+  restartBtn.textContent = u.restart;
+  document.getElementById('citationTitle').textContent = u.citationTitle;
+  document.getElementById('citationIntro').textContent = u.citationIntro;
+  document.getElementById('citationText').innerHTML = markupText(u.citationText);
+  copyCitationBtn.textContent = u.copyCitation;
+  copyStatus.textContent = '';
+}
+
+function choiceText(node) {
+  return node['text_' + lang] || node.text_fr || "";
+}
+
+function render() {
+  lastTerminalChoiceId = null;
+  applyUI();
+  const u = UI[lang];
+  resultEl.classList.add('hidden');
+  choicesEl.innerHTML = '';
+  if (!KEY || !KEY[String(current)]) {
+    choicesEl.innerHTML = `<div class="card result">Erreur : le couplet ${current} est introuvable dans le JSON.</div>`;
+    return;
+  }
+  const a = KEY[String(current)];
+  if (!KEY[String(a.pair)]) {
+    choicesEl.innerHTML = `<div class="card result">Erreur : le couplet alternatif ${a.pair} est introuvable dans le JSON.</div>`;
+    return;
+  }
+  const b = KEY[String(a.pair)];
+  currentBadge.textContent = `${u.current} ${a.id} / ${b.id}`;
+  progressBadge.textContent = history.length ? `${history.length} ${u.choice.toLowerCase()}(s)` : u.beginning;
+  [a,b].forEach(node => {
+    const btn = document.createElement('button');
+    btn.className = 'choice';
+    const next = node.terminal_fr ? (isSeeTerminal(node) ? u.seeGroup + " : " + labelTerminal(node) : u.result + " : " + labelTerminal(node)) : u.goTo + " " + nextCouplet(node);
+    btn.innerHTML = `<div class="choice-head"><span class="choice-num">${u.choice} ${node.id} (${node.pair})</span><span class="choice-next">${next}</span></div><div class="choice-text">${markupText(choiceText(node))}</div>`;
+    btn.onclick = () => choose(node.id);
+    choicesEl.appendChild(btn);
+  });
+  renderNotesForCouplet([a,b]);
+  renderPath();
+  backBtn.disabled = history.length === 0;
+}
+
+function renderNotesForCouplet(nodes) {
+  const old = document.getElementById('notesBox');
+  if (old) old.remove();
+  const entries = [];
+  nodes.forEach(n => (n.noteIds || []).forEach(id => {
+    entries.push({id, node:n});
+  }));
+  if (!entries.length) return;
+  const box = document.createElement('div');
+  box.id = 'notesBox';
+  box.className = 'notes';
+  box.innerHTML = `<h3>${UI[lang].notes}</h3><ol>${entries.map(e => {
+    const coupletLabel = `${e.node.id} (${e.node.pair})`;
+    return `<li><strong>${UI[lang].noteFor} ${coupletLabel}, note ${e.id}.</strong> ${markupText(NOTES[lang][e.id] || NOTES.fr[e.id])}</li>`;
+  }).join('')}</ol>`;
+  choicesEl.parentNode.insertBefore(box, choicesEl.nextSibling);
+}
+
+function nextCouplet(node) {
+  // In d’Orbigny’s key, the chosen statement number controls the continuation.
+  // The number in parentheses identifies the reciprocal statement of the same couplet.
+  return node.id + 1;
+}
+
+function choose(id) {
+  const node = KEY[String(id)];
+  history.push({couplet: current, choice: id});
+  if (node.terminal_fr) {
+    lastTerminalChoiceId = id;
+    showResult(node);
+  } else {
+    current = nextCouplet(node);
+    render();
+  }
+}
+
+function showResult(node) {
+  const u = UI[lang];
+  choicesEl.innerHTML = '';
+  const old = document.getElementById('notesBox');
+  if (old) old.remove();
+  currentBadge.textContent = u.result;
+  progressBadge.textContent = labelTerminal(node);
+  const gnum = groupNumberFromTerminal(labelTerminal(node));
+  let groupHtml = '';
+  if (gnum && GROUPS[String(gnum)]) {
+    const g = GROUPS[String(gnum)];
+    const spLabel = g.count === 1 ? u.oneSpecies : u.species;
+    groupHtml = `<h2>${groupTitle(gnum)}</h2>
+      <div class="summary-grid">
+        <div class="summary-item"><strong>${u.speciesRange}</strong>${g.range[0]}–${g.range[1]}</div>
+        <div class="summary-item"><strong>${u.speciesCount}</strong>${g.count} ${spLabel}</div>
+      </div>
+      <h3>${u.originalDiagnosis}</h3>
+      <div class="diagnosis">${markupText(g.diagnosis[lang] || g.diagnosis.fr)}</div>${g.extra ? `
+      ${g.extra[lang] || g.extra.fr}` : ``}`;
+  } else {
+    groupHtml = `<h2>${labelTerminal(node)}</h2>`;
+  }
+  resultEl.innerHTML = `<div class="small">${u.result} : ${labelTerminal(node)}</div>${groupHtml}`;
+  resultEl.classList.remove('hidden');
+  renderPath();
+  backBtn.disabled = history.length === 0;
+}
+
+function renderPath() {
+  const u = UI[lang];
+  if (!history.length) {
+    pathEl.textContent = u.noPath;
+    return;
+  }
+  pathEl.innerHTML = '<ol>' + history.map(h => {
+    const n = KEY[String(h.choice)];
+    const status = n.terminal_fr ? labelTerminal(n) : (u.goTo + ' ' + nextCouplet(n));
+    return `<li>${u.current} ${h.couplet} — ${u.choice} ${h.choice} → ${status}</li>`;
+  }).join('') + '</ol>';
+}
+
+function goBack() {
+  if (!history.length) return;
+  lastTerminalChoiceId = null;
+  const last = history.pop();
+  current = last.couplet;
+  render();
+}
+
+function restart() {
+  current = 1;
+  history = [];
+  lastTerminalChoiceId = null;
+  render();
+}
+
+function search() {
+  const q = searchInput.value.trim().toLowerCase();
+  if (!q) { searchResults.innerHTML = ''; return; }
+  const hits = Object.values(KEY).filter(n => choiceText(n).toLowerCase().includes(q)).slice(0,30);
+  if (!hits.length) { searchResults.textContent = UI[lang].searchNone; return; }
+  searchResults.innerHTML = `<p>${hits.length} ${UI[lang].searchCount}</p><ul>` + hits.map(n => `<li><strong>${n.id} (${n.pair})</strong> — ${choiceText(n).slice(0,220)}${choiceText(n).length>220?'…':''}</li>`).join('') + '</ul>';
+}
+
+backBtn.onclick = goBack;
+restartBtn.onclick = restart;
+searchInput.addEventListener('input', search);
+async function copyCitation() {
+  const u = UI[lang];
+  const citationPlainText = stripHtml(u.citationText);
+  try {
+    await navigator.clipboard.writeText(citationPlainText);
+  } catch (err) {
+    const ta = document.createElement('textarea');
+    ta.value = citationPlainText;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+  copyStatus.textContent = u.copiedCitation;
+}
+copyCitationBtn.addEventListener('click', copyCitation);
+
+function changeLanguage(l) {
+  lang = l;
+  langSelect.value = l;
+  const showingHome = !startCard.classList.contains('hidden');
+  const activeResultNode = lastTerminalChoiceId !== null ? KEY[String(lastTerminalChoiceId)] : null;
+  if (showingHome) {
+    applyUI();
+    showHome();
+  } else if (activeResultNode && activeResultNode.terminal_fr) {
+    applyUI();
+    showResult(activeResultNode);
+  } else {
+    render();
+  }
+  search();
+}
+langSelect.addEventListener('change', e => changeLanguage(e.target.value));
+resumeHomeBtn.addEventListener('click', resumeIdentification);
+newHomeBtn.addEventListener('click', () => newIdentification(lang));
+homePortrait.addEventListener('click', showHome);
+
+async function startApp() {
+  try {
+    const response = await fetch('cle_onthophagus_data_1.3.json', { cache: 'no-store' });
+    if (!response.ok) throw new Error('Impossible de charger cle_onthophagus_data_1.3.json');
+    DATA = await response.json();
+
+    // Conversion du JSON externe vers la structure utilisée par l'interface.
+    const normalizeTerminal = (c) => {
+      if (!c.terminal_group) return { fr: null, en: null, de: null };
+      const g = c.terminal_group;
+      if (typeof g === 'object') return { fr: g.fr || null, en: g.en || null, de: g.de || null };
+      return { fr: String(g) + 'e groupe', en: 'Group ' + String(g), de: 'Gruppe ' + String(g) };
+    };
+
+    KEY = Array.isArray(DATA.couplets)
+      ? Object.fromEntries(DATA.couplets.map(c => {
+          const t = normalizeTerminal(c);
+          return [String(c.id), {
+            id: c.id,
+            pair: c.alternative,
+            terminal: c.terminal_group || null,
+            noteIds: c.notes || [],
+            speciesRange: c.species_range || null,
+            text_fr: (c.text && c.text.fr) || '',
+            text_en: (c.text && c.text.en) || '',
+            text_de: (c.text && c.text.de) || '',
+            terminal_fr: t.fr,
+            terminal_en: t.en,
+            terminal_de: t.de
+          }];
+        }))
+      : (DATA.key || {});
+
+    GROUPS = Array.isArray(DATA.groups)
+      ? Object.fromEntries(DATA.groups.map(g => [String(g.id), {
+          id: g.id,
+          frName: (g.name && g.name.fr) || (g.id + 'e groupe'),
+          enName: (g.name && g.name.en) || ('Group ' + g.id),
+          deName: (g.name && g.name.de) || ('Gruppe ' + g.id),
+          range: g.species_range || ['', ''],
+          count: g.species_count || 0,
+          diagnosis: g.diagnosis || { fr: '', en: '', de: '' },
+          extra: g.extra || null
+        }]))
+      : (DATA.groups || {});
+
+    NOTES = DATA.notes || {};
+
+    document.querySelectorAll('.langStartBtn').forEach(btn => btn.disabled = false);
+    if (pendingStartLang) {
+      const l = pendingStartLang;
+      pendingStartLang = null;
+      newIdentification(l);
+      return;
+    }
+
+    current = 1;
+    history = [];
+    lastTerminalChoiceId = null;
+    applyUI();
+    showHome();
+  } catch (err) {
+    console.error(err);
+    document.body.insertAdjacentHTML(
+      'afterbegin',
+      '<div style="margin:1rem;padding:1rem;border:1px solid #900;background:#fee;color:#900">Erreur : le fichier cle_onthophagus_data_1.3.json n’a pas pu être chargé. Ouvrir la page avec un serveur local ou GitHub Pages.</div>'
+    );
+  }
+}
+startApp();
+
+</script>
+</body>
+</html>
